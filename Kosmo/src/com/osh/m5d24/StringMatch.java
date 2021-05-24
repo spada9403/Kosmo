@@ -27,8 +27,7 @@ public class StringMatch {
 		}
 
 		
-		// indexOf 를 사용해보자.
-		
+
 		boolean b = false;
 		
 		 for(String name:PetName) {
