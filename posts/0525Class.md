@@ -194,3 +194,140 @@ public class Chapter5Main {
 }
 
 ```
+
+# 모든 클래스에는 Default 생성자가 있다.
+
+Default class = new Default();
+구문에서 Default클래스안에
+
+```java
+public Person(){
+
+}
+```
+이라고 하는 메서드가 자동으로 만들어진다.
+이것을 Default 생성자라고 하고, new Default(); 가 부르는 메서드이다.
+기본적으로 Default 생성자는 자동으로 만들어지지만, 직접 만들수도 있다.
+
+```java
+package com.osh.m5d25;
+
+public class DefaultNewPersonMain {
+
+	public static void main(String[] args) {
+		DefaultNewPerson p = new DefaultNewPerson();
+
+		DefaultNewPerson p2 = new DefaultNewPerson();
+
+		DefaultNewPerson p3 = new DefaultNewPerson();
+
+	}
+
+}
+
+```
+
+```java
+package com.osh.m5d25;
+
+public class DefaultNewPerson {
+	String name;
+	float height;
+	float weight;
+
+
+	// 특별한 메소드.(디폴트 생성자)
+	// class 이름과 같다.
+	// return 타입 X
+	public DefaultNewPerson() {
+		System.out.println("생성자");
+	}
+}
+
+```
+
+위의 코드 값으로 콘솔에 "생성자"가 3번 찍힌다.
+
+
+그리고 생성자 메서드는 기본적으로 클래스가 인스턴스화 할때
+멤버 변수의 초기값을 준다.
+
+생성자 메서드를 직접 만들경우 초기값을 직접 지정할수있다.
+
+또한 생성자 메서드도 일반 메서드처럼 매개변수를 가질수 있다.
+
+### main
+```java
+package com.osh.m5d25;
+
+public class DefaultNewPersonMain {
+
+	public static void main(String[] args) {
+		DefaultNewPerson p = new DefaultNewPerson();
+
+		DefaultNewPerson p2 = new DefaultNewPerson();
+
+		DefaultNewPerson p3 = new DefaultNewPerson();
+
+		DefaultNewPerson p4 = new DefaultNewPerson("홍길동");
+
+		DefaultNewPerson p5 = new DefaultNewPerson("자바");
+
+		DefaultNewPerson p6 = new DefaultNewPerson("도넛");
+
+		DefaultNewPerson p7 = new DefaultNewPerson("홍길동",6,5);
+
+		DefaultNewPerson p8 = new DefaultNewPerson("자바",7,8);
+
+		DefaultNewPerson p9 = new DefaultNewPerson("도넛",9 ,10);
+
+	}
+
+}
+
+```
+### PersonClass
+```java
+package com.osh.m5d25;
+
+public class DefaultNewPerson {
+	String name;
+	float height;
+	float weight;
+
+
+	// 특별한 메소드.(디폴트 생성자)
+	// class 이름과 같다.
+	// return 타입 X
+	public DefaultNewPerson() {
+		height = 0;
+		weight = -1;
+
+		System.out.println("Person 생성자" + "w: "+ weight + "   h:"+ height);
+	}
+
+	// 2 매개변수 생성자
+	public DefaultNewPerson(String n) {
+		name = n;
+		System.out.println(name + ": " + "w: "+ weight + "   h:"+ height);
+	}
+	public DefaultNewPerson(String n, float w, float h) {
+		name = n;
+		height = h;
+		weight = w;
+		System.out.println(name + ": " + "w: "+ weight + "   h:"+ height);
+	}
+}
+
+```
+### 결과값
+
+- Person 생성자w: -1.0   h:0.0
+- Person 생성자w: -1.0   h:0.0
+- Person 생성자w: -1.0   h:0.0
+- 홍길동: w: 0.0   h:0.0
+- 자바: w: 0.0   h:0.0
+- 도넛: w: 0.0   h:0.0
+- 홍길동: w: 6.0   h:5.0
+- 자바: w: 7.0   h:8.0
+- 도넛: w: 9.0   h:10.0
