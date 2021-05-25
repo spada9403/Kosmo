@@ -1,4 +1,4 @@
-package com.osh.m5d25_Class_Training;
+package com.osh.m5d25_Exam;
 
 public class Square {
 	// 생성자
@@ -31,6 +31,10 @@ public class Square {
 	// 멤버메서드
 	public void printSquare() {
 		System.out.println("name: " + name + " width: " + width + " height: " + height);
+	}
+
+	public double Area() {
+		return (width * height);
 	}
 
 }

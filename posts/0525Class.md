@@ -320,6 +320,9 @@ public class DefaultNewPerson {
 }
 
 ```
+
+위와 같이 생성자가 여러개 있는경우, 생성자 오버로드라고 한다.
+
 ### 결과값
 
 - Person 생성자w: -1.0   h:0.0
