@@ -5,22 +5,22 @@ import java.util.Scanner;
 public class Homework3 {
 
 	public static void main(String[] args) {
-		
+
 		Scanner sc = new Scanner(System.in);
-		
-		while(true) {
+
+		while (true) {
 			String weight = sc.next();
-			if(weight.contains("q")) {
+			if (weight.contains("q")) {
 				break;
-			} else if(Integer.parseInt(weight)==-1){
+			} else if (Integer.parseInt(weight) == -1) {
 				break;
 			} else {
 				int height = sc.nextInt();
-				boolean result = (Integer.parseInt(weight)+100-height) > 0 ? true : false;
-				if(result) {
-					System.out.println("ºñ¸¸¼öÄ¡ ºñ¸¸");
+				boolean result = (Integer.parseInt(weight) + 100 - height) > 0 ? true : false;
+				if (result) {
+					System.out.println("ï¿½ñ¸¸¼ï¿½Ä¡ ï¿½ï¿½");
 				} else {
-					System.out.println("ºñ¸¸¼öÄ¡ Á¤»ó");
+					System.out.println("ï¿½ñ¸¸¼ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½");
 				}
 			}
 		}

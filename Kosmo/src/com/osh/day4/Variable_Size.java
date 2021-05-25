@@ -3,9 +3,8 @@ package com.osh.day4;
 public class Variable_Size {
 	public static void main(String[] args) {
 		/*
-		 모든 변수의 최대값은 각 변수가 가지는 최대값
-		 ex) byte형은 1byte로 8비트이다. 컴퓨터는 0부터 숫자를 셈하므로
-		 2^7-1  ~  -2^7 의 수를 담을수 있다.  
+		 * 모든 변수의 최대값은 각 변수가 가지는 최대값 ex) byte형은 1byte로 8비트이다. 컴퓨터는 0부터 숫자를 셈하므로 2^7-1 ~
+		 * -2^7 의 수를 담을수 있다.
 		 */
 		// Byte 형: 1 Byte
 		byte bs1 = -128;

@@ -5,18 +5,21 @@ public class SwitchExam {
 	public static void main(String[] args) {
 		int ranking = 3;
 		char medalColor;
-		
-		switch (ranking) { // Á¶°Ç½Ä¿¡ Á¤¼ö »Ó¸¸ÀÌ ¾Æ´Ñ ¹®ÀÚ¿­µµ »ç¿ë °¡´ÉÇÏ´Ù.
-		case 1: medalColor = 'G'; // break¸¦ ¾²Áö ¾ÊÀ¸¸é ¸ðµç caseÄÚµåµéÀÌ ½ÇÇàµÈ´Ù.
+
+		switch (ranking) { // ï¿½ï¿½ï¿½Ç½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
+		case 1:
+			medalColor = 'G'; // breakï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ caseï¿½Úµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 			break;
-		case 2: medalColor = 'S';
+		case 2:
+			medalColor = 'S';
 			break;
-		case 3: medalColor = 'B';
+		case 3:
+			medalColor = 'B';
 			break;
 		default:
-				medalColor = 'A';
+			medalColor = 'A';
 		}
-		System.out.println(ranking + "µî ¸Þ´ÞÀÇ »ö±òÀº " + medalColor + "ÀÔ´Ï´Ù.");
+		System.out.println(ranking + "ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " + medalColor + "ï¿½Ô´Ï´ï¿½.");
 	}
 
 }

@@ -5,44 +5,44 @@ import java.util.Scanner;
 public class Input_If_Exam {
 
 	public static void main(String[] args) {
-		//½Ç½À
-		//Scanner, if statement »ç¿ë
-		//¼ýÀÚ°¡ 0, ºÎÈ£ - °¡ ¾Æ´Ï¸é ¼ýÀÚ¸¦ Ãâ·Â.
-		// 0, -ºÎÈ£¸é ¸Þ½ÃÁö "¾ç¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä!" Ãâ·Â!
-		//Á¾·á
-		
+		// ï¿½Ç½ï¿½
+		// Scanner, if statement ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½Ú°ï¿½ 0, ï¿½ï¿½È£ - ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½.
+		// 0, -ï¿½ï¿½È£ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½!" ï¿½ï¿½ï¿½!
+		// ï¿½ï¿½ï¿½ï¿½
+
 		Scanner sc = new Scanner(System.in);
-		
+
 		int a;
-		
-		while(true) {
-			System.out.println("¾ç¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+
+		while (true) {
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ : ");
 			a = sc.nextInt();
 			if (a <= 0) {
-				System.out.println("¾ç¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä!!");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½!!");
 			} else {
-				if(a == 100) {
+				if (a == 100) {
 					break;
 				}
 				System.out.println(a);
 			}
 		}
 		sc.close();
-		
+
 		Scanner sc2 = new Scanner(System.in);
-		
+
 		int b = sc2.nextInt();
-		
-		if (b >0) {
-			System.out.println("¾ç¼ö");
-		} else if(b < 0) {
-			System.out.println("À½¼ö");
-		} else if(b == 0){
-			System.out.println("0ÀÔ´Ï´Ù.");
+
+		if (b > 0) {
+			System.out.println("ï¿½ï¿½ï¿½");
+		} else if (b < 0) {
+			System.out.println("ï¿½ï¿½ï¿½ï¿½");
+		} else if (b == 0) {
+			System.out.println("0ï¿½Ô´Ï´ï¿½.");
 		} else {
-			System.out.println("´ëÃ¼ ¹» ÁØ°Ç°¡");
+			System.out.println("ï¿½ï¿½Ã¼ ï¿½ï¿½ ï¿½Ø°Ç°ï¿½");
 		}
-		
+
 	}
 
 }

@@ -6,29 +6,29 @@ public class Homework2 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("¼ýÀÚ1 ÀÔ·Â");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½1 ï¿½Ô·ï¿½");
 		int num1 = sc.nextInt();
-		System.out.println("¿¬»êÀÚ ÀÔ·Â");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½");
 		sc.nextLine();
 		String str = sc.nextLine();
-		System.out.println("¼ýÀÚ2 ÀÔ·Â");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½2 ï¿½Ô·ï¿½");
 		int num2 = sc.nextInt();
-		
+
 		switch (str) {
 		case "+":
-			System.out.println("Plus°á°ú: "+(num1+num2));
+			System.out.println("Plusï¿½ï¿½ï¿½: " + (num1 + num2));
 			break;
 		case "-":
-			System.out.println("Minus°á°ú: "+(num1-num2));
+			System.out.println("Minusï¿½ï¿½ï¿½: " + (num1 - num2));
 			break;
 		case "*":
-			System.out.println("*°á°ú: "+(num1*num2));
+			System.out.println("*ï¿½ï¿½ï¿½: " + (num1 * num2));
 			break;
 		case "/":
-			System.out.println("/°á°ú: "+(num1/num2));
+			System.out.println("/ï¿½ï¿½ï¿½: " + (num1 / num2));
 			break;
 		default:
-			System.out.println("ÀÔ·ÂÀÌ ÀÌ»óÇÕ´Ï´Ù.");
+			System.out.println("ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Õ´Ï´ï¿½.");
 		}
 	}
 

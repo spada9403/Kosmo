@@ -8,7 +8,7 @@ public class Order {
 	String OrderName;
 	String OpNumber;
 	String OrderLocation;
-	
+
 	public Order setOrder(int ON, String OI, String OD, String OName, String OPN, String ORL) {
 		Order a = new Order();
 		a.OrderNumber = ON;
@@ -17,18 +17,12 @@ public class Order {
 		a.OrderName = OName;
 		a.OpNumber = OPN;
 		a.OrderLocation = ORL;
-		
+
 		return a;
 	}
+
 	public String[] getOrder() {
-		String[] list = {
-				Integer.toString(OrderNumber),
-				OrderId,
-				OrderDate,
-				OrderName,
-				OpNumber,
-				OrderLocation
-		};
+		String[] list = { Integer.toString(OrderNumber), OrderId, OrderDate, OrderName, OpNumber, OrderLocation };
 		return list;
 	}
 }

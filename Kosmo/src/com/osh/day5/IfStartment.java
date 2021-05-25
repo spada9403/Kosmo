@@ -3,50 +3,51 @@ package com.osh.day5;
 public class IfStartment {
 
 	public static void main(String[] args) {
-		
+
 		int age = 10;
-		// Á¶°Ç 1
-		if(age >= 8) {
+		// ï¿½ï¿½ï¿½ï¿½ 1
+		if (age >= 8) {
 			System.out.println("8888");
 		} else {
 			System.out.println(8);
 		}
-		//º¹ÇÕ Á¶°Ç
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int age2 = 10;
-		if((age>=8)&&(age2>10)) {
+		if ((age >= 8) && (age2 > 10)) {
 			System.out.println(8888);
 		} else {
 			System.out.println(8);
 		}
-		// º¸Åë if¸¸ ¾²Áö ¾Ê°í else-if else ¸¦ °°ÀÌ¾´´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ifï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ else-if else ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½.
 		int score = 70;
-		
-		if(score >=70) {
-			System.out.println("ÇÕ°Ý");
-		} else if(score >= 50){ // score °¡ 70 º¸´Ù ÀÛÀ»¶§ ½ÇÇà. 
-			System.out.println("Àç¼ö°­");
-		} else {// if¹® ºÎÅÍ Â÷·Ê´ë·Î Á¶°ÇÀ» ºñ±³ÇÏ°í Á¶°ÇÀÌ ¸ÂÁö¾Ê´Â ¸ðµç °æ¿ì ½ÇÇà.
-			System.out.println("ºÒÇÕ°Ý");
+
+		if (score >= 70) {
+			System.out.println("ï¿½Õ°ï¿½");
+		} else if (score >= 50) { // score ï¿½ï¿½ 70 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½");
+		} else {// ifï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+			System.out.println("ï¿½ï¿½ï¿½Õ°ï¿½");
 		}
-		//¹®Á¦
-		
+		// ï¿½ï¿½ï¿½ï¿½
+
 		int age1 = 7;
 		int charge = 0;
-		
+
 		if (age1 < 8) {
-			System.out.println("ÃëÇÐ Àü ¾Æµ¿ÀÔ´Ï´Ù.");
-		} else if(age1 < 14){ // else if ¸»°í ±×³É if¸¦ ¾²¸é Á¶°ÇÀ» ´Ù½Ã ºñ±³ÇÑ´Ù. age1¿¡ 7¸¦ ³Ö°í ÀüºÎ if·Î ¹Ù²ãº¸¸é ÀüºÎ´Ù Ãâ·ÂµÇ´Â°ÍÀ» º¼ ¼ö ÀÖ´Ù.
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æµï¿½ï¿½Ô´Ï´ï¿½.");
+		} else if (age1 < 14) { // else if ï¿½ï¿½ï¿½ï¿½ ï¿½×³ï¿½ ifï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½. age1ï¿½ï¿½ 7ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ifï¿½ï¿½ ï¿½Ù²ãº¸ï¿½ï¿½
+								// ï¿½ï¿½ï¿½Î´ï¿½ ï¿½ï¿½ÂµÇ´Â°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 			charge = 2000;
-			System.out.println("ÃÊµîÇÐ»ýÀÔ´Ï´Ù.");
+			System.out.println("ï¿½Êµï¿½ï¿½Ð»ï¿½ï¿½Ô´Ï´ï¿½.");
 		} else if (age1 < 20) {
 			charge = 2500;
-			System.out.println("Áß,°íµîÇÐ»ýÀÔ´Ï´Ù.");
+			System.out.println("ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½Ô´Ï´ï¿½.");
 		} else {
 			charge = 3000;
-			System.out.println("ÀÏ¹ÝÀÎÀÔ´Ï´Ù.");
+			System.out.println("ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
 		}
-		System.out.println("ÀÔÀå·á´Â " + charge + "¿øÀÔ´Ï´Ù.");
-		
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " + charge + "ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
+
 	}
 
 }

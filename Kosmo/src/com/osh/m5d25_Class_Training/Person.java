@@ -6,7 +6,7 @@ public class Person {
 	String gender;
 	boolean married;
 	int childs;
-	
+
 	public void print() {
 		System.out.println("01. 나이: " + age);
 		System.out.println("02. 이름: " + name);

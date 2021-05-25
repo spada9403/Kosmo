@@ -40,8 +40,7 @@ public class Complex_Assignment_Operator {
 		// ^=
 		num ^= num2;
 		System.out.println(num);
-		
-		
+
 	}
 
 }

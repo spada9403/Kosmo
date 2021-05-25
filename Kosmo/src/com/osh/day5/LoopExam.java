@@ -5,60 +5,53 @@ import java.util.Scanner;
 public class LoopExam {
 	public static void main(String[] args) {
 		/*
-		Scanner sc = new Scanner(System.in);
-		System.out.println("´ÜÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
-		
-		int dan = sc.nextInt();
-		int index = 1;
-		//while ¹®À¸·Î ±¸±¸´Ü
-		while(index < 10) {
-			System.out.println( (dan) + " * " + (index) + " = " + (dan*index));
-			index++;
-		}
-		//for ¹®À¸·Î ±¸±¸´Ü
-		for(int i = 1;i<10;i++) {
-			System.out.println( (dan) + " * " + (i) + " = " + (dan*i));
-		}
-		*/
-		//À§¿¡°Íµé ÀÀ¿ë ¹«ÇÑ·çÇÁ
+		 * Scanner sc = new Scanner(System.in); System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
+		 * 
+		 * int dan = sc.nextInt(); int index = 1; //while ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ while(index <
+		 * 10) { System.out.println( (dan) + " * " + (index) + " = " + (dan*index));
+		 * index++; } //for ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ for(int i = 1;i<10;i++) { System.out.println(
+		 * (dan) + " * " + (i) + " = " + (dan*i)); }
+		 */
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½
 
 		Scanner sc = new Scanner(System.in);
-		while(true) {
-			System.out.println("´ÜÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
-			
+		while (true) {
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
+
 			int dan = sc.nextInt();
-			if(dan == -1) {
-				System.out.println("~³¡~");
+			if (dan == -1) {
+				System.out.println("~ï¿½ï¿½~");
 				break;
 			}
 			int index = 1;
-			
-			while(index < 10) {
-				System.out.println( (dan) + " * " + (index) + " = " + (dan*index));
+
+			while (index < 10) {
+				System.out.println((dan) + " * " + (index) + " = " + (dan * index));
 				index++;
 			}
 		}
-		// 121p break ¹İº¹ Å»Ãâ ¿¹Á¦
+		// 121p break ï¿½İºï¿½ Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int sum = 0;
 		int num;
-		
-		for(num = 0;;num++) {
+
+		for (num = 0;; num++) {
 			sum += num;
-			if(sum >= 100) break;
+			if (sum >= 100)
+				break;
 		}
 		System.out.println("num : " + num);
-		System.out.println("sum : "+ sum);
-		//p119ÂÊ
-		
+		System.out.println("sum : " + sum);
+		// p119ï¿½ï¿½
+
 		int total = 0;
 		int num1;
-	
-		for(num = 1;num <=100; num++) {
-			if(num %2 == 0) {
+
+		for (num = 1; num <= 100; num++) {
+			if (num % 2 == 0) {
 				continue;
 			}
-			total +=num;
+			total += num;
 		}
-		System.out.println("1ºÎÅÍ 100±îÁöÀÇ È¦¼öÀÇ ÇÕÀº : " + total + "ÀÔ´Ï´Ù.");
+		System.out.println("1ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¦ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : " + total + "ï¿½Ô´Ï´ï¿½.");
 	}
 }

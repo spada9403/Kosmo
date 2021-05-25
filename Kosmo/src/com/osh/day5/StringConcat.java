@@ -3,21 +3,21 @@ package com.osh.day5;
 public class StringConcat {
 
 	public static void main(String[] args) {
-		
+
 		String s = "";
-		
-		/** ¹®ÀÚ¿­ ¿¬»êÀÚ '+'ÀÇ ¾²ÀÓ»õ**/
-		System.out.println("1+1 = " + " °á°ú" + (1+1));
-		
-		System.out.println("À¯´ÏÄÚµå = " + "\uADAC");
-		
-		System.out.println("À¯´ÏÄÚµå escape " + "\\uADAC");
-		
-		System.out.println("Á¤¼ö + Á¤¼ö = " + 5 + 10);
-		
-		System.out.println("Á¤¼ö + ½Ç¼ö = " +5 +10.9);
-		
-		System.out.println(5 + 10.9 + " = Á¤¼ö + ½Ç¼ö");
+
+		/** ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ '+'ï¿½ï¿½ ï¿½ï¿½ï¿½Ó»ï¿½ **/
+		System.out.println("1+1 = " + " ï¿½ï¿½ï¿½" + (1 + 1));
+
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ = " + "\uADAC");
+
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ escape " + "\\uADAC");
+
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ = " + 5 + 10);
+
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ + ï¿½Ç¼ï¿½ = " + 5 + 10.9);
+
+		System.out.println(5 + 10.9 + " = ï¿½ï¿½ï¿½ï¿½ + ï¿½Ç¼ï¿½");
 	}
 
 }

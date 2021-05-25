@@ -7,33 +7,27 @@ public class ScannerTest {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		/*
-		System.out.println("ÀÌ¸§");
-		String name = sc.nextLine();
-		System.out.println("Á÷¾÷");
-		String job = sc.nextLine();
-		System.out.println("»ç¹ø");
-		int num = sc.nextInt();
-		sc.close();
-		
-		System.out.println(name);
-		System.out.println(job);
-		System.out.println(num);
-		*/
-		System.out.println("¾ç¼ö 3°³ ÀÔ·Â : ");
+		 * System.out.println("ï¿½Ì¸ï¿½"); String name = sc.nextLine();
+		 * System.out.println("ï¿½ï¿½ï¿½ï¿½"); String job = sc.nextLine();
+		 * System.out.println("ï¿½ï¿½ï¿½"); int num = sc.nextInt(); sc.close();
+		 * 
+		 * System.out.println(name); System.out.println(job); System.out.println(num);
+		 */
+		System.out.println("ï¿½ï¿½ï¿½ 3ï¿½ï¿½ ï¿½Ô·ï¿½ : ");
 
-		while(true) {
+		while (true) {
 			try {
-				int a= sc.nextInt();
-				int b= sc.nextInt();
-				int c= sc.nextInt();
+				int a = sc.nextInt();
+				int b = sc.nextInt();
+				int c = sc.nextInt();
 				if ((a <= 0) || (b <= 0) || (c <= 0)) {
-					System.out.println("´Ù½ÃÇØºÁ. ¾ç¼ö¸¸ ³ÖÀ¸¶ó°í ÇßÀÝ¾Æ?");
+					System.out.println("ï¿½Ù½ï¿½ï¿½Øºï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¾ï¿½?");
 					break;
 				} else {
-					System.out.println("sum : " + (a+b+c));
-					System.out.println("avg : " + ((a+b+c)/3));	
+					System.out.println("sum : " + (a + b + c));
+					System.out.println("avg : " + ((a + b + c) / 3));
 				}
-			} catch (Exception e) {	
+			} catch (Exception e) {
 				System.out.println("Fucking got dame it");
 			}
 		}

@@ -6,53 +6,53 @@ public class Homework1 {
 		// page 100
 		int score = 90;
 		char grade;
-		if (score >=90) {
+		if (score >= 90) {
 			grade = 'A';
-		} else if(score>=80){
+		} else if (score >= 80) {
 			grade = 'B';
-		} else if(score >= 70) {
+		} else if (score >= 70) {
 			grade = 'C';
-		} else if(score >= 60) {
+		} else if (score >= 60) {
 			grade = 'D';
 		} else {
 			grade = 'F';
 		}
-		System.out.println("ÇÐÁ¡ : "+grade);
-		
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ : " + grade);
+
 		// page 106
-		
+
 		int floor = 3;
-		
+
 		switch (floor) {
 		case 1:
-			System.out.println("1Ãþ ¾à±¹ ÀÔ´Ï´Ù.");
+			System.out.println("1ï¿½ï¿½ ï¿½à±¹ ï¿½Ô´Ï´ï¿½.");
 			break;
 		case 2:
-			System.out.println("2Ãþ Á¤Çü¿Ü°ú ÀÔ´Ï´Ù.");
+			System.out.println("2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ü°ï¿½ ï¿½Ô´Ï´ï¿½.");
 			break;
 		case 3:
-			System.out.println("3Ãþ ÇÇºÎ°ú ÀÔ´Ï´Ù.");
+			System.out.println("3ï¿½ï¿½ ï¿½ÇºÎ°ï¿½ ï¿½Ô´Ï´ï¿½.");
 			break;
 		case 4:
-			System.out.println("4Ãþ Ä¡°ú ÀÔ´Ï´Ù.");
+			System.out.println("4ï¿½ï¿½ Ä¡ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.");
 			break;
 		case 5:
-			System.out.println("5Ãþ Çï½º Å¬·´ ÀÔ´Ï´Ù.");
+			System.out.println("5ï¿½ï¿½ ï¿½ï½º Å¬ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.");
 			break;
 		default:
-			System.out.println("ÃþÀ» ÀÔ·Â.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½.");
 			break;
 		}
-		
+
 		// page 123
-		
-		//q1
+
+		// q1
 		int num1 = 10;
 		int num2 = 2;
 		char operator = '+';
-		
+
 		switch (operator) {
-		case '+': 
+		case '+':
 			System.out.println("result : " + (num1 + num2));
 			break;
 		case '-':
@@ -67,69 +67,69 @@ public class Homework1 {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + operator);
 		}
-		//q2
-		for(int i =1; i < 10; i++) {
-			if((i % 2) != 0) {
+		// q2
+		for (int i = 1; i < 10; i++) {
+			if ((i % 2) != 0) {
 				continue;
 			}
-			for(int index = 1; index < 10; index++) {
-				System.out.println(i + " * " + index + " + " + (i*index));
+			for (int index = 1; index < 10; index++) {
+				System.out.println(i + " * " + index + " + " + (i * index));
 			}
 		}
-		//q3
-		for(int i2 = 1; i2 < 10; i2++) {
-			for(int index2 = 1; index2 < 10; index2++) {
-				System.out.println(i2 + " * " + index2 + " = " + (i2*index2));
-				if(index2 == i2) {
-					 break;
+		// q3
+		for (int i2 = 1; i2 < 10; i2++) {
+			for (int index2 = 1; index2 < 10; index2++) {
+				System.out.println(i2 + " * " + index2 + " = " + (i2 * index2));
+				if (index2 == i2) {
+					break;
 				}
 			}
 		}
-		//q4
+		// q4
 		int maxWidth = 7;
 		int star = 1;
 
-		while(star <= maxWidth) {
-			if(star%2 !=0) {
-				for(int count = 1;count <= ((maxWidth-star)/2);count++) {
+		while (star <= maxWidth) {
+			if (star % 2 != 0) {
+				for (int count = 1; count <= ((maxWidth - star) / 2); count++) {
 					System.out.print(" ");
 				}
-				for(int countStar = 1; countStar <= star; countStar++) {
+				for (int countStar = 1; countStar <= star; countStar++) {
 					System.out.print("*");
 				}
 				System.out.println("");
 			}
 			star++;
 		}
-		//q5
-		//int maxWidth = 9;
-		//int star = 1;
+		// q5
+		// int maxWidth = 9;
+		// int star = 1;
 
-		while(star <= maxWidth) {
-			if(star%2 !=0) {
-				for(int count = 1;count <= ((maxWidth-star)/2);count++) {
+		while (star <= maxWidth) {
+			if (star % 2 != 0) {
+				for (int count = 1; count <= ((maxWidth - star) / 2); count++) {
 					System.out.print(" ");
 				}
-				for(int countStar = 1; countStar <= star; countStar++) {
+				for (int countStar = 1; countStar <= star; countStar++) {
 					System.out.print("*");
 				}
 				System.out.println("");
 			}
 			star++;
-			if(star == maxWidth) {
-				while(star >= 1) {
-					if(star%2 != 0) {
-						for(int count = 1;count <= ((maxWidth-star)/2); count++) {
+			if (star == maxWidth) {
+				while (star >= 1) {
+					if (star % 2 != 0) {
+						for (int count = 1; count <= ((maxWidth - star) / 2); count++) {
 							System.out.print(" ");
 						}
-						for(int count = 1;count <= star;count++) {
+						for (int count = 1; count <= star; count++) {
 							System.out.print("*");
 						}
 						System.out.println("");
 					}
 					star--;
 				}
-				if(star == 0) {
+				if (star == 0) {
 					break;
 				}
 			}
