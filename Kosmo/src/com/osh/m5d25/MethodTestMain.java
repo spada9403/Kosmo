@@ -20,6 +20,7 @@ public class MethodTestMain {
 		
 		m.divide(100, 0);
 		
+		
 	}
 
 }
