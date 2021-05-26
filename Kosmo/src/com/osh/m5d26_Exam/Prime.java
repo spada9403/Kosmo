@@ -22,6 +22,7 @@ public class Prime {
 	int[] primeNumbers;
 	
 	
+	// 멤버 메소드
 	// 기본생성자가 아닌 setTarget 메소드
 	public void setNumber(int n) {
 		if(n <= 0) {
@@ -53,7 +54,7 @@ public class Prime {
 			count++;
 		}
 
-		return;
+		this.print();
 	}
 
 	// 소수 배열 출력

@@ -17,11 +17,7 @@ public class Main {
 			System.out.println("숫자입력 : ");
 			n = sc.nextInt();
 			p.setNumber(n);
-			p.print();
-		} else {
-			p.print();
-		}
-		
+		}		
 	}
 
 }
