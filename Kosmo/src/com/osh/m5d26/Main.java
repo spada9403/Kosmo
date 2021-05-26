@@ -15,12 +15,6 @@ public class Main {
 		
 		p.print();
 		
-		if(p.target == 0) {
-			System.out.println("숫자를 다시 입력해주세요 : ");
-			n = sc.nextInt();
-			p.target = n;
-		}
-		
 	}
 
 }

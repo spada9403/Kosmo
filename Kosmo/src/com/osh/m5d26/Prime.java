@@ -2,6 +2,7 @@ package com.osh.m5d26;
 
 public class Prime {
 	
+	// 기본세팅
 	public Prime()	{
 		target = 0;
 		primeNumbers = new int[0];
@@ -12,10 +13,13 @@ public class Prime {
 		setPrime();
 	}
 	
+	
+	// 멤버변수
 	int target;
 	int[] primeNumbers;
 	
 	
+	// 입력받은 수까지의 소수를 배열에 저장.
 	public void setPrime() {
 		
 		int count = 0;
@@ -38,6 +42,7 @@ public class Prime {
 			return;
 	}
 	
+	// 소수 배열 출력
 	public void print() {
 		if(primeNumbers.length == 0) {
 			setPrime();
