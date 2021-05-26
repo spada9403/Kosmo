@@ -22,7 +22,7 @@ public class Prime {
 	int[] primeNumbers;
 	
 	
-	// 기본생성자가 아닌 Number 세팅
+	// 기본생성자가 아닌 setTarget 메소드
 	public void setNumber(int n) {
 		if(n <= 0) {
 			setPrime();
