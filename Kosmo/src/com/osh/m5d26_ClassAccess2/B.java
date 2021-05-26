@@ -5,4 +5,5 @@ public class B { // public 다른 패키지에서도 접근 가능.
 	protected void g() {
 		n = 5;
 	}
+	public int a;
 }
