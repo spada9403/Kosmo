@@ -43,6 +43,8 @@ public class Customer {
 		
 		this.customerID = customerID;
 		this.customerName = customerName;
+		
+		System.out.println("Customoer() 생성자 호출.");
 	}
 	
 	public int calcPrice(int price) {

@@ -20,6 +20,12 @@ public class CustomerMain {
 		VIP.setCustomerName("김유신");
 		VIP.bonusPoint = 10000;
 		System.out.println(VIP.showCustomerInfo());
+		
+		// 객체 캐스팅 상속받은 자식 클래스는 부모클래스 자료형으로 담을수 있다.(묵시적 클래스형 변환) 
+		Customer c3 = new VIPCustomer();
+		c3.setCustomerName("이순신");
+		System.out.println(c3.getCustomerGrade());
+		// short 형에 int 형을 담고, short형을 다시 int형에 담을수 있는것과 같다.
 	}
 
 }
