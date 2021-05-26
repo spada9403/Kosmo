@@ -24,12 +24,16 @@ public class Person {
 	
 	public void play() {
 		if(job == "의사") {
+			System.out.println("이름 : " + name + " 나이 : " + age + " 성별 : " + gender + " 혈액형 : " + blood + " 직업 : " + job);
 			System.out.println("진료한다");
 		} else if(job == "골퍼") {
+			System.out.println("이름 : " + name + " 나이 : " + age + " 성별 : " + gender + " 혈액형 : " + blood + " 직업 : " + job);
 			System.out.println("라운딩 갔다.");
 		} else if(job == "교수") {
+			System.out.println("이름 : " + name + " 나이 : " + age + " 성별 : " + gender + " 혈액형 : " + blood + " 직업 : " + job);
 			System.out.println("강의한다");
 		} else {
+			System.out.println("이름 : " + name + " 나이 : " + age + " 성별 : " + gender + " 혈액형 : " + blood + " 직업 : " + job);
 			System.out.println("백수");
 		}
 	}
