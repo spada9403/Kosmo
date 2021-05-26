@@ -29,6 +29,8 @@ public class Person {
 			System.out.println("라운딩 갔다.");
 		} else if(job == "교수") {
 			System.out.println("강의한다");
+		} else {
+			System.out.println("백수");
 		}
 	}
 }
