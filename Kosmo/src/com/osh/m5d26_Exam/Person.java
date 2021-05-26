@@ -8,11 +8,14 @@ public class Person {
 	String job;
 	
 	public Person() {
-		this("이름없음",0);
+		this("이름없음",0); // => this(name,age,"","","직업없음");
 	}
-	public Person(String name, int age) {
-		this.name = name;
-		this.age = age;
+//	public Person(String name, int age) { 이렇게는 잘 사용하지 않는다.
+//		this.name = name;
+//		this.age = age;
+//	}
+	public Person(String name, int age) {// 보통 사용하는 패턴이 더 많은 멤버 변수를 초기화 하는 생성자를 호출한다.
+		this(name,age,"","","직업없음");
 	}
 	public Person(String name, int age, String gender, String blood, String job) {
 		this.name = name;
