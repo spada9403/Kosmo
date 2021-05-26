@@ -1,4 +1,4 @@
-package com.osh.m5d26;
+package com.osh.m5d26_Exam;
 
 import java.util.Scanner;
 
@@ -13,7 +13,14 @@ public class Main {
 		
 		Prime p = new Prime(n);
 		
-		p.print();
+		if(p.target == 0) {
+			System.out.println("숫자입력 : ");
+			n = sc.nextInt();
+			p.setNumber(n);
+			p.print();
+		} else {
+			p.print();
+		}
 		
 	}
 
