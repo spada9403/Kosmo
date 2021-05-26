@@ -17,7 +17,7 @@ public class Student {
 		String info = studentName + "/" + studentID + "/" + address;
 		return info;
 	}
-
+	/////////////////////////////////////////////// 제네레이트 겟터 섹터 메뉴로 자동 생성.
 	public String getStudentName() {
 		return studentName;
 	}
@@ -37,6 +37,10 @@ public class Student {
 	public int getScore() {
 		return score;
 	}
+	public void setScore2(int score) {
+		this.score = score;
+	}
+	/////////////////////////////////////////////////
 
 	public void println() {
 		String info = studentName + "/" + studentID + "/" + address;
@@ -49,7 +53,5 @@ public class Student {
 		return info + "/score = " + this.score;
 	}
 
-	public void setScore2(int score) {
-		this.score = score;
-	}
+
 }
