@@ -6,7 +6,7 @@ public class WrapperTest {
 
 		Integer ivalue = new Integer(100);
 
-		// 박싱
+		// 박싱 -> 박싱 하는 이유를 나중에 다 찾아 봐야할듯.
 		ivalue = Integer.valueOf(100);
 		ivalue = Integer.valueOf("1000");
 

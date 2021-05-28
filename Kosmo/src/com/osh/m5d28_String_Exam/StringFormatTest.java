@@ -36,14 +36,16 @@ public class StringFormatTest {
 		/*
 		 * 날짜 포맷
 		 */
-		
+		//출력 형식 지정.
 		String form = "yyyy년 MM월 dd일 hh시 mm분 ss초";
+		// 생성할때 매개변수로 출력형식 전달.
 		SimpleDateFormat sdf = new SimpleDateFormat(form);
 		
 		// 날짜
 		Date dt = new Date();
 		String now = dt.toString();
 		System.out.println(now);
+		// 출력형식을 전달해놓은 SimpleDateFormat 클래스에 .format 메소드의 매개변수로 Date 클래스를 넘겨주면 지정한 출력형식으로 만들어준다.
 		System.out.println(sdf.format(dt));
 		/*
 		 * 숫자 포맷팅

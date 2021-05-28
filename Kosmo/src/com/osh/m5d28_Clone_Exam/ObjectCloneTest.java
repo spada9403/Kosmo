@@ -22,7 +22,7 @@ class Point {
 		return "x = " + x + "," + "y = "+ y;
 	}
 }
-class Circle implements Cloneable{
+class Circle implements Cloneable{ // 뭔지는 잘 모르겟지만 객체를 복제해도 된다는 의미로 Cloneable 인터페이스를 사용.
 	Point point;
 	int radius;
 	Circle(int x, int y, int radius){
@@ -33,10 +33,14 @@ class Circle implements Cloneable{
 		return "원점은 " + point + "이고," + "반지름은" + radius + "입니다";
 	}
 	@Override
-	public Object clone() throws CloneNotSupportedException{
+	public Object clone() throws CloneNotSupportedException{ // clone() 메서드를 사용할 떄 발생할 수 있는 오류를 예외 처리함.
 		return super.clone();
 	}
 }
+/*
+ * clone() 메서드는 protected Object clone();
+ * 라고 선언되어 있고, 객체를 복제해 또 다른 객체를 반환해 주는 메서드이다.
+ */
 
 public class ObjectCloneTest {
 

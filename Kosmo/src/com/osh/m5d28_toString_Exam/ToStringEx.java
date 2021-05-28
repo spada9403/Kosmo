@@ -15,7 +15,7 @@ class Book {
 	@Override
 	public String toString() {
 		
-		Class c = getClass();
+		Class c = getClass(); // 현재 클래스는 가져온다.
 		c.getName();
 		
 		return getClass().getName() + ":" + 
@@ -31,7 +31,7 @@ public class ToStringEx {
 		Book book1 = new Book(200,"개미");
 		
 		System.out.println(book1); // 자동으로 toString() 을 호출한다.
-		System.out.println(book1.toString());
+		System.out.println(book1.toString()); // 위의 문장과 같음.
 		
 		//toString() 이 재정의 된 클래스
 		
