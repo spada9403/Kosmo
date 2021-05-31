@@ -8,7 +8,8 @@ public class ArrayListMain {
 //		ArrayList<Book> library = new ArrayList<Book>();
 		ArrayList<Book> library = new ArrayList<>();
 		
-		library.add(new Book("태백산맥"));
+		Book b1 = new Book("태백산맥");
+		library.add(b1);
 		library.add(new Book("차령산맥"));
 		library.add(new Book("한라산맥"));
 		library.add(new Book("백두산맥"));
@@ -16,7 +17,8 @@ public class ArrayListMain {
 		
 		System.out.println("Books size: " + library.size());
 		
-		library.remove(2);
+		//library.remove(2);
+		library.remove(b1);//new Book("태백산맥"));
 		
 		System.out.println("Books size: " + library.size());
 		System.out.println("Books size: " + library.get(2).name);
