@@ -14,8 +14,8 @@ public class InnerClassExam {
 	class InnerClass {
 		private int innerHashCode;
 		public String innerClassName;
-		// final 키워드 단독으로 선언할수없다?
-		// final boolean isInner = true; //되는데.. ?
+		// final 키워드 단독으로 선언할수없다.
+		// final boolean isInner  반드시 초기값을 주어야한다.
 		static final boolean isInner = true;
 		
 		public InnerClass(){
