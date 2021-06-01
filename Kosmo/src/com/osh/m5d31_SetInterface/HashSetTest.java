@@ -5,6 +5,7 @@ import java.util.HashSet;
 public class HashSetTest {
 
 	public static void main(String[] args) {
+		// set - > 수학의 집합에 비유. 하나의 null만 저장가능.
 
 		HashSet<String> hashSet = new HashSet<String>(); // 정해진 순서가 없음, 중복을 허용하지 않음.
 //		hashSet.add("임정순");

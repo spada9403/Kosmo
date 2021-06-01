@@ -6,7 +6,7 @@ public class ArrayListMain {
 
 	public static void main(String[] args) {
 //		ArrayList<Book> library = new ArrayList<Book>();
-		ArrayList<Book> library = new ArrayList<>();
+		ArrayList<Book> library = new ArrayList<>(); // - > ArrayList 는 순서유지, 중복가능하다. 기본 배열크기 10이 지정되어있고, 10을 넘어가면 새로운 큰 용량의 배열을 만들고 기존 항목을 복사한다.
 		
 		Book b1 = new Book("태백산맥");
 		library.add(b1);
