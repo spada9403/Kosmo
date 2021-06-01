@@ -1,5 +1,5 @@
 package com.osh.m6d01_InnerClass;
-
+// Inner Class
 public class InnerClassExam {
 
 	private int outerHashCode;

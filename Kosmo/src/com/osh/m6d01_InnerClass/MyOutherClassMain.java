@@ -6,7 +6,7 @@ public class MyOutherClassMain {
 
 	public static void main(String[] args) {
 		/*
-		 * 내부 클래스의 객체를 생성하기 위해서는 반드시 외부 클래스의 객체가 필요.
+		 * 내부 클래스의 객체를 생성하기 위해서는 반드시 외부 클래스의 객체가 필요.(static 내부클래스는 제외.)
 		 * 외부 클래스 객체를 생성한 뒤 객체로부터 내부 클래스를 인스턴스화 해야 함.
 		 */
 
