@@ -15,9 +15,11 @@ public class Airplane {
 
 }
 // IS-A 관게 비행이가능한 자동차는 비행기와 같다 등.
+// ? 은 ? 이다.
 class carPlane extends Airplane{}
 
 class carPlane2{
 	// Has-A 관계 carPlane2는 Airplane 하나를 가지고 있다.
+	// ? 은 ?을 가진다
 	Airplane plane = new Airplane();
 }
