@@ -6,6 +6,10 @@ public class Phone {
 	String color;
 	String no;
 	
+	public Phone() {
+		
+	}
+	
 	public Phone(String m, String c, String n) {
 		this.model = m;
 		this.color = c;

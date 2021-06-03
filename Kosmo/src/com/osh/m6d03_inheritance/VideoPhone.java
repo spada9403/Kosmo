@@ -1,6 +1,7 @@
 package com.osh.m6d03_inheritance;
 
 public class VideoPhone extends Phone {
+	public VideoPhone() {}
 	public VideoPhone(String m, String c, String n) {
 		super(m,c,n);// 상위 클래스의 Phone의 생성자를 호출한다.
 		//super(); 사용이 불가능하다. 상위클래스에 default 생성자가 없기 때문이다.상위클래스에 기본생성자가 있으면 사용이 가능하다.
@@ -12,5 +13,7 @@ public class VideoPhone extends Phone {
 	public void videoCall() {System.out.println("영상통화");}
 	public void info() {
 		String a = super.model;
+		String c = super.color;
+		String no = super.no;
 	}
 }
