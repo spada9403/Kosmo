@@ -16,6 +16,7 @@ public class DefaultNewPerson {
 	}
 
 	// 2 매개변수 생성자
+	// 이렇게 생성자를 매개변수만 바꿔서 여러개 만드는것을 오버로딩이라고 한다.
 	public DefaultNewPerson(String n) {
 		name = n;
 		System.out.println(name + ": " + "w: " + weight + "   h:" + height);
