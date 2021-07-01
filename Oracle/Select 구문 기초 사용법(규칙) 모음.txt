@@ -1,0 +1,119 @@
+SELECT * FROM EMPLOYEE;
+-- *를 쓰면 create구문에서 썻던 칼럼 순서대로 나온다. 순서를 바꾸고 싶다면 직접 써야한다
+-- 즉 *는 create로 테이블을 만들때 썻던 칼럼 순서대로 변환되어 적용이 된다.
+SELECT emp_no, emp_name, dep_no, jikup, salary, hire_date, jumin_num, phone_num, mgr_emp_no FROM employee;
+
+-- 별칭(=alias) 알리아스 AS 생략가능 / 더블 쿼트 생략가능(공백이 없을때만 가능하다.)
+SELECT
+	emp_no					AS 	"직원번호"
+	,emp_name||'님' 	 				"직원명"
+	,jikup 					AS 	"직급"
+	,salary||'만원'			 	"연봉" -- <- salary 값 뒤에 만원이 붙어나감. 연결연산자로 + 사용불가능 || 사용할것 오라클에서는 +를 사칙연산외엔 사용되지 않는다.
+	,hire_date 			AS 	"입사일"
+FROM
+	EMPLOYEE;
+	-- 싱글쿼터 ' 는 테이블안의 문자데이타 혹은 출력에 나올 문자데이터에만 쓴다. (오로지 문자데이터 에만 사용)
+	-- 더블쿼터 " 는 칼람명 테이블명 알리아스에만 쓴다. (명칭에만 사용한다.)
+
+-- employee 테이블에서 직원명, 직급, 연봉, 세금, 실수령액을 검색하면? (세금은 연봉의 12%)
+SELECT emp_name "직원명", jikup "직급", salary * 0.12||'만원' "세금" , salary * 0.88||'만원' "실수령액" FROM EMPLOYEE; -- as 생략.
+-- salary 컬럼이 겹치는것이 아님. 가상으로 칼럼명이 세금, 실수령액으로 바뀌어서 보여주는 것 뿐임.
+
+--employee 테이블에서 직급을 중복 없이 검색하면?
+
+SELECT DISTINCT jikup FROM employee;
+SELECT DISTINCT(jikup) FROM employee;
+SELECT UNIQUE(jikup) FROM employee;
+/*
+**********************************************************************************************
+ 문제를 보고 답을 sql코딩 할수도 있어야 하지만, 
+ sql 코딩 구문을보고 무엇을 요구하는지 찾아낼수 있어야 한다. 
+<답을 보고 문제를 알아맞춰야하는 이유는 문제가 고객의 요구사항이기 때문이다.>
+**********************************************************************************************
+*/
+
+-- employee 테이블에서 부서번호와 직급을 중복 없이 검색하면?
+SELECT DISTINCT dep_no, jikup FROM EMPLOYEE;
+-- 부서번호와 직급을 동시에 같이 봤을때 중복되지 않는것이다. 즉. 부서번호와 직급은 여러번 나올수 있다. 하지만 부서번호 지급이 같은 행은 안나온다.
+-- SELECT DISTINCT dep_no, DISTINCT jikup FROM EMPLOYEE; X
+-- SELECT DISTINCT(dep_no, jikup) FROM EMPLOYEE; X 가로는 1개의 컬럼만 매개변수로 줄 수 있다. 2개 이상 안됨.
+
+SELECT UNIQUE dep_no, jikup FROM EMPLOYEE;
+-- SELECT UNIQUE(dep_no, jikup) FROM EMPLOYEE; X
+
+/*
+*********************************************************************************************************************************************************************************
+	 '중복'을 제거하는 키워드 DISTINCT 또는 UNIQUE
+		- DISTINCT(컬럼명) 또는 UNIQUE(컬럼명) 으로 사용한다.
+		- 여러 컬럼의 중복을 제거 할땐 등가로를 빼고 DISTINCT 컬럼명1, 컬럼명2 식으로 사용한다.
+
+	 '행'을 골라내는 키워드 WHERE
+		- where는 조건이 여러개일때 and 또는 or 로 구분한다.
+		- 조건을 달때 보통 비교연산자(<,>,=,!=) 등을 쓴다. 숫자, 문자열 모두 비교가능하다. *****<주의> "=="가 아닌 =이다.
+		- null 값을 찾을때는 IS NULL 혹은 IS NOT NULL 을 사용한다.
+
+	 '행들을' 정렬하는 키워드 ORDER BY
+		- order by 는 조건이 여러개일때 ',' 로 구분해준다.
+		- 기본적으로 ORDER BY 컬럼명(컬럼인덱스) 라고 적는데 , 컬럼명 뒤에 ASC(오름차순)이 생략되어 있다. DESC 내림차순.
+		- DECODE 라는 키워드로 문자열 등의 사람기준의 순서를 지정해줄수 있다.
+		- DECODE(컬럼명, 컬럼데이터 , 순서(1번,2번등) )
+
+	 [주의] select 는 절대 원본 테이블이 값을 변경시키지 않는다. 모든 사칙연산등의 연산들은 가상으로 일어난다!!
+*********************************************************************************************************************************************************************************
+*/
+-- ###################################연습문제들 ##################################
+
+-- employee 테이블에서 연봉이 3000 이상인 직원을 검색해서 검색하면?
+ SELECT * FROM employee WHERE salary >= 3000; 
+
+-- employee 테이블에서 연봉 오름차순으로 검색하면?
+SELECT * FROM employee ORDER BY SALARY; --ASC;
+-- order by 는 행의 순서를 내 뜻대로 바꿔줌. asc는 오름차순이라는 뜻이고 생략이 가능하다.
+SELECT * FROM employee ORDER BY SALARY DESC; -- DESC 내림차순이다.
+-- 컬럼명이 아닌 몇번째 컬럼인지 숫자로 써도 가능하다.(위치번호)
+-- <참고> 오라클은 인덱스 번호가 0이 아닌 1부터 시작한다.
+SELECT * FROM employee ORDER BY 5;
+SELECT * FROM employee ORDER BY 5 DESC;
+
+-- employee 테이블에서 부서번호 오름차순을 유지하면서 연봉 내림차순으로 검색하면?
+
+SELECT * FROM EMPLOYEE ORDER BY DEP_NO,SALARY DESC; -- dep_no는 asc가 생략되어있는것이다. desc가 아니다!
+-- SELECT * FROM EMPLOYEE ORDER BY DEP_NO ASC ,SALARY DESC;
+
+-- employee 테이블에서 직급이 높은 순서 나열해서 검색하면?
+-- SELECT * FROM EMPLOYEE ORDER BY jikup DESC; <- 틀린답.
+-- 오라클은 1234,abcd,ㄱㄴㄷㄹ 밖에 못한다. 인간이 생각하는 직급 순서를 모른다.
+-- 추후 조건문을 사용하여 정렬의 기준을 바꾸어야 답이 나온다.
+SELECT * FROM employee ORDER BY DECODE(jikup, '사장',1,'부장',2,'과장',3,'대리',4), SALARY; -- asc가 생략되어있다.
+
+-- employee 테이블에서 부장만 검색하면?
+-- 직급이 부장인 행만 골라내는 것.
+SELECT * FROM EMPLOYEE WHERE JIKUP='부장'; -- 오라클은 == 이 없다. 오라클에서 비교연산자는 '=' 이다. 다른  프로그래밍 언어의 대입연산자 or 비교연산자 =,==과 햇갈리지 말자!
+
+-- employee 테이블에서 20번 부서의 과장만 검색하면?
+SELECT * FROM EMPLOYEE WHERE dep_no = 20 AND JIKUP='과장';
+-- 오라클에서 && 연산은 말그대로 and로 쓴다. || 연산도 똑같이 그냥 or 이다..
+
+-- employee 테이블에서 과장 중에 연봉 3400 이상을 검색하면?
+SELECT * FROM EMPLOYEE WHERE JIKUP='과장' AND salary >=3400;
+
+-- employee 테이블에서 실수령 액이 4000만원 이상 받는 직원을 검색하면? 단 세금이 12% 가정.
+SELECT *FROM EMPLOYEE WHERE  (salary*0.88) >= 4000;
+-- 출력할때 말고도 where 절에 임시적으로 곱할수 있다.
+
+-- employee 테이블에서 세금을 제일 많이 내는 직원 순서로 나열하면서 부서번호가 내림차순이면서 사장이 아닌 직원을 검색하면?
+SELECT * FROM EMPLOYEE WHERE JIKUP != '사장' ORDER BY (SALARY*0.12) DESC, DEP_NO DESC;
+
+-- employee 테이블에서 20번 부서 중에 연봉 2000~ 3000 사이 검색하면?
+SELECT * FROM EMPLOYEE WHERE dep_no = 20 AND SALARY >= 2000 AND SALARY <=3000;
+SELECT * FROM EMPLOYEE WHERE dep_no = 20 AND SALARY BETWEEN 2000 AND 3000;
+-- 이상 이하를 같이 검색할떄는 between 을 사용한다. 미만, 초과는 사용이 불가능하다..
+
+-- employee 테이블에서 직속 상관이 없는 직원을 검색하면?
+SELECT * FROM EMPLOYEE WHERE MGR_EMP_NO IS NULL;
+-- null 값은 실존 데이터가 아니므로 비교연산자 = 를 쓸수 없다. = 은 데이터를 찾는건데 null은 데이터가 아니므로 비교할수없다.
+-- null 을 찾는 방법은 IS 로 null인지 확인할수 있다.
+
+-- employee 테이블에서 지속 상관이 있는 직원을 검색하면?
+SELECT * FROM EMPLOYEE a WHERE a.MGR_EMP_NO IS NOT NULL;
+-- 위의 null 문제와 마찬가지로 != 를 사용 할수 없으므로 null이 아닌 값을 찾을때는 IS NOT 을 쓴다.

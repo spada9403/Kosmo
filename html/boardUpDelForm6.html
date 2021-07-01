@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <body>
+    <center>
+      [글 수정/삭제]
+      <form>
+        <table border="1" style="border-collapse: collapse" width="70%" cellpadding="6">
+          <tr>
+            <th>이름</th>
+            <td><input type="text" name="writer" maxlength="7" value="김태희" /></td>
+          </tr>
+          <tr>
+            <th>제목</th>
+            <td><input size="65%" type="text" name="subject" maxlength="20" value="엔화 하락 문제" /></td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td><input size="65%" type="email" name="email" maxlength="30" value="k@naver.com" /></td>
+          </tr>
+          <tr>
+            <th>내용</th>
+            <td><textarea name="content" cols="67" rows="8" maxlength="200">어쩌구 저쩌구</textarea></td>
+          </tr>
+          <tr>
+            <th>비밀번호</th>
+            <td><input type="password" name="pwd" maxlength="4" /></td>
+          </tr>
+        </table>
+        <div style="margin-top: 7px">
+          <input type="submit" value="수정" />
+          <input type="button" value="삭제" />
+          <input type="reset" value="초기화" />
+          <a href="boardList.html"><input type="button" value="전체 글 보기" /></a>
+          <a href="loginForm.html"><input type="button" value="로그아웃" /></a>
+        </div>
+      </form>
+    </center>
+  </body>
+  <style>
+    th {
+      background-color: #f2f2f2;
+    }
+    div > *:not(last-child) {
+      margin-right: 15px;
+    }
+  </style>
+</html>
