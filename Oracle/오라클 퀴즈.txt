@@ -1,0 +1,436 @@
+1 O
+1 O 틀림. unique 가 걸린 컬럼에는 반드시 no null이 걸린다. <<<< 반드시 걸리는 것이 아니다. 실무적으로는 대부분 걸린다.
+
+1 O
+0 X
+1 O
+
+0 X
+0 X
+1 O 틀림 create 로 만든 테이블은 rollback으로 없앨수 있다. <<<< 테이블은 롤백 대상이 아니다.
+
+1 O <<< select 도 트랜잭션을 걸수 있다. <<<< 트랜잭션을 걸수는 있지만 의미는 없다.
+
+1 O
+
+---------------------------------------------------
+FK 가 있으면 반드시 PK 가 있다.
+---------------------------------------------------
+unique 가 걸린 컬럼에는 반드시 not null 이 걸린다..
+---------------------------------------------------
+자료형도 데이터를 걸러내는데 사용된다.
+---------------------------------------------------
+not null 이 걸린 컬럼에는 반드시  unique 가 걸린다..
+---------------------------------------------------
+셀을 삭제하는 명령어는 update 이다.
+---------------------------------------------------
+행 삭제는 alter 구문이다.
+---------------------------------------------------
+행 수정은 update 구문이다.
+---------------------------------------------------
+create 로 만든 테이블은 rollback 으로 없앨수 있다.
+---------------------------------------------------
+select 도 트랜잭션을 걸수 있다.
+---------------------------------------------------
+default 가 걸리면 대부분 not null 이다.
+
+-- ###################################연습문제들 ##################################
+
+-- employee 테이블에서 연봉이 3000 이상인 직원을 검색해서 검색하면?
+ SELECT * FROM employee WHERE salary >= 3000; 
+
+-- employee 테이블에서 연봉 오름차순으로 검색하면?
+SELECT * FROM employee ORDER BY SALARY; --ASC;
+-- order by 는 행의 순서를 내 뜻대로 바꿔줌. asc는 오름차순이라는 뜻이고 생략이 가능하다.
+SELECT * FROM employee ORDER BY SALARY DESC; -- DESC 내림차순이다.
+-- 컬럼명이 아닌 몇번째 컬럼인지 숫자로 써도 가능하다.(위치번호)
+-- <참고> 오라클은 인덱스 번호가 0이 아닌 1부터 시작한다.
+SELECT * FROM employee ORDER BY 5;
+SELECT * FROM employee ORDER BY 5 DESC;
+
+-- employee 테이블에서 부서번호 오름차순을 유지하면서 연봉 내림차순으로 검색하면?
+
+SELECT * FROM EMPLOYEE ORDER BY DEP_NO,SALARY DESC; -- dep_no는 asc가 생략되어있는것이다. desc가 아니다!
+-- SELECT * FROM EMPLOYEE ORDER BY DEP_NO ASC ,SALARY DESC;
+
+-- employee 테이블에서 직급이 높은 순서 나열해서 검색하면?
+-- SELECT * FROM EMPLOYEE ORDER BY jikup DESC; <- 틀린답.
+-- 오라클은 1234,abcd,ㄱㄴㄷㄹ 밖에 못한다. 인간이 생각하는 직급 순서를 모른다.
+-- 추후 조건문을 사용하여 정렬의 기준을 바꾸어야 답이 나온다.
+SELECT * FROM employee ORDER BY DECODE(jikup, '사장',1,'부장',2,'과장',3,'대리',4), SALARY; -- asc가 생략되어있다.
+
+-- employee 테이블에서 부장만 검색하면?
+-- 직급이 부장인 행만 골라내는 것.
+SELECT * FROM EMPLOYEE WHERE JIKUP='부장'; -- 오라클은 == 이 없다. 오라클에서 비교연산자는 '=' 이다. 다른  프로그래밍 언어의 대입연산자 or 비교연산자 =,==과 햇갈리지 말자!
+
+-- employee 테이블에서 20번 부서의 과장만 검색하면?
+SELECT * FROM EMPLOYEE WHERE dep_no = 20 AND JIKUP='과장';
+-- 오라클에서 && 연산은 말그대로 and로 쓴다. || 연산도 똑같이 그냥 or 이다..
+
+-- employee 테이블에서 과장 중에 연봉 3400 이상을 검색하면?
+SELECT * FROM EMPLOYEE WHERE JIKUP='과장' AND salary >=3400;
+
+-- employee 테이블에서 실수령 액이 4000만원 이상 받는 직원을 검색하면? 단 세금이 12% 가정.
+SELECT *FROM EMPLOYEE WHERE  (salary*0.88) >= 4000;
+-- 출력할때 말고도 where 절에 임시적으로 곱할수 있다.
+
+-- employee 테이블에서 세금을 제일 많이 내는 직원 순서로 나열하면서 부서번호가 내림차순이면서 사장이 아닌 직원을 검색하면?
+SELECT * FROM EMPLOYEE WHERE JIKUP != '사장' ORDER BY (SALARY*0.12) DESC, DEP_NO DESC;
+
+-- employee 테이블에서 20번 부서 중에 연봉 2000~ 3000 사이 검색하면?
+SELECT * FROM EMPLOYEE WHERE dep_no = 20 AND SALARY >= 2000 AND SALARY <=3000;
+SELECT * FROM EMPLOYEE WHERE dep_no = 20 AND SALARY BETWEEN 2000 AND 3000;
+-- 이상 이하를 같이 검색할떄는 between 을 사용한다. 미만, 초과는 사용이 불가능하다..
+
+-- employee 테이블에서 직속 상관이 없는 직원을 검색하면?
+SELECT * FROM EMPLOYEE WHERE MGR_EMP_NO IS NULL;
+-- null 값은 실존 데이터가 아니므로 비교연산자 = 를 쓸수 없다. = 은 데이터를 찾는건데 null은 데이터가 아니므로 비교할수없다.
+-- null 을 찾는 방법은 IS 로 null인지 확인할수 있다.
+
+-- employee 테이블에서 지속 상관이 있는 직원을 검색하면?
+SELECT * FROM EMPLOYEE a WHERE a.MGR_EMP_NO IS NOT NULL;
+-- 위의 null 문제와 마찬가지로 != 를 사용 할수 없으므로 null이 아닌 값을 찾을때는 IS NOT 을 쓴다.
+
+-- employee 테이블에서 [최소 연봉], [최대 연봉], [평균 연봉], [연봉 총합], [총인원수]을 검색해서 출력하면?
+
+	SELECT 
+		min( salary ) 	as "최소연봉"		-- 	min(컬럼명) 함수. 컬럼명의 값들중 최소값을 반환해주는 "함수" 이다. 반대로 최대값은 max
+		,max( salary ) 	as "최대연봉"		-- 	함수는 보통 칼럼명을 끌어 않는다.
+		,avg( salary ) 	as "평균연봉"		--	salary의 평균값을 리턴. ※ 만약 salary의 값들중 null이 있다면 덧셈, 나눌때 개수에서도 빠져버린다.
+		,sum( salary ) 	as "연봉총합"		-- salary 에서 총합을 리턴.
+		,count( * ) 	as "총인원수"		-- not null 의 칼럼안에 들어있는 데이터의 총 개수를 구하면 그것이 행의 총 개수이다.
+											-- count( * ) count 함수는 기본적으로 칼럼을 끌어안고, 끌어안은 칼럼에서 null값을 뺀 총 데이터 갯수를 리턴한다. 굳이 칼럼명으로 총 개수를 안구해도 * 를 하면 총 행의 개수를 리턴해준다.
+	from
+		employee;
+		
+-- 아래 SQL 구문은 무슨 문제의 답인가?
+		select count(emp_no) from customer
+	=> 담당직원이 있는 고객의 명수.
+	if 중복을 제거하면? 
+		고객을 담당하고있는 직원의 수.
+		
+
+-- 고객을 담당하고 있는 직원의 명수는?
+	select count(distinct emp_no) from customer;
+
+-- 직속상관이 있는 직원의 명수는?
+	select count(mgr_emp_no) from employee;
+	
+-- employee 테이블에서 [직원번호], [직원명], [생일월-생일일] 검색해서 출력하면?
+	select emp_no as "직원번호", emp_name as "직원명", substr(jumin_num, 3, 2) || '-' || substr(jumin_num, 5, 2) as "생년월일" from employee;
+
+-- customer 테이블에서 모든 컬럼, 모든 행을 검색해서 출력하면?
+		단, 주민번호는 901225-2******  형태로 출력.
+		
+		select
+			cus_no,
+			cus_name,
+			tel_num,
+			substr(jumin_num,1,6) || '-' || substr(jumin_num,7,1) || '******',
+			emp_no
+		from
+			customer;
+
+-- customer 테이블에서 고객번호, 고객명, 담당직원번호 출력
+		단 담당직원번호가 없으면 null 출력하지 말고 없음 표시
+		
+select cus_no "고객번호", cus_name "고객명", nvl(emp_no||'', '없음') "담당직원번호" from customer;
+-- nvl 이란?: null 처리 함수. null이 아니면 통과, null이면 내가 원하는 데이터가 들어간다. null 값만 바꿀수 있다.
+--  nvl함수는 nvl(컬럼명, null 대체할 데이터)라고 쓴다. emp_no에 데이터가 있으면 그냥 나가고, null값이면 대체 데이터가 나간다.
+-- null이 아닐때는 number 자료형이 나가고 , null값일때는 문자열이 나가므로 위 구문은 오류가 난다.
+-- 고치는 방법은 자료형을 하나로 통일하는 것이다. 즉 emp_no를 문자열로 바꾸던가 '없음'을 숫자로 바꿔야하는데
+-- '없음'을 숫자로 바꿀수 없으므로 emp_no 를 문자열로 바꿔준다. nvl(emp_no, '없음') -> nvl(emp_no||'', '없음') || 연산자로 number || ''(문자열) 해주면 number 자료형이 문자열로 바뀐다.
+			
+-- customer 테이블에서 고객번호, 고객명, 담당직원 존재여부 를 출력하면?
+		단 직원 번호가 있으면 '있음' , 없으면 '없음' 으로 표시
+
+select cus_no "고객번호", cus_name "고객명", nvl2(emp_no, '있음', '없음') from customer;
+-- nvl2( 컬럼명, null값이 아닌 데이터 대체 값, null값인 데이터 대체 값 );
+-- nvl은 있는 데이터를 바꾸지 못하지만 , nvl2는 있는 값, null값 둘다 컨트롤 가능.
+
+-- employee 테이블에서 직원번호, 직원명, 직급, 성별 출력.
+****************************************중요 오라클의 조건문 ( case ) 의 여러가지 형태.***********************************************************************************
+※※※※※※※※※※※※ case 는 모든 데이타베이스 언어에서 사용하기로한 공용문이다. ※※※※※※※※※※※※※※※※※※※※
+
+-- 가장 기본적인 형태이다.
+	select 
+		emp_no "직원번호", 
+		emp_name "직원명", 
+		jikup "직급", 
+		case substr(jumin_num,7,1)  -- 오라클의 조건문은 case 칼럼데이터 로 시작해서 end로 끝난다. 
+			when '1' then '남' 		-- 컬럼데이터( substr(jumin_num,7,1) ) 가 '1'이면 '남' 출력.
+			when '3' then '남' 		
+			when '2' then '여' 		-- 컬럼데이터( substr(jumin_num,7,1) ) 가 '2'이면 '여' 출력.
+			when '4' then '여' 
+			end "성별" 
+	from 
+		employee;
+		-- 단점이 있는데, 칼럼이 "같은지" 만 비교할수 있다. 뭐가 뭐 이면 밖에 못함. 뭐가 뭐보다 크거나 이런게 안된다.
+		
+**********************************************************************************************************************************************************************		
+
+-- else  구문을 사용하여 나머지 처리.
+		select 
+		emp_no "직원번호", 
+		emp_name "직원명", 
+		jikup "직급", 
+		case substr(jumin_num,7,1)  -- 오라클의 조건문은 case 칼럼 또는 칼럼을 끌어안은 함수 로 시작해서 end로 끝난다. 
+			when '1' then '남' 		-- 컬럼데이터( substr(jumin_num,7,1) ) 가 '1'이면 '남' 출력.
+			when '3' then '남' 		
+			else '여'				-- else를 사용하여 나머지 처리가능.
+			end "성별" 
+	from 
+		employee;
+		
+**********************************************************************************************************************************************************************		
+
+-- ※※※※※ case 뒤에 when을 쓰고, 바로 비교 문을 쓴다. 이렇게 하면 장점이 크거나 작은지, 같은지 다른지 비교할수 있다.
+select 
+		emp_no "직원번호", 
+		emp_name "직원명", 
+		jikup "직급", 
+		case 
+			when substr(jumin_num,7,1) = '1' then '남'
+			when substr(jumin_num,7,1) = '3' then '남'
+			else '여'
+			end "성별" 
+	from 
+		employee;
+**********************************************************************************************************************************************************************		
+※※※※※※※※※※※※※※ 오라클의 고유 조건문 DECODE ※※※※※※※※※※※※※※
+
+select 
+		emp_no "직원번호", 
+		emp_name "직원명", 
+		jikup "직급", 
+		decode ( substr(jumin_num,7,1), '1', '남', '3', '남', '여')	-- decode 장점은 간단하다. 단점은 각 인자가 무슨뜻인지 햇갈린고, 간단한것만 가능하다.
+		-- DECODE 조건문은 그냥 컬럼명을 주고 , 비교할데이터, 출력할데이터 를 나열하면 된다.
+		--  비교할 데이터 없이 '여' 라고 출력데이터만 주면 자동으로 else문으로 쓴다.
+		-- TIP 보기 좋게 나열하는 방법.
+		/*
+		decode ( substr(jumin_num,7,1),
+					'1', '남', 	--조건 1
+					'3', '남', 	--조건 2
+					'여'		--ELSE
+				)
+		*/
+		"성별" 
+	from 
+		employee;
+		
+**********************************************************************************************************************************************************************		
+
+-- employee 테이블에서 직원번호, 직원명, 직급, 출생년도 4자리 출력. case 사용.
+
+	select
+		emp_no "직원번호",
+		emp_name "직원명",
+		jikup "직급",
+		case substr(jumin_num,7,1)
+			when '1' then '19'
+			when '2' then '19'
+			else '20'
+			
+		end || substr(jumin_num,1,2) "출생년도"
+	from 
+		employee
+		
+**********************************************************************************************************************************************************************		
+
+-- employee 테이블에서 직원번호, 직원명, 직급, 출생년도 4자리 출력. decode 사용.
+
+	select
+		emp_no "직원번호",
+		emp_name "직원명",
+		jikup "직급",
+		decode ( substr(jumin_num,7,1),
+					'1', '19',
+					'2', '19',
+					'20'		
+				) || substr(jumin_num, 1, 2)"출생년도"
+	from 
+		employee
+**********************************************************************************************************************************************************************
+
+-- employee 테이블에서 직원번호, 직원명, 직급, 출생년대 4자리 출력.
+
+select
+	emp_no "직원번호",
+	emp_name "직원명",
+	jikup "직급",
+	decode ( substr(jumin_num,7,1),
+				'1', '19',
+				'2', '19',
+				'20'		
+			) || substr(jumin_num, 1, 1) || '0' "출생년도"
+from 
+	employee
+	
+**********************************************************************************************************************************************************************
+	
+select
+	emp_no "직원번호",
+	emp_name "직원명",
+	jikup "직급",
+	case substr(jumin_num,7,1)
+		when '1' then '19'
+		when '2' then '19'
+		else '20'
+		
+	end || substr(jumin_num,1,1) || '0' "출생년도"
+from 
+	employee
+**********************************************************************************************************************************************************************
+-- 직급 높은 사람이 제일 먼저 나오게 순서대로 정렬해서 출력. 단, case 사용.
+-- 이번 case 문은 order by 뒤에 나왔어. 무슨뜻일까?
+-- 사장을 1, 부장을 2 이런식으로 봤을때 순서대로 정렬 하겠다는 소리.
+select * from employee order by case jikup
+	when '사장' then 1
+	when '부장' then 2
+	when '과장' then 3
+	when '대리' then 4
+	when '주임' then 5
+	else 6
+	end asc;
+**********************************************************************************************************************************************************************
+
+-- employee 테이블에서 직원번호, 직원명, 입사일(년-월-일) 검색하면?
+
+	select emp_no, emp_name, to_char(hire_date, 'yyyy-mm-dd') from employee;
+
+
+-- employee 테이블에서 직원번호, 직원명, 나이 검색하면? ※※※※※※※ 나중에 자세히 보자
+
+	select emp_no, emp_name, 
+	to_number(to_char(sysdate, 'yyyy')) - to_number(case substr(jumin_num,7,1) when '1' then '19' when '2' then '19' else '20' 
+	end || substr(jumin_num,1,2)) + 1 || '세'
+	"나이"
+	from employee;
+	
+-- employee 테이블에서 직원번호, 직원명, 근무년차를 검색해서 출력.
+	-- 오라클에서는 날짜 데이터에서 날짜 데이터를 뺄수있고, 빼면 그 차이를 일수로 리턴해준다.
+	-- ceil() => 소수 첫째 자리에서 무조건 올림해서 리턴하는 수학 함수의 일종이다.
+	-- floor() => 소수 첫째 자리에서 무조건 내림해서 리턴하는 수학 함수의 일종이다.
+	
+	select emp_no, emp_name,
+	ceil((sysdate - hire_date) / 365)|| '년' "근무년차"
+	from employee;
+	
+	-- employee 테이블에서 직원번호, 직원명, 연령대를 검색해서 출력하면?
+	
+select emp_no, emp_name,
+	floor((to_number(to_char(sysdate, 'yyyy')) - to_number(case substr(jumin_num,7,1) when '1' then '19' when '2' then '19' else '20'
+	end || substr(jumin_num,1,2)) + 1) * 0.1) || '0대'
+	"연령대"
+	from employee;
+	
+-- employee 테이블에서 직원번호, 직원명, 100일잔치 날짜를 검색해서 출력하면?
+
+	select emp_no, emp_name,
+	to_char(to_date(
+    case when
+    substr(jumin_num,7,1)
+    in('1','2') then '19' -- 2개 이상 확인할때는 in을 쓴다.
+	else '20'
+	end||substr(jumin_num,1,6), 'yyyymmdd' ) + 100,'yyyy-mm-dd') "100일 잔치"
+	 -- 날짜 데이터에 정수를 더하거나 빼면? 정수 값 더하거나 뺀만큼 계산후 날짜가 리턴된다. (날짜끼리 계산하면 일수가 리턴.)
+	 -- 날짜 데이터 끼리 뺄셈은 가능하지만 더하기는 불가능하다.
+	from employee;
+	
+-- 개강일이 2021년 5월 12일, 종갈일 2021년 11월 10일 며칠동안 학원 생활을 하는가?
+	-- 특정 테이블에서 정보를 가져오는것이 아니고 그냥 출력해보고 싶을때 dual 이라는 가상테이블을 사용한다.
+	
+select 
+	to date('20211110', 'yyyymmdd')
+	-
+	to date('20210512', 'yyyymmdd')
+from dual;
+
+-- employee 테이블에서 직원번호, 직원명, 현재나이, 입사일 당시나이 를 검색.
+
+select emp_no, emp_name,
+	to_number(to_char(sysdate, 'yyyy')) - to_number(case substr(jumin_num,7,1) when '1' then '19' when '2' then '19' else '20' 
+	end || substr(jumin_num,1,2)) + 1 || '세'
+	"현재 나이"
+	
+	to_number(to_char(hire_date, 'yyyy')) - to_number(case substr(jumin_num,7,1) when '1' then '19' when '2' then '19' else '20' 
+	end || substr(jumin_num,1,2)) + 1 || '세'
+	"입사 나이"
+	
+ from employee;
+ 
+-- 직원번호, 직원명, 주민번호, 다가올 생일, 생일까지 남은 일수가
+
+select emp_no, emp_name, jumin_num,
+	case when
+		to_number(to_char(sysdate, 'MMDD')) > to_number(substr(jumin_num,3,4))
+		then to_char(to_date(to_char(sysdate, 'yyyy')|| substr(jumin_num,3,4)) +365,'yyyy-mm-dd')
+		else to_char(to_date(to_char(sysdate, 'yyyy') || substr(jumin_num,3,4)), 'yyyy-mm-dd')
+end "다가올 생일",
+
+floor(case when
+		to_number(to_char(sysdate, 'MMDD')) > to_number(substr(jumin_num,3,4))
+		then to_date(to_char(sysdate, 'yyyy')|| substr(jumin_num,3,4)) +365
+		else to_date(to_char(sysdate, 'yyyy') || substr(jumin_num,3,4))
+end - sysdate) "생일까지남은일수"
+
+from employee;
+
+
+
+
+class Test {
+	public static void add3(Integer i) {
+		int val = i.intValue();
+		val += 4;
+		i = new Integer(val);
+	}
+}
+public class TestExe {
+	public static void main(String args[]) {
+		Integer i = new Integer(0);
+		Test.add3(i);
+		System.out.println(i.intValue());
+	}
+}
+	What is the result?
+
+	C. Compilation fails.
+
+
+
+
+public class Test {
+	public static void replaceJ(String text) {
+		text.replace('j', 'l');
+	}
+}
+public class TestExe {
+	public static void main(String args[]) {
+		String text = new String("java");
+		Test.replaceJ(text);
+		System.out.println(text);
+	}
+}
+	What is the result?
+
+	B. java
+
+
+
+
+	class A {
+	public byte getNumber() { return 1; }
+}
+class B extends A {
+	public short getNumber() { return 2; }  //8
+}
+class BExe {
+	public static void main(String args[]) {
+		B b = new B();
+		System.out.println(b.getNumber());   //14
+	}
+}
+	What is the result?
+
+	D. Compilation fails because of an error in line 8.
