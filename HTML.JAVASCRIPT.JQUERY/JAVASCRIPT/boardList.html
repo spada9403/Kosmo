@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>boardList</title>
+  </head>
+  <body>
+    <center>
+      <div class="div2">
+        <span>[게시판]</span>
+        <span>[6개 검색]</span>
+        <span><a href="boardRegForm.html">[새 글쓰기]</a></span>
+      </div>
+      <table border="0" style="border-collapse: collapse" cellpadding="10px">
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>성명</th>
+          <th>작성일</th>
+          <th>조회수</th>
+        </tr>
+        <tr align="center" onclick="location.replace('boardContentForm1.html')">
+          <td>6</td>
+          <td align="left">청년 실직 문제는 대기업 문제</td>
+          <td>설현</td>
+          <td>2011.12.06</td>
+          <td>0</td>
+        </tr>
+        <tr align="center" onclick="location.replace('boardContentForm2.html')">
+          <td>5</td>
+          <td align="left">경제 침체의 원인</td>
+          <td>사오정</td>
+          <td>2011.12.01</td>
+          <td>2</td>
+        </tr>
+        <tr align="center" onclick="location.replace('boardContentForm3.html')">
+          <td>4</td>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㄴ안보문제</td>
+          <td>하하</td>
+          <td>2011.12.03</td>
+          <td>1</td>
+        </tr>
+        <tr align="center" onclick="location.replace('boardContentForm4.html')">
+          <td>3</td>
+          <td
+            align="left"
+            onclick="
+          location.replace('boardContentForm1.html')
+      "
+          >
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㄴ북한 핵 문제
+          </td>
+          <td>전지현</td>
+          <td>2011.12.05</td>
+          <td>0</td>
+        </tr>
+        <tr align="center" onclick="location.replace('boardContentForm5.html')">
+          <td>2</td>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㄴ나라 빛 관리 부실</td>
+          <td>저팔계</td>
+          <td>2011.12.02</td>
+          <td>1</td>
+        </tr>
+        <tr align="center" onclick="location.replace('boardContentForm6.html')">
+          <td>1</td>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㄴ엔화 하락 문제</td>
+          <td>김태희</td>
+          <td>2011.12.04</td>
+          <td>0</td>
+        </tr>
+      </table>
+      <div>[처음][이전]&nbsp;&nbsp;&nbsp; 1 [2] [3] &nbsp;&nbsp;[다음][마지막]</div>
+      <div>
+        <input type="text" />
+        <input type="button" value="검색" />
+        <input type="button" value="모두 검색" />
+      </div>
+    </center>
+  </body>
+  <style>
+    center > table > tbody > tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    div {
+      padding: 5px;
+    }
+    tr {
+      cursor: pointer;
+    }
+    .div2 {
+      display: flex;
+      width: 45%;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .div2 > span:first-child {
+      margin-right: 80px;
+    }
+  </style>
+</html>
