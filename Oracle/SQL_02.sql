@@ -1136,6 +1136,4 @@ select
 					) / 365
 					+1) >= 40
 					 AND c.emp_no = e.emp_no
-
-
-
+SELECT * FROM EMPLOYEE WHERE EMP_NAME = '한국남'
