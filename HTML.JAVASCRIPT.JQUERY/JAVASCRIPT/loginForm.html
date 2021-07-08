@@ -3,6 +3,26 @@
   <head>
     <title>loginForm</title>
     <script src="loginForm.js"></script>
+    <script>
+      function checkForm() {
+        //const id = document.getElementsByName("uid")[0].value;
+        const id = document.loginForm.uid.value;
+        const pwd = document.loginForm.pwd.value;
+        if (isEmpty(id)) {
+          alert("아이디를 입력해주세요.");
+          return;
+        } else if (isEmpty(pwd)) {
+          alert("비밀번호를 입력해주세요.");
+          return;
+        } else if (id == "abc" && pwd == "123") {
+          document.loginForm.submit();
+        } else {
+          alert("아이디 또는 비밀번호를 정확히 입력해주세요.");
+          document.loginForm.uid.value = "";
+          document.loginForm.pwd.value = "";
+        }
+      }
+    </script>
   </head>
 
   <body>
@@ -40,6 +60,7 @@
               "
               />
               <input type="reset" value="초기화" />
+              <div style="cursor: pointer" onclick="location.replace('memberRegForm.html')">[회원가입]</div>
             </td>
           </tr>
         </table>

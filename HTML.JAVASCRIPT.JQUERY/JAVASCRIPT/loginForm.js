@@ -1,14 +1,16 @@
-function checkForm() {
-  //const id = document.getElementsByName("uid")[0].value;
-  const id = $("[name=uid]").val();
-  const pwd = document.loginForm.pwd.value;
-  if (id.split(" ").join("") == "") {
-    alert("아이디를 입력해주세요.");
-    return;
-  } else if (pwd.split(" ").join("") == "") {
-    alert("비밀번호를 입력해주세요.");
-    return;
-  } else {
-    document.loginForm.submit();
+function isEmpty(str) {
+  var flag = false;
+  if (str.split(" ").join("") == "") {
+    flag = true;
   }
+  return flag;
+}
+function checkNameReg(str) {
+  var flag = false;
+  var regExp = new RegExp(/^[가-힣]{2,20}$/);
+  if (regExp.test(str)) {
+    return flag;
+  }
+  flag = true;
+  return flag;
 }
