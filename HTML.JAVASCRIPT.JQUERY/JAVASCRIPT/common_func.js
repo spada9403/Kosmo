@@ -14,3 +14,11 @@ function checkNameReg(str) {
   flag = true;
   return flag;
 }
+function isValidPattern(regexp, RegStr) {
+  var regExp = new RegExp(regexp);
+  return regExp.test(RegStr);
+}
+function isEmail(email) {
+  var regExp = new RegExp(/^([a-zA-z0-9_-]+)@([a-z]+)(\.[0-9a-zA-Z_-]+){1,2}$/);
+  return regExp.test(email);
+}
