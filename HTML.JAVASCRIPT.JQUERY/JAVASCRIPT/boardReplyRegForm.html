@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script src="common_func.js"></script>
+    <script>
+      //게시판 새글쓰기 화면의 입력한 데이터의 유효성 체크.
+      function checkRegForm() {
+        var writer = document.boardReflyRegForm.writer.value;
+        var subject = document.boardReflyRegForm.subject.value;
+        var email = document.boardReflyRegForm.email.value;
+        var content = document.boardReflyRegForm.content.value;
+        var pwd = document.boardReflyRegForm.pwd.value;
+        var pic = document.boardReflyRegForm.pic.value;
+
+        var regExp = new RegExp(/^[가-힣]{2,10}$/);
+        if (regExp.test(writer) == false) {
+          alert("이름은 한글 2~10자 사이어야 합니다.");
+          return;
+        }
+        if (isEmpty(subject)) {
+          alert("제목이 비어있거나 공백으로만 이루어져있으면 안됩니다.");
+          document.boardReflyRegForm.subject.value = "";
+          return;
+        }
+        if (!(subject.length >= 2 && subject.length <= 30)) {
+          alert("제목은 2~30자 사이어야 합니다.");
+          return;
+        }
+        if (isEmail(email) == false) {
+          alert("이매일의 형식으로 입력해주세요");
+          return;
+        }
+        if (isEmpty(content)) {
+          alert("내용은 비어있거나 공백으로만 이루어져있으면 안됩니다.");
+          document.boardReflyRegForm.content.value = "";
+          return;
+        }
+        if (content.length > 900) {
+          alert("내용은 900자 이내로.");
+          return;
+        }
+        if (isEmpty(pic) == false) {
+          if (isValidPattern(/((\.jpg)|(\.png))$/, pic) == false) {
+            alert("파일 확장자는 jpg 또는 png 이어야 합니다.");
+            document.boardReflyRegForm.pic.value = "";
+            return;
+          }
+        }
+        regExp = new RegExp(/^[0-9]{4}$/);
+        if (regExp.test(pwd) == false) {
+          alert("암호 형식이 아닙니다");
+          return;
+        }
+      }
+      function setting() {
+        return;
+        document.boardReflyRegForm.writer.value = "사오정";
+        document.boardReflyRegForm.subject.value = "아..맥주 한잔...";
+        document.boardReflyRegForm.email.value = "abc@naver.com";
+        document.boardReflyRegForm.content.value = "어쩌구 저쩌구...";
+        document.boardReflyRegForm.pwd.value = "1234";
+      }
+    </script>
+  </head>
+  <body onload="setting();">
+    <center>
+      <form name="boardReflyRegForm" action="boardRegProc.html" enctype="multipart/form-data">
+        <table border="1" style="border-collapse: collapse" width="70%" cellpadding="6">
+          <caption>
+            댓글쓰기
+          </caption>
+          <tr>
+            <th>이름</th>
+            <td><input type="text" name="writer" maxlength="7" /></td>
+          </tr>
+          <tr>
+            <th>제목</th>
+            <td><input size="65%" type="text" name="subject" maxlength="20" /></td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td><input size="65%" type="email" name="email" maxlength="30" /></td>
+          </tr>
+          <tr>
+            <th>내용</th>
+            <td><textarea name="content" cols="67" rows="8" maxlength="1000"></textarea></td>
+          </tr>
+          <tr>
+            <th>사진</th>
+            <td>
+              <input type="file" name="pic" />
+            </td>
+          </tr>
+          <tr>
+            <th>비밀번호</th>
+            <td><input type="password" name="pwd" maxlength="4" /></td>
+          </tr>
+        </table>
+        <div style="margin-top: 7px">
+          <input type="button" value="저장" onclick="checkRegForm()" />
+          <input type="reset" value="초기화" />
+          <a href="boardList.html"><input type="button" value="전체 글 보기" /></a>
+          <a href="loginForm.html"><input type="button" value="로그아웃" /></a>
+        </div>
+      </form>
+    </center>
+  </body>
+  <style>
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</html>

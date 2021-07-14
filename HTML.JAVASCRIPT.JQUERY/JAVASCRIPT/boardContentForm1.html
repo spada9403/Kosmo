@@ -6,7 +6,7 @@
   </head>
   <body>
     <center>
-      <table width="100%">
+      <table>
         [글내용]
         <tr>
           <td>
@@ -27,9 +27,13 @@
                 <th>이메일</th>
                 <td colspan="3">a@naver.com</td>
               </tr>
-              <tr height="100px">
+              <tr>
                 <th>내용</th>
                 <td colspan="3">어쩌구 저쩌구</td>
+              </tr>
+              <tr>
+                <th bgcolor="lightgray">이미지</th>
+                <td colspan="3"><img src="img/merona.jpg" /></td>
               </tr>
             </table>
           </td>
@@ -37,7 +41,7 @@
       </table>
       <div>
         <a href="boardUpDelForm1.html"><input type="button" value="수정/삭제" /></a>
-        <input type="button" value="답글쓰기" />
+        <input type="button" value="답글쓰기" onclick="location.replace('boardReplyRegForm.html')" />
         <a href="boardList.html"><input type="button" value="전체 글 보기" /></a>
       </div>
     </center>

@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title></title>
-    <script src="loginForm.js"></script>
+    <script src="common_func.js"></script>
     <script>
       function checkMemRegForm() {
-        var id = document.memberRegForm.uid.value;
-        var pwd = document.memberRegForm.pwd.value;
-        var mem_name = document.memberRegForm.mem_name.value;
+        var formObj = document.memberRegForm;
+        var id = formObj.uid.value;
+        var pwd = formObj.pwd.value;
+        var mem_name = formObj.mem_name.value;
+        var addr = formObj.addr.value;
 
         if (checkNameReg(mem_name)) {
           alert("회원명에는 한글 2~20자 입력가능.");
@@ -27,8 +29,28 @@
           document.memberRegForm.pwd.value = "";
           return;
         }
-        alert("회원가입 성공");
-        location.replace("loginForm.html");
+        if (isEmpty(addr)) {
+          alert("주소를 선택해주세용.");
+          addr = "";
+          return;
+        }
+        if (getCheckedCnt(formObj.gender) == 0) {
+          alert("성별을 선택해주세요.");
+          return;
+        }
+        if (getCheckedCnt(formObj.hobby) < 1) {
+          alert("취미는 1개 이상 선택해야합니다.");
+          return;
+        }
+        if (getCheckedCnt(formObj.confirm) == 0) {
+          alert("동의는 필수 체크입니다.");
+          return;
+        }
+        if (confirm("정말 가입하시겠습니까?")) {
+          location.replace("loginForm.html");
+        } else {
+          history.go(-1);
+        }
       }
     </script>
   </head>
@@ -50,6 +72,33 @@
           <tr>
             <th bgcolor="lightgray">암호</th>
             <td><input type="password" name="pwd" /></td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">거주지</th>
+            <td>
+              <select name="addr">
+                <option value="">--선택요망--</option>
+                <option value="서울">서울</option>
+                <option value="경기">경기</option>
+                <option value="인천">인천</option>
+                <option value="기타">기타</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">성별</th>
+            <td><input type="radio" name="gender" value="남" />남 <input type="radio" name="gender" value="여" />여</td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">취미</th>
+            <td>
+              <input type="checkbox" name="hobby" value="운동" />운동 <input type="checkbox" name="hobby" value="여행" />여행 <input type="checkbox" name="hobby" value="독서" />독서
+              <input type="checkbox" name="hobby" value="영화감상" />영화감상<input type="checkbox" name="hobby" value="기타" />기타
+            </td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">기타</th>
+            <td><input type="checkbox" name="confirm" value="동의" />동의(가입하신 개인정보는 보관이 됩니다.)</td>
           </tr>
         </table>
         <br />

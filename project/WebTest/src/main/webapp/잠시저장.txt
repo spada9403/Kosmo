@@ -26,3 +26,8 @@ else {
           </table>
           <%
           }
+
+
+          
+             //<button style="border:0;outline:0; background-color:transparent;" name="viewPage" value="<%=i%>" >[<%=i%>]</button>
+             //<button style="border:0;outline:0; background-color:transparent;" name="viewPage" value="<%=i%>" ><%=i%></button>

@@ -183,3 +183,4 @@ SELECT COUNT(emp_no) FROM customer;
 단, 모든 직원 다 나오고, 직급 높은 사람이 먼저 나오고 직급이 같으면 나이가 많은 사람이 나와야함.
 
 
+select * from employee where MGR_EMP_NO = 3
