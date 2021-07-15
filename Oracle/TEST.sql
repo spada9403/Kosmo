@@ -25,11 +25,17 @@ SELECT substr(birthDay, 3,5) FROM USERLIST
 
 CREATE TABLE BOARDLIST(
 	boardId			NUMBER(4),
-	boardTitle		VARCHAR2(20)	NOT NULL,
+	boardTitle		VARCHAR2(50)	NOT NULL,
 	boardWriter		VARCHAR2(20)	NOT NULL,
 	boardCreateDate		DATE	DEFAULT sysdate,
-	boardViewCount		number(4),
-	boardLike				NUMBER(3),
+	boardViewCount		number(4)	DEFAULT 0,
+	boardLike				NUMBER(3) DEFAULT 0,
 	boardSubject		VARCHAR2(3000),
 	PRIMARY KEY(boardId)
 )
+
+DROP TABLE BOARDLIST
+
+SELECT * FROM  BOARDLIST
+
+insert into BOARDLIST(boardId,boardTitle,boardWriter,boardSubject) VALUES (1,'Title1','오세황','subject1'); commit;

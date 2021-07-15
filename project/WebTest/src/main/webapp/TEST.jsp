@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
+    <title>Login</title>
     <script>
       function check() {
         if (document.loginForm.userName.value.split(" ").join("") == "") {

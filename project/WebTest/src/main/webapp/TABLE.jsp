@@ -5,12 +5,17 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
+    <title>Home</title>
+    <script>
+      function createNewBoard() {
+        document.sendWriteBoardForm.submit();
+      }
+    </script>
   </head>
   <body>
         <%request.setCharacterEncoding("utf-8"); 
-        String userName = request.getParameter("userName");
-        String pwd = request.getParameter("pwd");
+        String userName = request.getParameter("userName") == null ? (String)request.getSession().getAttribute("userName"): request.getParameter("userName");
+        String pwd = request.getParameter("pwd") == null ? (String)request.getSession().getAttribute("pwd"): request.getParameter("pwd");
         Connection conn=null; 
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -28,11 +33,11 @@
         if(rs.next()){
           %>
           <div>
-          <button onClick="location.replace('writeBoard.jsp')">새 글쓰기</button>
+          <button onClick="createNewBoard()">새 글쓰기</button>
           <table border="1" style="border-collapse:collapse" cellpadding="5">
             <tr>
-                <th>제목</th>
                 <th>글쓴이</th>
+                <th>제목</th>
                 <th>조회수</th>
                 <th>좋아요</th>
                 <th>게시날짜</th>
@@ -47,8 +52,8 @@
               String date = sdf.format(d);
                 %>
                   <tr>
-                      <th><%=rs.getString("boardTitle")%></th>
                       <th><%=rs.getString("boardWriter")%></th>
+                      <th><%=rs.getString("boardTitle")%></th>
                       <th><%=rs.getInt("boardViewCount")%></th>
                       <th><%=rs.getInt("boardLike")%></th>
                       <th><%=date%></th>
@@ -65,6 +70,10 @@
           response.sendRedirect("TEST.jsp");
         }
       %>
+      <form method="post" action="writeBoard.jsp" name="sendWriteBoardForm">
+        <input type="hidden" name="userName" value="<%=userName%>" />
+        <input type="hidden" name="pwd" value="<%=pwd%>" />
+      </form>
   </body>
 </html>
 <%
