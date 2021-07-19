@@ -63,3 +63,9 @@ function getTodayWeek() {
   }
   return week;
 }
+//아래와 같이 줄일수 있따.
+/*
+  function getTodayWeek() {
+    return["일요일","월요일","화요일","수요일","목요일","금요일","토요일"][new Date().getDay()];
+  }
+*/

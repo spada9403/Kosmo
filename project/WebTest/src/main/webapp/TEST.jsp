@@ -18,7 +18,7 @@
   </head>
   <body>
     <center>
-      <form name="loginForm" action="TABLE.jsp" method="POST">
+      <form name="loginForm" action="TEST2.jsp" method="POST">
         <table border="1" style="border-collapse: collapse">
           <tr>
             <th>아이디</th>
