@@ -4,13 +4,74 @@
     <meta charset="UTF-8" />
     <title>boardList</title>
     <script src="./common_func.js"></script>
+    <script src="./common_data.js"></script>
     <script>
-      function getMessage() {
-        alert(getTodayWeek());
+      function openWeekMesage() {
+        var week = getTodayWeek();
+        var msg = weekMsg[week];
+        //alert(msg);
+      }
+      function getScheduleMsg() {
+        var totMsg = "";
+        for (var i = 0; i < scheduleMsg.length; i++) {
+          if (isToday(scheduleMsg[i][0])) {
+            totMsg += scheduleMsg[i][1];
+          }
+        }
+        return `
+              <tr>
+                <th>일정 메세지</th>
+                <td>
+                ${totMsg}
+                </td>
+              </tr>
+            `;
+      }
+      function get_goldenSaying() {
+        var cnt = goldenSaying.length;
+        var random_index = Math.floor(Math.random() * cnt);
+        return `
+        <tr>
+          <th>오늘의 명언</th>
+          <td>${goldenSaying[random_index]}</td>
+        </tr>
+        `;
+      }
+      function getDDayMsg() {
+        var arr = [];
+        for (var i = 0; i < ddayMsg.length; i++) {
+          var date = ddayMsg[i][0].replace(" ", "");
+          var msg = ddayMsg[i][1];
+          var dday = getDDay(date);
+          if (dday >= 0 && dday <= 10) {
+            arr.push(`${date} 까지 ${msg} 는 ${dday}일 남았습니다!`);
+          }
+        }
+        if (arr.length > 0) {
+          return `
+              <tr>
+              <th>D-DAY</th>  
+              <td>${arr.join(" ")}</td>
+              </tr>
+            `;
+        } else {
+          return "";
+        }
+      }
+      function getDDay(dDay) {
+        var dDayArr = dDay.split("-");
+        var dDayYear = dDayArr[0];
+        var dDayMonth = dDayArr[1];
+        var dDayDate = dDayArr[2];
+        //dDayYear, dDayMonth, dDayDate
+        var xDay = new Date(`${dDayYear}-${dDayMonth}-${dDayDate}`);
+        var toDay = new Date();
+        var date = Math.ceil((xDay.getTime() - toDay.getTime()) / (3600 * 24 * 1000));
+        return date;
       }
     </script>
   </head>
-  <body onload="getMessage()">
+  <body onload="openWeekMesage()">
     <center>
       <div class="div2">
         <span>[게시판]</span>
@@ -81,16 +142,27 @@
         <input type="button" value="검색" />
         <input type="button" value="모두 검색" />
       </div>
+      <script>
+        document.write("<br>");
+        document.write("<br>");
+        document.write("<br>");
+        document.write('<table border="1" style="border-collapse:collapse" cellpadding="5" >');
+        document.write(getTodayYYMMDD());
+        document.write(getScheduleMsg());
+        document.write(get_goldenSaying());
+        document.write(getDDayMsg());
+        document.write("</table>");
+      </script>
     </center>
   </body>
   <style>
-    center > table > tbody > tr:nth-child(even) {
+    center > table:first-of-type > tbody > tr:nth-child(even) {
       background-color: #f2f2f2;
     }
     div {
       padding: 5px;
     }
-    tr {
+    center > table:first-of-type > tbody > tr {
       cursor: pointer;
     }
     .div2 {
@@ -101,6 +173,9 @@
     }
     .div2 > span:first-child {
       margin-right: 80px;
+    }
+    th {
+      background-color: lightgray;
     }
   </style>
 </html>

@@ -63,9 +63,36 @@ function getTodayWeek() {
   }
   return week;
 }
-//아래와 같이 줄일수 있따.
+// 위의 코딩은 아래와 같이 줄일수 있따.
 /*
   function getTodayWeek() {
     return["일요일","월요일","화요일","수요일","목요일","금요일","토요일"][new Date().getDay()];
   }
 */
+function checkTen(num) {
+  if (num < 10) {
+    return `0${num}`;
+  }
+  return num;
+}
+function getTodayYYMMDD() {
+  var day = new Date();
+  var year = day.getFullYear();
+  var month = checkTen(day.getMonth() + 1);
+  var date = checkTen(day.getDate());
+  var dday = getTodayWeek();
+
+  return `<tr><th>오늘 날짜</th><td>${year}-${month}-${date}(${dday})</td><tr>`;
+}
+function isToday(str) {
+  try {
+    var strArr = str.split("-");
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var date = today.getDate();
+    return year == parseInt(strArr[0].trim()) && month == parseInt(strArr[1].trim()) && date == parseInt(strArr[2].trim());
+  } catch (e) {
+    return false;
+  }
+}

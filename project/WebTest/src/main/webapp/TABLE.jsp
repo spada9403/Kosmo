@@ -56,7 +56,6 @@
                       <th><%=rs.getString("boardTitle")%></th>
                       <th><%=rs.getInt("boardViewCount")%></th>
                       <th><%=rs.getInt("boardLike")%></th>
-                      <th><%=date%></th>
                   </tr>
                 <%
               }
