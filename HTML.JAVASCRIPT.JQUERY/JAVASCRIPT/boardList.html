@@ -61,12 +61,16 @@
       function getDDay(dDay) {
         var dDayArr = dDay.split("-");
         var dDayYear = dDayArr[0];
+        dDayYear = parseInt(dDayYear, 10);
         var dDayMonth = dDayArr[1];
+        dDayMonth = parseInt(dDayMonth, 10);
         var dDayDate = dDayArr[2];
-        //dDayYear, dDayMonth, dDayDate
-        var xDay = new Date(`${dDayYear}-${dDayMonth}-${dDayDate}`);
+        dDayDate = parseInt(dDayDate, 10);
+        //`${dDayYear}-${dDayMonth}-${dDayDate}`
+        var xDay = new Date(dDayYear, dDayMonth - 1, dDayDate);
         var toDay = new Date();
         var date = Math.ceil((xDay.getTime() - toDay.getTime()) / (3600 * 24 * 1000));
+        console.log(date);
         return date;
       }
     </script>

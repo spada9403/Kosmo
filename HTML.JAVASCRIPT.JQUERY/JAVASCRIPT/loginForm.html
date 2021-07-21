@@ -22,10 +22,19 @@
           document.loginForm.pwd.value = "";
         }
       }
+      function init() {
+        var obj = {
+          name: "오세황",
+          age: "24",
+        };
+        obj = JSON.stringify(obj);
+        obj = JSON.parse(obj);
+        console.log(obj["name"]);
+      }
     </script>
   </head>
 
-  <body>
+  <body onload="init()">
     <center>
       <br /><br /><br />
 

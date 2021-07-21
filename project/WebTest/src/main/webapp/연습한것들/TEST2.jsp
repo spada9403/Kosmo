@@ -56,7 +56,7 @@
               jsonMap.put("hire_date",rs.getString("hire_date"));
               jsonMap.put("salary",rs.getInt("salary"));
               jsonMap.put("jumin_num",rs.getString("jumin_num"));
-              jsonMap.put("phone",rs.getString("phone"));
+              jsonMap.put("phone_num",rs.getString("phone_num"));
               jsonMap.put("mgr_emp_no",rs.getInt("mgr_emp_no"));
               arr.add(jsonMap);
               }while(rs.next());
