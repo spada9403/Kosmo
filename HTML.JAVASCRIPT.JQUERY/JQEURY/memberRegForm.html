@@ -20,10 +20,11 @@
         var mem_id = $(".mem_id").val();
         var pwd = $(".pwd").val();
         var addr = $(".addr").val();
-        //var gender = $(".gender:checked").length;
-        var gender = $(".gender").filter(":checked").length; //<=  이게 훨씬 낫다. 프로그래밍을 유연하게 할수있기때문.
-        var hobby = $(".hobby:checked").length;
-        var confirm = $(".confirm").is(":checked");
+        //var checkedGenderCnt = $(".gender:checked").length;
+        var checkedGenderCnt = $(".gender").filter(":checked").length; //<=  이게 훨씬 낫다. 프로그래밍을 유연하게 할수있기때문.
+        //var checkedHobbyCnt = $(".hobby:checked").length;
+        var checkedHobbyCnt = $(".hobby").filter(":checked").length;
+        var confirm = $(".confirm").filter(":checked").length;
 
         if (isHangeulName(mem_name) == false) {
           alert("회원명은 한글 2~20자 사이입니다.");
@@ -48,17 +49,21 @@
           $(".addr").focus();
           return;
         }
-        if (gender == 0) {
+        if (gender < 0) {
           alert("성별을 선택해 주세요.");
           return;
         }
-        if (hobby == 0) {
+        if (hobby < 0) {
           alert("취미를 선택해주세요.");
           return;
         }
         if (!confirm) {
-          alert("동의는 필수~ 거절은 거절~");
+          alert("동의는 필수!");
           return;
+        }
+        if (confirm("정말 가입하시겠습니까?")) {
+          alert("회원가입 성공");
+          location.replace("loginForm.html");
         }
       }
     </script>
