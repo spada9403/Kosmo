@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script src="common_func.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".save_btn").click(function () {
+          checkMemRegForm();
+        });
+
+        $(".to_loginForm_btn").click(function () {
+          location.replace("loginForm.html");
+        });
+      });
+      function checkMemRegForm() {
+        var mem_name = $(".mem_name").val();
+        var mem_id = $(".mem_id").val();
+        var pwd = $(".pwd").val();
+        var addr = $(".addr").val();
+        //var gender = $(".gender:checked").length;
+        var gender = $(".gender").filter(":checked").length; //<=  이게 훨씬 낫다. 프로그래밍을 유연하게 할수있기때문.
+        var hobby = $(".hobby:checked").length;
+        var confirm = $(".confirm").is(":checked");
+
+        if (isHangeulName(mem_name) == false) {
+          alert("회원명은 한글 2~20자 사이입니다.");
+          $(".mem_name").val("");
+          $(".mem_id").focus();
+          return;
+        }
+        if (isMem_id(mem_id) == false) {
+          alert("회원 아이디는 첫글자는 영소문, 나머지는 영소문 또는 숫자 또는 _ 사용, 5~10글자 이어야합니다.");
+          $(".mem_id").val("");
+          $(".mem_id").focus();
+          return;
+        }
+        if (isPassword(pwd) == false) {
+          alert("비밀번호는 4자리 숫자입니다.");
+          $(".pwd").val("");
+          $(".pwd").focus();
+          return;
+        }
+        if (isEmpty(addr)) {
+          alert("거주지 선택 요오오오오망.");
+          $(".addr").focus();
+          return;
+        }
+        if (gender == 0) {
+          alert("성별을 선택해 주세요.");
+          return;
+        }
+        if (hobby == 0) {
+          alert("취미를 선택해주세요.");
+          return;
+        }
+        if (!confirm) {
+          alert("동의는 필수~ 거절은 거절~");
+          return;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <center>
+      <form name="memberRegForm">
+        <table border="1" cellpadding="5" style="border-collapse: collapse">
+          <caption>
+            회원가입
+          </caption>
+          <tr>
+            <th bgcolor="lightgray">회원명</th>
+            <td><input type="text" name="mem_name" class="mem_name" /></td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">아이디</th>
+            <td><input type="text" name="mem_id" class="mem_id" /></td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">암호</th>
+            <td><input type="password" name="pwd" class="pwd" /></td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">거주지</th>
+            <td>
+              <select name="addr" class="addr">
+                <option value="">--선택요망--</option>
+                <option value="서울">서울</option>
+                <option value="경기">경기</option>
+                <option value="인천">인천</option>
+                <option value="기타">기타</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">성별</th>
+            <td><input type="radio" name="gender" class="gender" value="남" />남 <input type="radio" name="gender" class="gender" value="여" />여</td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">취미</th>
+            <td>
+              <input type="checkbox" name="hobby" class="hobby" value="운동" />운동 <input type="checkbox" name="hobby" class="hobby" value="여행" />여행
+              <input type="checkbox" name="hobby" class="hobby" value="독서" />독서 <input type="checkbox" name="hobby" class="hobby" value="영화감상" />영화감상<input
+                type="checkbox"
+                name="hobby"
+                class="hobby"
+                value="기타"
+              />기타
+            </td>
+          </tr>
+          <tr>
+            <th bgcolor="lightgray">기타</th>
+            <td><input type="checkbox" name="confirm" class="confirm" value="동의" />동의(가입하신 개인정보는 보관이 됩니다.)</td>
+          </tr>
+        </table>
+        <br />
+        <input type="button" value="저장" class="save_btn" />
+        <input type="reset" value="초기화" /><br /><br />
+        <input type="button" value="로그인 화면으로" class="to_loginForm_btn" />
+      </form>
+    </center>
+  </body>
+</html>

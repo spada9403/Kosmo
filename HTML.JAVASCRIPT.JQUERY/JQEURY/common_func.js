@@ -96,3 +96,12 @@ function isToday(str) {
     return false;
   }
 }
+function isHangeulName(hangeulName) {
+  return isValidPattern(/^[가-힣]{2,20}$/, hangeulName);
+}
+function isMem_id(mem_id) {
+  return isValidPattern(/^[a-zA-Z][a-zA-Z0-9_]{4,9}$/, mem_id);
+}
+function isPassword(pwd) {
+  return isValidPattern(/[0-9]{4}/, pwd);
+}

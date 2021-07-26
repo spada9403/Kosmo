@@ -17,18 +17,37 @@
       function checkForm() {
         var uid = $(".uid").val();
         var pwd = $(".pwd").val();
-        alert(`${uid} / ${pwd}`);
+        if (isEmpty(uid)) {
+          alert("아이디 입력 바람.");
+          return;
+        }
+        if (isEmpty(pwd)) {
+          alert("비밀번호 입력 바람.");
+          return;
+        }
+        if (uid == "abc" && pwd == "123") {
+          if (confirm("로그인할까요?")) {
+            $("[name = 'loginForm']").submit();
+          }
+        } else {
+          alert("아이디 또는 암호가 틀렸음! 재입력 바람!");
+          $(".uid").val("");
+          $(".pwd").val("");
+        }
       }
-      function start() {
-        var obj = $(".login_btn");
-        obj.click(function () {
+      $(document).ready(function () {
+        $(".login_btn").click(function () {
           checkForm();
         });
-      }
+
+        $(".regMember_btn").click(function () {
+          location.replace("memberRegForm.html");
+        });
+      });
     </script>
   </head>
 
-  <body onload="start()">
+  <body>
     <center>
       <br /><br /><br />
 
