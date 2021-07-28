@@ -1,0 +1,65 @@
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_02.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=><table>태그로 표현 되는 행의 배경 색상을 jQuery를 사용하여 지배한다.
+	=>jQuery의 addClass(~), removeClass(~), hover(~) 메소드 사용법을 숙지하자.
+-->
+<html>
+<meta charset="UTF-8">
+	<style>
+		 /*-----------------------------------------------*/
+		 /* class="style1" 이 삽입된 태그에 배경색과 글자색상을 지정*/
+		 /*-----------------------------------------------*/
+		.style1 { background-color: #CFCFE7; color: #000000;  }
+	</style>
+<head>
+	<!-- Jquery 라이브러리 수입. -->
+	<script src="jquery-3.6.0.min.js"></script>
+	<script>
+		//-------------------------------------------
+		//$(document).ready(   function(){자스코딩}  );
+		//-------------------------------------------
+		// body 태그 안의 요소들을 읽어들인 후 익명함수 내부의 자스코딩을 실행.
+		$(document).ready(function() { 
+			var tableObj = $("#staff");
+		//	tableObj.find("thead tr").attr("bgcolor","gray");
+			tableObj.find("thead tr").attr({
+				bgcolor:"gray",
+			});
+			// tableObj.find("tbody tr:odd").attr("bgcolor","lightgray");
+			// tableObj.find("tbody tr:even").mouseover(function () {
+			// 	$(this).attr("bgcolor","lightgray");
+			// })
+			// tableObj.find("tbody tr:even").mouseout(function () {
+			// 	$(this).removeAttr("bgcolor");
+			// })
+				tableObj.find("tbody tr:odd").attr("bgcolor","lightgray");
+				tableObj.find("tbody tr").hover(function () {
+				$(this).attr("bgcolor","pink");
+			}, function () {
+				tableObj.find("tbody tr:even").mouseout(function () {
+			 	$(this).removeAttr("bgcolor")});
+			 	tableObj.find("tbody tr:odd").mouseout(function () {
+			 	$(this).attr("bgcolor","lightgray");})
+				 });
+				})
+	</script>
+</head>
+
+<body><center>
+	<table id="staff" border=1 cellpadding=5 cellspacing=0>
+		<thead>
+			<tr><th>이름<th>혈액형<th>지역
+		</thead>
+		<tbody>
+			<tr><td>강민수<td>AB형<td>서울특별시 송파구
+			<tr><td>구지연<td>B형<td>미국 캘리포니아
+			<tr><td>김미화<td>AB형<td>미국 메사추세츠
+			<tr><td>김선화<td>O형<td>서울 강서구
+			<tr><td>남기주<td>A형<td>서울 노량진구
+			<tr><td>윤하린<td>B형<td>서울 용산구
+		</tbody>
+	</table>
+</body>
+</html>
