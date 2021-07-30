@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+      //   $(document).ready(function () {
+      //     var dogTable = $(".dogList");
+
+      //     dogTable.find("tr").each(function (i) {
+      //       if (i == 0) {
+      //         $(this).prepend("<th bgcolor=gray>번호</th>");
+      //       } else {
+      //         $(this).prepend("<td>" + i + "</td>");
+      //       }
+      //     });
+      //   });
+
+      $(document).ready(function () {
+        var dogTable = $(".dogList");
+        var listCnt = dogTable.find("tr").length;
+
+        dogTable.find("tr").each(function (i) {
+          if (i == 0) {
+            $(this).prepend("<th bgcolor=gray>번호</th>");
+          } else {
+            $(this).prepend("<td>" + (listCnt - i) + "</td>");
+          }
+        });
+      });
+
+      // $(document).ready(function () {
+      //   var dogTable = $(".dogList");
+      //   var listCtn = dogTable.find("tr").length;
+      //   for (var i = 0; i < listCtn; i++) {
+      //     if (i == 0) {
+      //       dogTable.find("tr").eq(i).prepend("<th bgcolor=gray>번호</th>");
+      //     } else {
+      //       dogTable
+      //         .find("tr")
+      //         .eq(i)
+      //         .prepend("<td>" + i + "</td>");
+      //     }
+      //   }
+      // });
+
+      // $(document).ready(function () {
+      //   var dogTable = $(".dogList");
+      //   var listCtn = dogTable.find("tr").length;
+      //   for (var i = listCtn; i > 0; i--) {
+      //     if (i == listCtn) {
+      //       dogTable
+      //         .find("tr")
+      //         .eq(listCtn - i)
+      //         .prepend("<th bgcolor=gray>번호</th>");
+      //     } else {
+      //       dogTable
+      //         .find("tr")
+      //         .eq(listCtn - i)
+      //         .prepend("<td>" + i + "</td>");
+      //     }
+      //   }
+      // });
+    </script>
+  </head>
+
+  <body>
+    <center>
+      <table class="dogList" border="1" cellpadding="4" style="border-collapse: collapse">
+        <tr>
+          <th bgcolor="gray">개이름</th>
+        </tr>
+        <tr>
+          <td>진도개</td>
+        </tr>
+        <tr>
+          <td>셰퍼드</td>
+        </tr>
+        <tr>
+          <td>비글</td>
+        </tr>
+        <tr>
+          <td>삽살개</td>
+        </tr>
+        <tr>
+          <td>풍산개</td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>

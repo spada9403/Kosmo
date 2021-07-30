@@ -1,0 +1,51 @@
+
+<html>
+<meta charset="UTF-8">
+<head>
+	<script src="jquery-3.6.0.min.js"></script>
+	<script>
+		//**********************************************
+		//$(document).ready(   function(){자스코딩}  );
+		//**********************************************
+			// body 태그 안의 요소들을 읽어들인 후 익명함수 내부의 자스코딩을 실행.
+		$(document).ready(function(){
+			var allCheck = $("[name=hobby_all]");
+			var checkBox = $("[name=hobby]");
+			allCheck.change(function () {
+				var flag = allCheck.prop("checked")
+				if(flag){
+					checkBox.prop("checked",true);
+				} else {
+					checkBox.prop("checked",false);
+				}
+				//allCheck.prop("checked", $(this).prop("checked"));
+			})
+			checkBox.change(function(){
+				var flag = $(this).prop("checked");
+				if(flag){
+					if(checkBox.filter(":checked").length == 4){
+						allCheck.prop("checked",true);
+					}
+				} else {
+						allCheck.prop("checked",false);
+				}
+			})
+			// checkBox.change(function(){
+			// 	allCheck.prop("checked", checkBox.filter(":checked").length==checkBox.length);
+			// })
+		});
+	</script>
+</head>
+<body><center>
+	<hr>
+	<input type="checkbox" name="hobby_all" >전체
+	<hr>
+	<input type="checkbox" name="hobby" value="독서">독서<br>
+	<input type="checkbox" name="hobby" value="운동">운동<br>
+	<input type="checkbox" name="hobby" value="여행">여행<br>
+	<input type="checkbox" name="hobby" value="수집">수집
+</body>
+
+</html>
+
+

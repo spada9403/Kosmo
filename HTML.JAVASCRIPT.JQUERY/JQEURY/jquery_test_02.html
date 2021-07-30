@@ -1,0 +1,110 @@
+<!--
+//-----------------------------------
+jquery_04.html
+//-----------------------------------
+	=>특정 행을 보이거나 사라지게한다.
+-->
+<html>
+  <head>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+      //-------------------------------------------
+      // $(document).ready(   function(){자스코딩}  );
+      // $.ready(   function(){자스코딩}  );
+      // $(   function(){자스코딩}  );
+      //-------------------------------------------
+      // body 태그 안의 요소들을 읽어들인 후 익명함수 내부의 자스코딩을 실행.
+      $(document).ready(function () {
+        var obj = $("#movieList");
+
+        obj.find("tr:odd").hide();
+
+        // obj.find("tr:even").click(function () {
+        //   if ($(this).next().attr("style") === "display: none;") {
+        //     $(this).next().show();
+        //   } else {
+        //     $(this).next().hide();
+        //   }
+        // });
+
+        // var showMovie = -1;
+        // obj.find("tr:even").hover(
+        //   function () {
+        //     if (showMovie != -1) {
+        //       showMovie.next().hide();
+        //     }
+        //     showMovie = $(this);
+        //     $(this).next().show();
+        //   },
+        //   function () {}
+        // );
+
+        // obj.find("tr:even").hover(
+        //   function () {
+        //     obj.find("tr:odd").hide();
+        //     $(this).next().show();
+        //   },
+        //   function () {}
+        // );
+
+        // obj.find("tr:even").hover(
+        //   function () {
+        //     $(this).parent().find("tr:even").next().hide();
+        //     $(this).next().show();
+        //   },
+        //   function () {}
+        // );
+
+        // obj.find("tr:even").hover(
+        //   function () {
+        //     $(this).next().show();
+        //     obj.find("tr:even").not(this).next().hide();
+        //   },
+        //   function () {}
+        // );
+
+        obj.find("tr:even").hover(
+          function () {
+            obj.find("tr:odd").hide();
+            $(this).next().show();
+          },
+          function () {}
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <table id="movieList" class="move" border="0" cellspacing="0" width="200" cellpadding="5">
+      <tr bgcolor="#0078C8">
+        <td><b>Action</b></td>
+      </tr>
+      <tr bgcolor="#DBF1FF">
+        <td>
+          &nbsp;&nbsp;&nbsp;Die Hard<br />
+          &nbsp;&nbsp;&nbsp;Matrix<br />
+          &nbsp;&nbsp;&nbsp;Iron Man
+        </td>
+      </tr>
+      <tr bgcolor="#FF8000">
+        <td><b>SF</b></td>
+      </tr>
+      <tr bgcolor="#FFF0E1">
+        <td>
+          &nbsp;&nbsp;&nbsp;Star Track<br />
+          &nbsp;&nbsp;&nbsp;Interstella<br />
+          &nbsp;&nbsp;&nbsp;Star Wars
+        </td>
+      </tr>
+      <tr bgcolor="#408080">
+        <td><b>Thriller</b></td>
+      </tr>
+      <tr bgcolor="#E2F1F1">
+        <td>
+          &nbsp;&nbsp;&nbsp;Six Sense<br />
+          &nbsp;&nbsp;&nbsp;Misty<br />
+          &nbsp;&nbsp;&nbsp;Visitor
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
