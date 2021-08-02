@@ -1,0 +1,186 @@
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_09_searching.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>[검색 키워드]를 입력하고 [검색] 버튼 클릭하면 [검색 결과]만 화면에 보여준다.
+-->
+<html>
+  <meta charset="UTF-8" />
+  <head>
+    <style>
+      .style1 {
+        background-color: #00f;
+        color: #fff;
+      }
+    </style>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="common_func.js"></script>
+    <script>
+      $(document).ready(function () {
+        //변수들
+        var tableObj = $(".sungjuk");
+        var bodyTrObj = tableObj.find("tbody tr");
+        var allSearch = $(".allSearch");
+        var search = $(".search");
+        var count = $(".count");
+
+        tableObj.find("thead tr").css("background-color", "lightblue");
+        listBgPaint(bodyTrObj);
+
+        search.click(function () {
+          var key = $.trim($(".keyword1").val()).toLowerCase();
+          var listLength = 0;
+
+          if (key.split(" ").join("") == "") {
+            alert("검색어가 없습니다.");
+            $(".keyword1").val("");
+            $(".keyword1").focus();
+          }
+
+          bodyTrObj.hide();
+          bodyTrObj.each(function (i) {
+            var tdObj = $(this).find("td");
+            tdObj.each(function (i) {
+              var text = $(this).text().toLowerCase();
+              if (text.indexOf(key) >= 0) {
+                $(this).parent().show();
+                listLength++;
+                return false;
+              }
+            });
+          });
+
+          listBgPaint(bodyTrObj);
+
+          if (listLength == 0) {
+            alert("검색조건에 맞는 데이터가 없습니다!");
+            bodyTrObj.show();
+            listBgPaint(bodyTrObj);
+          } else {
+            count.text(`총 검색결과 : ${listLength}`);
+          }
+        });
+
+        allSearch.click(function () {
+          bodyTrObj.show();
+          listBgPaint(bodyTrObj);
+          $(".keyword1").val("");
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <center>
+      <!-------------------------------------------------->
+      키워드 :
+      <input type="text" name="keyword1" class="keyword1" />
+      <input type="button" value="검색" class="search" />
+      <input type="button" value="모두검색" class="allSearch" /><br /><br />
+      <!-------------------------------------------------->
+      <div class="count"></div>
+      <table border="1" cellpadding="5" class="sungjuk" style="border-collapse: collapse">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>이름</th>
+            <th>평균</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>101</td>
+            <td>John</td>
+            <td>87</td>
+          </tr>
+          <tr>
+            <td>102</td>
+            <td>Naman</td>
+            <td>90</td>
+          </tr>
+          <tr>
+            <td>103</td>
+            <td>Chirag</td>
+            <td>85</td>
+          </tr>
+          <tr>
+            <td>104</td>
+            <td>David</td>
+            <td>92</td>
+          </tr>
+          <tr>
+            <td>105</td>
+            <td>Kelly</td>
+            <td>81</td>
+          </tr>
+          <tr>
+            <td>106</td>
+            <td>Charles</td>
+            <td>77</td>
+          </tr>
+          <tr>
+            <td>107</td>
+            <td>Jerry</td>
+            <td>91</td>
+          </tr>
+          <tr>
+            <td>108</td>
+            <td>Beth</td>
+            <td>87</td>
+          </tr>
+          <tr>
+            <td>109</td>
+            <td>Caroline</td>
+            <td>82</td>
+          </tr>
+          <tr>
+            <td>110</td>
+            <td>Hanen</td>
+            <td>71</td>
+          </tr>
+          <tr>
+            <td>111</td>
+            <td>Douglas</td>
+            <td>57</td>
+          </tr>
+          <tr>
+            <td>112</td>
+            <td>Tim</td>
+            <td>86</td>
+          </tr>
+          <tr>
+            <td>113</td>
+            <td>Michael</td>
+            <td>68</td>
+          </tr>
+          <tr>
+            <td>114</td>
+            <td>Kimbley</td>
+            <td>88</td>
+          </tr>
+          <tr>
+            <td>115</td>
+            <td>Christinax</td>
+            <td>72</td>
+          </tr>
+          <tr>
+            <td>116</td>
+            <td>유원영</td>
+            <td>100</td>
+          </tr>
+          <tr>
+            <td>117</td>
+            <td>강다니엘</td>
+            <td>20</td>
+          </tr>
+          <tr>
+            <td>118</td>
+            <td>박인선</td>
+            <td>20</td>
+          </tr>
+        </tbody>
+      </table>
+    </center>
+  </body>
+</html>

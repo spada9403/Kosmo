@@ -105,3 +105,21 @@ function isMem_id(mem_id) {
 function isPassword(pwd) {
   return isValidPattern(/[0-9]{4}/, pwd);
 }
+function listBgPaint(tagObj, color1 = "lightblue", color2 = "white") {
+  try {
+    var visibleObj = tagObj.filter(":visible");
+    var oddObj = visibleObj.filter(":odd");
+    var evenObj = visibleObj.not(oddObj);
+  } catch (error) {
+    var jqueryObj = $(tagObj);
+    var visibleObj = jqueryObj.filter(":visible");
+    var oddObj = visibleObj.filter(":odd");
+    var evenObj = visibleObj.not(oddObj);
+  } finally {
+    oddObj.css("background-color", color1);
+    evenObj.css("background-color", color2);
+  }
+}
+function isNumber(ch) {
+  return isValidPattern(/[0-9]/, ch);
+}

@@ -1,0 +1,99 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_09.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>중요 단어에 마우스를 대면 단어를 설명하는 [div 태그 영역]이 뜨고, 마우스를 빼면 사라진다.
+	=>div 태그의 속성값 사용법에 주의한다.
+ -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+      /**************************************************/
+      /* a 태그의 CSS 설정 */
+      /**************************************************/
+      a {
+        text-decoration: none; /* 언더바 넣치마 */
+        color: #cc0000; /* 글자색 지정 */
+        font-style: italic; /* 글자체 지정 */
+        font-weight: bold; /* 글자 두께 지정 */
+      }
+      /**************************************************/
+      /* class="tip" 이 들어 있는 태그의 CSS 설정 */
+      /**************************************************/
+      .tip {
+        background-color: #000000; /* 배경색 지정 */
+        color: white; /* 글자색 지정 */
+        position: absolute; /* 붕떠서 다른 컨텐츠 위로 올라갈수 있는 자격을 부여. x좌표, y 좌표에 배치 가능 */
+        padding: 10px 10px 10px 10px; /* 위,우,아래,좌 여백 지정 */
+        font-size: 12; /* 글자 크기 지정 */
+      }
+    </style>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var tipObj = $(".tip");
+        tipObj.hide();
+
+        $("a").hover(
+          function () {
+            var str = $.trim($(this).text());
+            var clientX = event.clientX + 15;
+            var clientY = event.clientY + 15;
+            $(`.${str}`).css({
+              top: clientY,
+              left: clientX,
+            });
+            $(`.${str}`).show();
+          },
+          function () {
+            var str = $.trim($(this).text());
+            setTimeout(function () {
+              $(`.${str}`).animate(
+                {
+                  width: "0",
+                  height: "0",
+                },
+                1000,
+                "linear",
+                function () {
+                  $(this).hide();
+                  $(this).animate(
+                    {
+                      width: "100%",
+                      height: "100%",
+                    },
+                    1000
+                  );
+                }
+              );
+            }, 3000);
+          }
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <!---------------------------------------------------------------->
+    <p>
+		<h4>1. Java</h4>
+		●가전 전자 제품에 들어가는 칩의 프로그램을 제어할 수 있는 언어인
+		<a href="#imsi"> OAK </a>를 발전시킨 언어이다.<br /><br />
+		●1995년에 [Sun Micro Systems]에 의해 소개되었다.<br /><br /><br /><br />
+	
+		<h4>2. Java 특징</h4>
+		●<a href="#imsi">Platform</a>과 무관하게 동일하게 실행되므로 Platform에 독립적 이다.
+	</p>
+    <!---------------------------------------------------------------->
+    <div class="tip OAK">
+      -1990년 초 마이크로시스템즈(Sun Microsystems) 엔지니어 그룹의 [제임스 고슬링] 팀에서 개발되었다.<br />
+      -다양한 가전제품에서 동일하게 실행되는 간단한 언어이다.
+    </div>
+    <!---------------------------------------------------------------->
+    <div class="tip Platform">
+      ▶Platform(플랫폼)<br />
+      -프로그램을 실행시킬 수 있는 하드웨어나 소프트웨어적 환경을 말한다.
+    </div>
+    <!---------------------------------------------------------------->
+  </body>
+</html>
