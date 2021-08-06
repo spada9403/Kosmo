@@ -1,0 +1,106 @@
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_12.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>tr 태그의 순서를 3초마다 바꾸어 본다.-->
+<html>
+  <meta charset="UTF-8" />
+  <head>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+      function upTr(idV) {
+        var tableObj = $(`#${idV}`);
+        var trObj = tableObj.find("tbody tr");
+        var firstTrObj = tableObj.find("tr").eq(0);
+        var lastTrObj = tableObj.find("tr").last();
+
+        // firstTrObj.clone() 을쓰는 이유. 첫번째 Tr을 마지막 Tr 밑에 넣어도
+        // 다음 코딩인 firstTrObj.remove() 로 인해 첫번째 Tr의 메위주를 가리키는 태그가 삭제된다.
+        // 즉, 첫번째 Tr과 마지막Tr 밑에 넣은 Tr이 같은 메위주를 가리키기 때문에 같이 삭제된다.
+        // 그래서 clone() 메소드로 같은 첫번째 TR태그지만 메위주가 다른 JQuery 객체를 생성해서 마지막 태그 밑에 넣는다
+        // clone()의 리턴값 : 현재 JQuery 객체가 관리하는 태그와 완전히 같은 값을 가지는 새로운 JQuery 메위주 리턴
+        lastTrObj.after(firstTrObj.clone());
+        firstTrObj.remove();
+
+        // 내가한거 2
+        // var tmp = trObj.eq(0);
+        // var trArray = [];
+        // trObj.not(tmp).each(function (i) {
+        //   trArray.push($(this));
+        // });
+        // trArray.push(tmp);
+        // tableObj.find("tbody").empty();
+        // trArray.forEach((e) => {
+        //   tableObj.find("tbody").append(e);
+        // });
+        //
+        //
+        //
+        // 내가한거 1
+        // var trArray = [];
+        // trObj.each(function (i) {
+        //   trArray.push($(this));
+        // });
+        // var tmp = trArray[0];
+        // for (var i = 0; i < trArray.length - 1; i++) {
+        //   trArray[i] = trArray[i + 1];
+        //   if (i + 1 == trArray.length) {
+        //     trArray[i + 1] = tmp;
+        //   }
+        // }
+        // trArray[trArray.length - 1] = tmp;
+        // tableObj.find("tbody").empty();
+        // trArray.forEach((e) => {
+        //   tableObj.find("tbody").append(e);
+        // });
+      }
+      function leftTd(idV) {
+        var tableObj = $(`#${idV}`);
+        var firstTdObj = tableObj.find("tr td").eq(0);
+        var lastTdObj = tableObj.find("tr td").last();
+        lastTdObj.after(firstTdObj.clone());
+        firstTdObj.remove();
+      }
+      $(document).ready(function () {
+        setInterval(function () {
+          upTr("character");
+          leftTd("movie");
+        }, 2000);
+      });
+    </script>
+  </head>
+
+  <body>
+    <center>
+      <table border="0" cellspacing="0" cellpadding="5" id="character" align="center">
+        <tr bgcolor="#FFFF00">
+          <td>보노보노</td>
+        </tr>
+
+        <tr bgcolor="#FFCC00">
+          <td>도라이몽</td>
+        </tr>
+
+        <tr bgcolor="#FF9900">
+          <td>짱구</td>
+        </tr>
+
+        <tr bgcolor="#FF6600">
+          <td>피카츄</td>
+        </tr>
+      </table>
+
+      <br /><br />
+
+      <table border="0" cellspacing="0" cellpadding="5" id="movie" align="center">
+        <tr bgcolor="#FFFF00">
+          <td bgcolor="#FFFF00">랑종</td>
+          <td bgcolor="#FFCC00">곡성</td>
+          <td bgcolor="#FF9900">엑소시스트</td>
+          <td bgcolor="#FF6600">여고괴담</td>
+        </tr>
+      </table>
+
+      <br /><br />
+    </center>
+  </body>
+</html>

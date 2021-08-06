@@ -1,0 +1,54 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_10.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>문자열이 사라지면서 다른 문자열이 보이는 예제
+	=>나타났다 사라지는 문자열의 개수는 div 태그 안의 목록들이다.
+-->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="jquery-3.6.0.min.js"></script>  
+	<script>
+
+		function changeText(classV, idx){
+			var obj = $(`.${classV}`).children();
+			obj.hide();
+
+			if(idx >= obj.length){
+				idx = 0;
+			}
+
+			obj.eq(idx).show();
+			obj.eq(idx).fadeOut(2000,function(){
+				changeText(classV,idx+1)
+			});
+
+			// setTimeout(function(){
+			// 	changeText(classV,idx+1)
+			// },2000)
+		}
+
+		$(document).ready(function() {
+			changeText("people", 0);
+		});
+	</script>  
+</head>
+
+
+
+
+
+<body><center>
+	<div class=people>
+		<div>얀센형제</div>
+		<div>저팔계</div>
+		<div>사오정</div>
+		<div>손오공</div>
+		<div>한승태</div>
+	</div>
+</body>
+
+</html>
+
+

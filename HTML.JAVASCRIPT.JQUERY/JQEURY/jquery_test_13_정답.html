@@ -1,0 +1,128 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_13.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script language="JavaScript">
+      $(document).ready(function () {
+        $("#skills")
+          .children("[name^=skill]")
+          .change(function () {
+            var selectObj = $(this);
+            var allSelect = selectObj.parent().children("[name^=skill]");
+            //var choiceVal = selectObj.val();
+            var values = [];
+
+            selectObj
+              .parent()
+              .children("[name^=skill]")
+              .each(function () {
+                var value = $(this).val();
+                if (value == null || value == "") {
+                  values.push("");
+                } else {
+                  values.push(value);
+                }
+              });
+            // selectObj.prevAll().each(function () {
+            //   var value = $(this).val();
+            //   if (value == null || value == "") {
+            //     values.push("");
+            //   } else {
+            //     values.push(value);
+            //   }
+            // });
+            // if (choiceVal == null || choiceVal == "") {
+            //   values.push("");
+            // } else {
+            //   values.push(choiceVal);
+            // }
+            // selectObj.nextAll().each(function () {
+            //   var value = $(this).val();
+            //   if (value == null || value == "") {
+            //     values.push("");
+            //   } else {
+            //     values.push(value);
+            //   }
+            // });
+
+            for (var i = 0; i < values.length - 1; i++) {
+              for (var j = i + 1; j < values.length; j++) {
+                if (values[i] == "" && values[j] != "") {
+                  //values[j] = "";
+                  allSelect.eq(i).nextAll().val("");
+                } else if (values[i] != "" && values[i] == values[j]) {
+                  //values[j] = "";
+                  allSelect
+                    .eq(j - 1)
+                    .nextAll()
+                    .val("");
+                }
+              }
+            }
+            for (var i = 0; i < allSelect.length - 1; i++) {
+              var nowVal = allSelect.eq(i).val();
+              var nextVal = allSelect.eq(i + 1).val();
+              allSelect.eq(i + 1).html(allSelect.eq(i).html());
+              if (nowVal != "") {
+                allSelect
+                  .eq(i + 1)
+                  .find("[value=" + nowVal + "]")
+                  .remove();
+                if (nextVal != "") {
+                  allSelect.eq(i + 1).val(nextVal);
+                }
+              } else {
+                allSelect.eq(i + 1).val("");
+              }
+            }
+
+            // var options;
+            // if (choiceVal != "") {
+            //   options = selectObj.children("option").not("[value=" + choiceVal + "]");
+            // } else {
+            //   options = selectObj.children("option");
+            // }
+            // selectObj.nextAll().empty();
+            // selectObj.nextAll().append(options.clone());
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <!---------------------------------------------------------------->
+    <span id="skills">
+      [소유스킬] :
+      <select name="skill1">
+        <option value=""></option>
+        <option value="JSP">JSP</option>
+        <option value="ASP">ASP</option>
+        <option value="PHP">PHP</option>
+        <option value="Oracle">Oracle</option>
+        <option value="Java">Java</option>
+      </select>
+
+      <select name="skill2">
+        <option value=""></option>
+        <option value="JSP">JSP</option>
+        <option value="ASP">ASP</option>
+        <option value="PHP">PHP</option>
+        <option value="Oracle">Oracle</option>
+        <option value="Java">Java</option>
+      </select>
+
+      <select name="skill3">
+        <option value=""></option>
+        <option value="JSP">JSP</option>
+        <option value="ASP">ASP</option>
+        <option value="PHP">PHP</option>
+        <option value="Oracle">Oracle</option>
+        <option value="Java">Java</option>
+      </select>
+    </span>
+  </body>
+</html>

@@ -1,0 +1,236 @@
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_15.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>학점 관련 [체크박스]를 체크하고 [검색] 버튼 클릭하면 체크한 학점에 맞는 [검색 결과]만 화면에 보여준다.
+-->
+<html><meta charset="UTF-8">
+<head>
+	<style>.style1 { background-color: #00f; color: #fff; } </style>
+	<script src="jquery-3.6.0.min.js"></script>
+	<script>
+		function listBgPaint(tagObj, color1 = "lightblue", color2 = "white") {
+		  try {
+			var visibleObj = tagObj.filter(":visible");
+			var oddObj = visibleObj.filter(":odd");
+			var evenObj = visibleObj.not(oddObj);
+		  } catch (error) {
+			var jqueryObj = $(tagObj);
+			var visibleObj = jqueryObj.filter(":visible");
+			var oddObj = visibleObj.filter(":odd");
+			var evenObj = visibleObj.not(oddObj);
+		  } finally {
+			oddObj.css("background-color", color1);
+			evenObj.css("background-color", color2);
+		  }
+		}
+		function triangle(obj) {
+			removeTriangle(obj.siblings());
+		  var addTriangle = $.trim(obj.text());
+		  if (addTriangle.includes("▲")) {
+			obj.text(addTriangle.replace("▲", "▼"));
+			return "desc";
+		  } else if (addTriangle.includes("▼")) {
+			obj.text(addTriangle.replace("▼", "▲"));
+			return "asc";
+		  } else {
+			obj.text(addTriangle + "▲");
+			return "asc";
+		  }
+		}
+		function solt(trArray, ascOrDesc, idx) {
+        for (var i = 0; i < trArray.length - 1; i++) {
+          for (var j = i + 1; j < trArray.length; j++) {
+            var text1 = $.trim(trArray[i].children().eq(idx).text());
+            var text2 = $.trim(trArray[j].children().eq(idx).text());
+            if (idx == 0 || idx == 1 || idx == 3) {
+              text1 = parseInt(text1);
+              text2 = parseInt(text2);
+            }
+            if (ascOrDesc == "asc" && text1 > text2) {
+              var tmp = trArray[i];
+              trArray[i] = trArray[j];
+              trArray[j] = tmp;
+            } else if (ascOrDesc == "desc" && text1 < text2) {
+              var tmp = trArray[i];
+              trArray[i] = trArray[j];
+              trArray[j] = tmp;
+            }
+          }
+        }
+        return trArray;
+      }
+	  function removeTriangle(thObj){
+		thObj.each(function(){
+					var text = $.trim($(this).text());
+					text = text.replace("▲","")
+					text = text.replace("▼","")
+					$(this).text(text)
+				})
+		  }
+		function printNumber(tableObj){
+		var visibleObj = tableObj.find("tr:visible")
+		var listCnt = visibleObj.length
+		var text = $.trim(visibleObj.find("th").eq(0).text());
+		if(text == "학생번호"){
+        visibleObj.each(function (i) {
+          if (i == 0) {
+            $(this).prepend("<th>번호</th>");
+          } else {
+            $(this).prepend("<td>" + (listCnt - i) + "</td>");
+          }
+        });
+		} else {
+        visibleObj.each(function (i) {
+          if (i > 0) {
+			$(this).find("td:eq(0)").html(listCnt - i);
+		  }
+        });
+		}
+		
+
+		}
+		$(document).ready(function() {
+			var tableObj = $(".sungjuk");
+			printNumber(tableObj)
+			var thObj = tableObj.find("thead th");
+			var trObj = tableObj.find("tbody tr");
+			var count = $(".count");
+			count.text(`총 ${trObj.length}개`)
+			listBgPaint(tableObj.find("tbody tr"))
+			thObj.css({
+				"background-color":"lightblue"
+			})
+			$(".search").click(function(){
+				removeTriangle(thObj)
+				var hakjum = [];
+				// $("input[name=\"hakjum\"]").filter(":checked").each(function(i){
+				// 	hakjum.push($(this).val().toLowerCase())
+				// })
+				$("input[name=\"hakjum\"]").each(function(i){
+					//if($(this).prop("checked"))
+					//if($(this).filter(":checked"))
+					if($(this).is(":checked")){
+						hakjum.push($(this).val().toLowerCase())
+					}
+				})
+				if(hakjum.length == 0){
+					return;
+				}
+				trObj.hide()
+				var avgScores = trObj.find("td:last-child")
+				avgScores.each(function(){
+					var obj = $(this)
+					var avgScore = parseInt($.trim(obj.text()),10)
+					var hak = 'a';
+					if(avgScore >=80 && avgScore <90){hak = 'b'}
+					else if(avgScore >=70 && avgScore <80){hak = 'c'}
+					else if(avgScore >=60 && avgScore <70){hak = 'd'}
+					else if(avgScore >=0 && avgScore <60){hak = 'f'}
+					var flag = false;
+					for(var i=0; i< hakjum.length; i++){
+						if(hakjum[i] == hak) {flag = true; break;}
+					}
+					/*
+					var flag = false;
+					for(var i=0; i< hakjum.length; i++){
+					if(hakjum[i] == "a" && avgScore>=90 && avgScore <=100){
+						flag = true;
+							break;
+					} else if(hakjum[i] == "b" && avgScore>=80 && avgScore<90){
+						flag = true;
+							break;
+					} else if(hakjum[i] == "c" && avgScore>=70&& avgScore<80){
+						flag = true;
+							break;
+					} else if(hakjum[i] == "d" && avgScore>=60&& avgScore<70){
+						flag = true;
+							break;
+					} else if(hakjum[i] == "f" && avgScore<60 && avgScore >= 0){
+						flag = true;
+							break;
+					}
+					}
+					*/
+					if( flag ){
+						obj.parent().show()
+					}
+				})
+				// var showObj = [];
+				 var visibleObj = trObj.filter(":visible");
+				// visibleObj.each(function(){
+				// 	showObj.push($(this).clone())
+				// })
+				// showObj = solt(showObj,"asc",2)
+				// visibleObj.each(function(i){
+				// 	$(this).html(showObj[i].children())
+				// })
+				count.text(`총 ${visibleObj.length}개`)
+				printNumber(tableObj)
+				listBgPaint(visibleObj)
+			})
+			$(".allSearch").click(function(){
+				removeTriangle(thObj)
+				trObj.show()
+				$("input[name=\"hakjum\"]").filter(":checked").prop("checked",false)
+				count.text(`총 ${trObj.length}개`)
+				printNumber(tableObj)
+				listBgPaint(trObj);
+			})
+			thObj.click(function(){
+				var ascOrDesc = triangle($(this));
+				var idx = $(this).index();
+				var visibleList = tableObj.find("tbody tr:visible");
+				var trArray = [];
+				visibleList.each(function(){
+					trArray.push($(this).clone())
+				})
+				trArray = solt(trArray,ascOrDesc,idx);
+				visibleList.each(function(i){
+					$(this).html(trArray[i].html())
+				})
+			})
+		}); 
+	</script>
+</head>
+<body><center>
+<!-------------------------------------------------->
+<input type="checkbox" name="hakjum" value="A">A학점
+<input type="checkbox" name="hakjum" value="B">B학점
+<input type="checkbox" name="hakjum" value="C">C학점
+<input type="checkbox" name="hakjum" value="D">D학점
+<input type="checkbox" name="hakjum" value="F">F학점<br>
+
+<input type="button" value="검색" class="search" >
+<input type="button" value="모두검색" class="allSearch" ><br><br>
+<!-------------------------------------------------->
+<div class="count"></div>
+<table border="1" cellpadding=5 class="sungjuk" style="border-collapse:collapse;">
+	<thead>
+		<tr ><th>학생번호<th>이름<th>평균
+	</thead>
+	<tbody>
+		<tr><td>101<td>John<td>87
+		<tr><td>102<td>Naman<td>90
+		<tr><td>103<td>Chirag<td>85
+		<tr><td>104<td>David<td>92
+		<tr><td>105<td>Kelly<td>81
+		<tr><td>106<td>Charles<td>77
+		<tr><td>107<td>Jerry<td>91
+		<tr><td>108<td>Beth<td>87
+		<tr><td>109<td>Caroline<td>82
+		<tr><td>110<td>Hanen<td>71
+		<tr><td>111<td>Douglas<td>57
+		<tr><td>112<td>Tim<td>86
+		<tr><td>113<td>Michael<td>68
+		<tr><td>114<td>Kimbley<td>88
+		<tr><td>115<td>Christinax<td>72
+		<tr><td>116<td>유원영<td>100
+		<tr><td>117<td>강다니엘<td>20
+		<tr><td>118<td>박인선<td>20
+	</tbody>
+</table>
+</body>
+
+
+</html>

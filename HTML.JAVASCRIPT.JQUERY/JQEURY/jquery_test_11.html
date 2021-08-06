@@ -1,0 +1,181 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_11.html
+~~~~~~~~~~~~~~~~~~~~~~
+	헤더를 클릭하면 행의 순서를 바꾸어 소트가 되는 효과를 본다.
+ -->
+<html>
+  <meta charset="UTF-8" />
+  <head>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+      function triangle(obj) {
+        obj.siblings().each(function (i) {
+          var text = $.trim($(this).text());
+          text = text.replace("▼", "");
+          text = text.replace("▲", "");
+          $(this).text(text);
+        });
+        var addTriangle = $.trim(obj.text());
+        if (addTriangle.includes("▲")) {
+          obj.text(addTriangle.replace("▲", "▼"));
+          return "desc";
+        } else if (addTriangle.includes("▼")) {
+          obj.text(addTriangle.replace("▼", "▲"));
+          return "asc";
+        } else {
+          obj.text(addTriangle + "▲");
+          return "asc";
+        }
+      }
+
+      function solt(trArray, ascOrDesc, idx) {
+        // for (var j = 0; j < trArray.length - 1; j++) {
+        //   for (var k = j + 1; k < trArray.length; k++) {
+        //     // j 번째 JQuery 객체의 관리 tr 의 x 번째 열의 문자얻고 공백제거하고 소문자로 바꾸기
+        //     var td1Text = trArray[j].children("td").eq(idx).text();
+        //     td1Text = $.trim(td1Text).toLowerCase();
+        //     if (idx == 2 || idx == 0) {
+        //       td1Text = parseInt(td1Text, 10);
+        //     }
+
+        //     // k 번째 JQuery 객체의 관리 tr 의 x 번째 열의 문자얻고 공백제거하고 소문자로 바꾸기
+        //     var td2Text = trArray[k].children("td").eq(idx).text();
+        //     td2Text = $.trim(td2Text).toLowerCase();
+        //     if (idx == 2 || idx == 0) {
+        //       td2Text = parseInt(td2Text, 10);
+        //     }
+        //     //-----------
+        //     // 만약 내림차순 의도가 있고
+        //     // [j 번째  x 번째 열의 문자]<[k 번째  x 번째 열의 문자] 면
+        //     //  j 번째 JQuery 객체와 k 번째 JQuery 객체의 위치 바꾸기
+        //     //-----------
+        //     if (ascOrDesc == "desc" && td1Text < td2Text) {
+        //       var tmp = trArray[j];
+        //       trArray[j] = trArray[k];
+        //       trArray[k] = tmp;
+        //     }
+        //     // 만약 오름차순 의도가 있고
+        //     // [j 번째  x 번째 열의 문자]>[k 번째  x 번째 열의 문자] 면
+        //     //  j 번째 JQuery 객체와 k 번째 JQuery 객체의 위치 바꾸기
+        //     else if (ascOrDesc == "asc" && td1Text > td2Text) {
+        //       var tmp = trArray[j];
+        //       trArray[j] = trArray[k];
+        //       trArray[k] = tmp;
+        //     }
+        //   }
+        // }
+        // return trArray;
+        // selection solt
+        for (var i = 0; i < trArray.length - 1; i++) {
+          for (var j = i + 1; j < trArray.length; j++) {
+            var text1 = $.trim(trArray[i].children().eq(idx).text());
+            var text2 = $.trim(trArray[j].children().eq(idx).text());
+            if (idx == 0 || idx == 2) {
+              text1 = parseInt(text1);
+              text2 = parseInt(text2);
+            }
+            if (ascOrDesc == "asc" && text1 > text2) {
+              var tmp = trArray[i];
+              trArray[i] = trArray[j];
+              trArray[j] = tmp;
+            } else if (ascOrDesc == "desc" && text1 < text2) {
+              var tmp = trArray[i];
+              trArray[i] = trArray[j];
+              trArray[j] = tmp;
+            }
+          }
+        }
+        return trArray;
+      }
+
+      $(document).ready(function () {
+        var obj = $(".stuList");
+        var trObj = obj.find("tbody tr");
+        listBgPaint(trObj);
+        obj.find("thead tr:eq(0) th").click(function () {
+          var idx = $(this).index();
+          var ascOrDesc = triangle($(this));
+
+          //이거 한이유 trObj[index] 로는 tr태그 각각의 JQuery 메위주를 얻을수 없음(document 객체가 나오는듯함.).
+          // 그래서 each로 돌려서 배열에 JQuery 메위주로 따로 저장해줌.(배열로 저장해서 sort 하기 위함. 행의 위치를 바꿀때 편하다.)
+          var trArray = [];
+          trObj.each(function () {
+            trArray.push($(this));
+          });
+
+          var sortArray = solt(trArray, ascOrDesc, idx);
+
+          //   덮어씌우기
+          //   var html = [];
+          //   sortArray.forEach((e) => {
+          //     html.push(e.html());
+          //   });
+
+          //   trObj.each(function (i) {
+          //     $(this).html(html[i]);
+          //   });
+
+          //정답
+          obj.find("tbody").empty();
+          sortArray.forEach((e) => {
+            obj.find("tbody").append(e);
+          });
+          listBgPaint(trObj);
+
+          //	내가 한거
+          //	obj.find("tbody").empty();
+          //   var html = "";
+          //   trObj.each(function (i) {
+          //     var ht = sortArray[i].html();
+          //     html += `<tr>${ht}</tr>`;
+          //   });
+          //   obj.find("tbody").html(html);
+          //	listBgPaint($(".stuList tbody tr"));
+        });
+      });
+    </script>
+    <script src="common_func.js"></script>
+  </head>
+  <body>
+    <center>
+      <table border="1" cellpadding="5" cellspacing="0" class="stuList">
+        <thead>
+          <tr bgcolor="lightblue">
+            <th style="cursor: pointer">학번</th>
+            <th style="cursor: pointer">이름</th>
+            <th style="cursor: pointer">평균</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>101</td>
+            <td>John</td>
+            <td>87</td>
+          </tr>
+          <tr>
+            <td>102</td>
+            <td>Naman</td>
+            <td>50</td>
+          </tr>
+          <tr>
+            <td>103</td>
+            <td>Chirag</td>
+            <td>85</td>
+          </tr>
+          <tr>
+            <td>104</td>
+            <td>Tom</td>
+            <td>55</td>
+          </tr>
+          <tr>
+            <td>105</td>
+            <td>Niki</td>
+            <td>100</td>
+          </tr>
+        </tbody>
+      </table>
+    </center>
+  </body>
+</html>

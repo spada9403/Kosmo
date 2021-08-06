@@ -1,0 +1,77 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_14.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>이미지에 마우스를 대면 지정한 곳에서 서서히 나타난다.
+	=>hover(~). fadeTo(~) 메소드를 숙지한다.
+-->
+<html>
+  <head>
+    <style>
+      .small img {
+        border: none;
+        margin: 10px;
+        width: 60px;
+        height: 60px;
+      }
+      .large {
+        width: 200px;
+        height: 200px;
+      }
+      .hover {
+        background-color: lightskyblue;
+      }
+    </style>
+    <script src="jquery-3.6.0.min.js" type="text/javascript"></script>
+    <script>
+      $(document).ready(function () {
+        $(".small").hover(
+          function () {
+            var thisObj = $(this);
+            var largeObj = $(".large");
+            thisObj.parent().addClass("hover");
+            var imgName = thisObj.attr("href");
+            largeObj.fadeOut("slow", function () {
+              largeObj.attr("src", imgName);
+              largeObj.fadeIn("slow");
+            });
+          },
+          function () {
+            $(this).parent().removeClass("hover");
+          }
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <table border="1" cellspacing="0">
+      <tr>
+        <td width="130" align="center">
+          <a href="src/img/P1001.jpg" class="small"><img src="src/img/P1001.jpg" /></a>
+          <p>P1001</p>
+        </td>
+        <td rowspan="4" width="350" align="center">
+          <img src="src/img/P1001.jpg" class="large" />
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <a href="src/img/P1002.jpg" class="small"> <img src="src/img/P1002.jpg" /></a>
+          <p>P1002</p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <a href="src/img/P1003.jpg" class="small"><img src="src/img/P1003.jpg" /></a>
+          <p>P1003</p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <a href="src/img/P1004.jpg" class="small"><img src="src/img/P1004.jpg" /></a>
+          <p>P1004</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

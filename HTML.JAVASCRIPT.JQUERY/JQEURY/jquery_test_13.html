@@ -1,0 +1,141 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_13.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ -->
+<html>
+  <head>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script language="JavaScript">
+      var options;
+      function skill1(obj, str) {
+        if (obj.val() == "") {
+          options = obj.children("option");
+          if (obj.siblings().val() != "") {
+            alert("오른쪽 데이터도 다 비웁니다.");
+            obj.siblings().val("");
+          }
+        } else {
+          options = obj.children("option").not("[value=" + obj.val() + "]");
+        }
+        var first = obj.siblings().eq(0).val();
+        var second = obj.siblings().eq(1).val();
+        var siblings = obj.siblings();
+        siblings.empty();
+        siblings.append(options.clone());
+        if ((first != "" || second != "") && str != "") {
+          if (first == obj.val()) {
+            siblings.eq(0).val(str);
+            siblings.eq(1).val(second);
+            skill2(siblings.eq(0), "");
+          } else if (second == obj.val()) {
+            siblings.eq(0).val(first);
+            siblings.eq(1).val(str);
+            skill2(siblings.eq(0), "");
+          } else {
+            siblings.eq(0).val(first);
+            siblings.eq(1).val(second);
+          }
+        }
+      }
+      function skill2(obj, str) {
+        if (obj.val() == "") {
+          options = obj.children("option");
+          if (obj.next().val() != "") {
+            alert("오른쪽 데이터도 비웁니다.");
+            obj.next().val("");
+          }
+        } else {
+          options = obj.children("option").not("[value=" + obj.val() + "]");
+          if (obj.prev().val() == "") {
+            alert("왼쪽부터 선택해야 합니다.");
+            obj.val("");
+            obj.prev().focus();
+            return;
+          }
+        }
+        var siblings = obj.siblings();
+        var first = siblings.eq(0).val();
+        var second = siblings.eq(1).val();
+        obj.next().empty();
+        obj.next().append(options.clone());
+        if (second != "" && str != "") {
+          if (obj.val() == second) {
+            siblings.eq(1).val(str);
+          } else {
+            siblings.eq(1).val(second);
+          }
+        } else {
+          obj.next().empty();
+          obj.next().append(options.clone());
+          obj.next().val(second);
+        }
+      }
+      function skill3(obj, str) {
+        var siblings = obj.siblings();
+        if (obj.val() != "") {
+          if (siblings.eq(0).val() == "" || siblings.eq(1).val() == "") {
+            alert("왼쪽부터 선택해야 합니다.");
+            obj.val("");
+          }
+        }
+      }
+      $(document).ready(function () {
+        var selects = $("#skills").children("select");
+        var prev_val1;
+        var prev_val2;
+        var prev_val3;
+        selects.focus(function () {
+          if ($(this).is("[name='skill1']")) {
+            prev_val1 = $(this).val();
+          } else if ($(this).is("[name='skill2']")) {
+            prev_val2 = $(this).val();
+          } else if ($(this).is("[name='skill3']")) {
+            prev_val3 = $(this).val();
+          }
+        });
+        selects.change(function () {
+          if ($(this).is("[name='skill1']")) {
+            skill1($(this), prev_val1);
+          } else if ($(this).is("[name='skill2']")) {
+            skill2($(this), prev_val2);
+          } else if ($(this).is("[name='skill3']")) {
+            skill3($(this), prev_val3);
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!---------------------------------------------------------------->
+    <span id="skills">
+      [소유스킬] :
+      <select name="skill1">
+        <option value=""></option>
+        <option value="JSP">JSP</option>
+        <option value="ASP">ASP</option>
+        <option value="PHP">PHP</option>
+        <option value="Oracle">Oracle</option>
+        <option value="Java">Java</option>
+      </select>
+
+      <select name="skill2">
+        <option value=""></option>
+        <option value="JSP">JSP</option>
+        <option value="ASP">ASP</option>
+        <option value="PHP">PHP</option>
+        <option value="Oracle">Oracle</option>
+        <option value="Java">Java</option>
+      </select>
+
+      <select name="skill3">
+        <option value=""></option>
+        <option value="JSP">JSP</option>
+        <option value="ASP">ASP</option>
+        <option value="PHP">PHP</option>
+        <option value="Oracle">Oracle</option>
+        <option value="Java">Java</option>
+      </select>
+    </span>
+  </body>
+</html>
