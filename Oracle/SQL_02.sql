@@ -1137,3 +1137,7 @@ select
 					+1) >= 40
 					 AND c.emp_no = e.emp_no
 SELECT * FROM EMPLOYEE WHERE EMP_NAME = '한국남'
+
+SELECT c.cus_name FROM employee e, customer c WHERE e.emp_no = 4 AND e.emp_no = c.emp_no
+
+

@@ -6,22 +6,16 @@
     <script src="jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function () {
-        $(".movie").children("div").eq(1).append("<div>존윅3</div>");
+        var form = $("[name=memRegForm]");
+        var obj;
+        form.children("input").change(function () {
+          obj = form.serialize();
+          console.log(obj);
+        });
       });
     </script>
   </head>
   <body>
-    <div class="movie">
-      <div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-      </div>
-      <div>
-        <div>4</div>
-        <div>5</div>
-        <div>데드풀</div>
-      </div>
-    </div>
+    <form name="memRegForm">아이디: <input type="text" name="uid" /> 비번: <input type="password" name="pwd" /> 이름: <input type="text" name="name" /></form>
   </body>
 </html>

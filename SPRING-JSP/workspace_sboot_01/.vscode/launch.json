@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-Prj1Application<prj1>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.naver.prj1.Prj1Application",
+      "projectName": "prj1",
+      "args": ""
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.naver.prj1.board">
+    <select id='maxB_no' resultType='int'>
+        select max(b_no) from board
+    </select>
+    <insert id='getBoard_insertCnt' parameterType='com.naver.prj1.BoardServiceImpl'>
+        insert into board(b_no,subject,writer,content,pwd,email,GROUP_NO,PRINT_NO,PRINT_LEVEL) values(#{b_no}, #{subject}, #{writer}, #{content}, #{pwd}, #{email}, #{b_no},0,0)
+    </insert>
+</mapper>

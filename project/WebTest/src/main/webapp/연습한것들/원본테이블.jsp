@@ -20,7 +20,7 @@
         Class.forName(driver); //드라이버로드
         conn=DriverManager.getConnection(url,"king","k123"); 
         connect=true; 
-        pstmt = conn.prepareStatement("SELECT * FROM employee where EMP_NAME = ? and substr(JUMIN_NUM, 7,7) = ?"); 
+        pstmt = conn.prepareStatement("SELECT * FROM employee where EMP_NAME = ? and substr(JUMIN_NUM, 7,7) = ?");
         pstmt.setString(1,id);
         pstmt.setString(2,pwd);
         rs = pstmt.executeQuery();
