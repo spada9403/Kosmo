@@ -4,7 +4,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
+  <script src="/resources/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      location.replace("/boardList.do");
+    });
+  </script>
   <body>
-  <span class = "insertBoardCnt"><%out.print( request.getAttribute("insertBoardCnt") );%></span>
+    <span class="insertBoardCnt"><%out.print( request.getAttribute("insertBoardCnt") );%></span>
+    <span class="msg"><%out.print( (String)request.getAttribute("msg") );%></span>
   </body>
 </html>

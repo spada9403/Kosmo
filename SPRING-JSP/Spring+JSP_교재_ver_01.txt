@@ -456,3 +456,9 @@
                             Spring MVC 패턴에서 사용되는 객체의 정보 등록이 거의 없다.
                         Tomcat 서버가 내장되어 있어 Tomcat 서버를 따로 설치할 필요가 없고
                         Tomcat 서버 실행 시 발생하는 오류도 적다.
+
+
+
+Java interface 정의
+public, static, final 의 성격을 가진 속성변수와
+public, abstract 의 성격을 가진 메소드로 구성된 클래스와는 다른 단위 프로그램이다.
