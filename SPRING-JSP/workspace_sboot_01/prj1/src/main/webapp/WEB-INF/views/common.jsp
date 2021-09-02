@@ -4,5 +4,9 @@
 <!--UTF-8 인코딩 방식은 한글을 포함 전 세계 모든 무자열을 부호화 할 수 있는 방법이다.-->
 <!--모든 JSP 페이지 상단에 무조건 아래 설정이 들어간다.-->
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-  <div><span style="cursor:pointer;" onClick="location.replace('/loginForm.do')" >[로그아웃]</span></div>
+<script src="/resources/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script>
+  $(document).ready(function(){
+    $("body").prepend('<div><span style="cursor:pointer;" onClick="location.replace('/loginForm.do')" >[로그아웃]</span></div>');
+  })
+</script>

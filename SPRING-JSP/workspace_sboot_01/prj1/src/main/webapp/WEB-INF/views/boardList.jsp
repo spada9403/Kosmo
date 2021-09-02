@@ -1,10 +1,10 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@page import="java.util.List"%><%@page import="java.util.Map"%>
+<%@include file="common.jsp"%>
 <!DOCTYPE html PUBLIC "-//w3c//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Board List!!</title>
-    <script src="/resources/jquery-3.6.0.min.js" type="text/javascript"></script>
     <script>
       function goBoardRegForm() {
         location.replace("/boardRegForm.do");
@@ -88,7 +88,6 @@
     </script>
   </head>
   <body>
-  <%@include file="common.jsp"%>
   <%
     List<Map<String,String>> boardList = (List<Map<String,String>>)request.getAttribute("boardList");
     int searchBoardCnt = (int)request.getAttribute("searchBoardCnt");
