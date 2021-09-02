@@ -88,6 +88,7 @@
     </script>
   </head>
   <body>
+  <%@include file="common.jsp"%>
   <%
     List<Map<String,String>> boardList = (List<Map<String,String>>)request.getAttribute("boardList");
     int searchBoardCnt = (int)request.getAttribute("searchBoardCnt");
@@ -100,8 +101,10 @@
     <center>
       <form name="boardListForm" method="post">
           [키워드] : <input type="text" name="keyword1" class=keyword1 />
-          <input type="checkbox" name="day" class="day" value="today"/>오늘
-          <input type="checkbox" name="day" class="day" value="yesterday"/>어제
+          <input type="checkbox" name="day" class="day" value="오늘"/>오늘
+          <input type="checkbox" name="day" class="day" value="어제"/>어제
+          <input type="checkbox" name="day" class="day" value="그제"/>그제
+          <input type="checkbox" name="day" class="day" value="일주일내"/>일주일내
           <input type="hidden" name="selectPageNo" class="selectPageNo" value=1 />
           <select name="rowCntPerPage" class="rowCntPerPage" onChange="search();" >
             <option value=10>10</option>
