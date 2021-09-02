@@ -25,11 +25,15 @@
         document.boardContentForm.submit();
       }
       function search(){
-        var text = $.trim($(".keyword1").val());
-        if(text == null || text.split(" ").join("") == ""){
-          text = "";
+        var keyword1 = $.trim($(".keyword1").val());
+        var keyword2 = $.trim($(".keyword2").val());
+        
+        if((keyword1 == null and keyword2 == null) || keyword1.split(" ").join("") == "" and keyword2.split(" ").join("") == "" ){
+          keyword1 = "";
+          keyword2 = "";
         }
-        $(".keyword1").val(text);
+        $(".keyword1").val(keyword1);
+        $(".keyword2").val(keyword2);
         searchExe();
       }
       function searchAll() {
@@ -100,6 +104,11 @@
     <center>
       <form name="boardListForm" method="post">
           [키워드] : <input type="text" name="keyword1" class=keyword1 />
+          <select name="orAnd">
+            <option value="or" >or</option>
+            <option value="and" >and</option>
+          </select>
+          <input type="text" name="keyword2" class=keyword2 />
           <input type="checkbox" name="day" class="day" value="오늘"/>오늘
           <input type="checkbox" name="day" class="day" value="어제"/>어제
           <input type="checkbox" name="day" class="day" value="그제"/>그제
@@ -120,7 +129,7 @@
       <div class="searchBoardCnt">
       <%
         if(searchBoardCnt > 0){
-          out.print("<span>검색결과 : "+searchBoardCnt+"개</span>");
+          out.print("<span>검색결과 : "+${requestScope.searchBoardCnt}+"개</span>");
         } else {
           out.print("<span>검색결과 없음</span>");
         }

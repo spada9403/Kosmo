@@ -8,5 +8,5 @@
 <script>
   $(document).ready(function(){
     $("body").prepend('<div><span style="cursor:pointer;" onClick="location.replace('/loginForm.do')" >[로그아웃]</span></div>');
-  })
+  });
 </script>
