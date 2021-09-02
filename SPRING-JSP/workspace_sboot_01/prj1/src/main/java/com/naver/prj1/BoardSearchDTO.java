@@ -8,7 +8,7 @@ public class BoardSearchDTO {
     private int rowCntPerPage=10;
     private List<String> day;
     private String keyword2;
-    private int orAnd;
+    private String orAnd;
     public String getKeyword1() {
         return keyword1;
     }
@@ -39,10 +39,10 @@ public class BoardSearchDTO {
     public void setKeyword2(String keyword2) {
         this.keyword2 = keyword2;
     }
-    public int getOrAnd() {
+    public String getOrAnd() {
         return orAnd;
     }
-    public void setOrAnd(int orAnd) {
+    public void setOrAnd(String orAnd) {
         this.orAnd = orAnd;
     }
     }

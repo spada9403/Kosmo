@@ -7,6 +7,6 @@
 <script src="/resources/jquery-3.6.0.min.js" type="text/javascript"></script>
 <script>
   $(document).ready(function(){
-    $("body").prepend('<div><span style="cursor:pointer;" onClick="location.replace('/loginForm.do')" >[로그아웃]</span></div>');
+    $("body").prepend('<div><span style="cursor:pointer;" onClick="location.replace("/loginForm.do")" >[로그아웃]</span></div>');
   });
 </script>

@@ -28,7 +28,7 @@
         var keyword1 = $.trim($(".keyword1").val());
         var keyword2 = $.trim($(".keyword2").val());
         
-        if((keyword1 == null and keyword2 == null) || keyword1.split(" ").join("") == "" and keyword2.split(" ").join("") == "" ){
+        if((keyword1 == null && keyword2 == null) || keyword1.split(" ").join("") == "" && keyword2.split(" ").join("") == "" ){
           keyword1 = "";
           keyword2 = "";
         }
@@ -38,6 +38,8 @@
       }
       function searchAll() {
         $(".keyword1").val("");
+        $(".keyword2").val("");
+        $(".day").filter(":checked").prop("checked",false);
         searchExe();
       }
       function searchExe() {
@@ -129,7 +131,7 @@
       <div class="searchBoardCnt">
       <%
         if(searchBoardCnt > 0){
-          out.print("<span>검색결과 : "+${requestScope.searchBoardCnt}+"개</span>");
+          %><span>검색결과 : ${requestScope.searchBoardCnt}개</span><%
         } else {
           out.print("<span>검색결과 없음</span>");
         }
