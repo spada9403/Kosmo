@@ -20,6 +20,8 @@
 
 				PRIMARY KEY(B_NO)
 		)
+		SELECT * FROM board
+		DROP TABLE board
 ================================================================================
 		<세끼문제> 정렬에 관련된 컬럼은?
 				 --> GROUP_NO,	PRINT_NO

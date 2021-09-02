@@ -1,8 +1,5 @@
 package com.naver.prj1;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +22,50 @@ public class BoardServiceImpl implements BoardService {
 
     // 1개 게시판 글 입력 적용 행의 개수    리턴하는 메소드 선언
     public int insertBoard(BoardDTO boardDTO){
+        if( boardDTO.getB_no()>0){
+            int updatePrintNoCnt = this.boardDAO.updatePrintNo(boardDTO);
+            if(updatePrintNoCnt == 0){
+                return -1;
+            }
+        }
         // BoardDAOImpl 객체의 insertBoard 메소드 호출하여 게시판 글 입력 후 입력 적용 행의 개수 얻기
         int boardRegCnt = this.boardDAO.insertBoard(boardDTO);
         // 1개 게시판 글 입력 적용 행의 개수 리턴하기
         return boardRegCnt;
     };
-    public List<Map<String,String>> getboardList(int pageNum){
-        List<Map<String,String>> list = this.boardDAO.getboardList(pageNum);
 
-        return list;
+    public BoardDTO getBoard(int b_no){
+        int updateCnt = this.boardDAO.updateReadCount(b_no);
+        if( updateCnt==0 ){ return null; }
+        BoardDTO boardDTO = this.boardDAO.getBoard(b_no);
+        return boardDTO;
+    }
+    public int upDelBoard(BoardDTO boardDTO, String upDel){
+        int b_no = boardDTO.getB_no();
+        try {
+            BoardDTO pwdMatchDTO = boardDAO.pwdMatch(boardDTO);
+            if(pwdMatchDTO != null){
+                String dbPwd = pwdMatchDTO.getPwd();
+                if(dbPwd.equals(boardDTO.getPwd())){
+                    if(upDel.equals("up")){
+                        int updateCnt = boardDAO.updateBoard(boardDTO);
+                        return updateCnt;
+                    } else {
+                        int childrenCnt = this.boardDAO.getChildrenCnt(boardDTO);
+                        if(childrenCnt > 0){return -4;};
+                        this.boardDAO.downPrintNo(boardDTO);
+                        int deleteCnt = boardDAO.deleteBoard(b_no);
+                        return deleteCnt;
+                    }
+                } else {
+                    return -2;
+                }
+            } else {
+              return -3;
+            }
+    } catch (Exception e) {
+        return -1;
+    }
+
     }
 }

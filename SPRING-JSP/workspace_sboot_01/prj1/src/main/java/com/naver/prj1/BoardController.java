@@ -1,6 +1,7 @@
 package com.naver.prj1;
 
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,31 +16,102 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BoardController {
-
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private BoardDAO boardDAO;
 
 
   @RequestMapping(value = "/boardList.do")
-  public ModelAndView getBoardList(){
-      ModelAndView mav = new ModelAndView();
-      mav.setViewName("boardList.jsp");
-      return mav;
-  }
-  @RequestMapping(value = "/boardList.do", method = RequestMethod.POST)
-  public ModelAndView paintBoardList( @RequestParam("pageNum") int pageNum){
+  public ModelAndView getBoardList(
+    BoardSearchDTO boardSearchDTO
+  ){
+    int searchBoardCnt = this.boardDAO.searchBoardCnt(boardSearchDTO);
     ModelAndView mav = new ModelAndView();
-    List<Map<String,String>> list = boardService.getboardList(pageNum);
-    mav.setViewName("paintBoardList.jsp");
-    mav.addObject("list", list);
+    mav.setViewName("boardList.jsp");
+    int last_pageNo = 0;
+    int min_pageNo = 0;
+    int max_pageNo = 0;
+    int rowCntPerPage = boardSearchDTO.getRowCntPerPage();
+    int selectPageNo = boardSearchDTO.getSelectPageNo();
+    if(searchBoardCnt>0){
+      last_pageNo = searchBoardCnt/rowCntPerPage;
+        if( searchBoardCnt%rowCntPerPage > 0 ){last_pageNo++;}
+      if(selectPageNo > last_pageNo){
+        selectPageNo = 1;
+        boardSearchDTO.setSelectPageNo(selectPageNo);
+      }
+      min_pageNo = (((selectPageNo-1)/10) * 10) + 1;
+      max_pageNo = (min_pageNo + 10) - 1;
+        if( max_pageNo>last_pageNo){max_pageNo = last_pageNo;}
+    }
+    List<Map<String,String>> boardList = this.boardDAO.getBoardList( boardSearchDTO );
+    mav.addObject("last_pageNo", last_pageNo);
+    mav.addObject("min_pageNo", min_pageNo);
+    mav.addObject("max_pageNo", max_pageNo);
+    mav.addObject("selectPageNo", selectPageNo);
+    mav.addObject("boardList", boardList);
+    mav.addObject("searchBoardCnt", searchBoardCnt);
+    mav.addObject("rowCntPerPage", rowCntPerPage);
+
+    return mav;
+  }
+  @RequestMapping(value = "/boardContentForm.do")
+  public ModelAndView goBoardContentForm( @RequestParam("b_no") int b_no ){
+    ModelAndView mav = new ModelAndView();
+
+    BoardDTO board = this.boardService.getBoard(b_no);
+    mav.setViewName("boardContentForm.jsp");
+    mav.addObject("board", board);
     return mav;
   }
   @RequestMapping(value = "/boardRegForm.do")
-  public ModelAndView goBoardRegForm(){
+  public ModelAndView goBoardRegForm(
+    //@RequestParam(value = "b_no", required = false, defaultValue = "0") int b_no
+  ){
       ModelAndView mav = new ModelAndView();
       mav.setViewName("boardRegForm.jsp");
       return mav;
   }
+
+  @RequestMapping(value = "/boardUpDelForm.do")
+  public ModelAndView goBoardUpDelForm(
+    @RequestParam(value = "b_no") int b_no
+  ){
+    ModelAndView mav = new ModelAndView();
+    BoardDTO boardDTO = this.boardDAO.getBoard(b_no);
+    mav.setViewName("boardUpDelForm.jsp");
+    mav.addObject("boardDTO", boardDTO);
+    return mav;
+  }
+  @RequestMapping(value = "/boardUpDelProc.do")
+  public ModelAndView boardUpDel(
+    @RequestParam(value = "upDel") String upDel,
+    BoardDTO boardDTO, BindingResult bindingResult
+  ){
+      ModelAndView mav = new ModelAndView();
+      String msg = "";
+      msg = check_UpDelBoardDTO(boardDTO, bindingResult);
+      if(msg.equals("")){
+        int upDelBoardCnt = this.boardService.upDelBoard(boardDTO, upDel);
+        mav.addObject("upDelBoardCnt", upDelBoardCnt);
+        if(upDelBoardCnt == -1){
+         msg = "서버에서 문제발생! 서버 관리자에게 문의 바람";
+        } else if(upDelBoardCnt == -2){
+          msg = "암호를 확인해주세요!";
+        } else if(upDelBoardCnt == -3){
+         msg = "이미 삭제된 게시글입니다.";
+        } else if(upDelBoardCnt == -4){
+          msg = "댓글이 있어 삭제 할 수 없는 게시글입니다.";
+        }
+      } else {
+       mav.addObject("upDelBoardCnt", 0);
+      }
+      mav.addObject("msg", msg);
+      mav.setViewName("boardUpDelProc.jsp");
+      return mav;
+  }
+
   @RequestMapping(value = "/boardRegProc.do", method = RequestMethod.POST)
   public ModelAndView insertBoard(
 // 파라미터값을 저장할 [BoardDTO 객체]를 매개변수로 선언
@@ -67,7 +139,7 @@ public class BoardController {
       mav.addObject("msg", msg);
       // 만약 msg안에 ""가 저장되어 있으면, 즉 유효성 체크를 통과 했으면 DB연동.
       if(msg.equals("")){
-        int insertBoardCnt = boardService.insertBoard(boardDTO);
+        int insertBoardCnt = this.boardService.insertBoard(boardDTO);
         mav.addObject("insertBoardCnt", insertBoardCnt);
         // 만약 msg 안에 ""가 아니면, 즉 유효성 체크를 통과 못했으면
       } else {
@@ -98,6 +170,19 @@ public class BoardController {
         checkMsg = bindingResult.getFieldError().getCode();
     }
     // checkMsg 안의 에러메세지를 리턴한다.
+    return checkMsg;
+  }
+  public String check_UpDelBoardDTO(BoardDTO boardDTO,BindingResult bindingResult){
+    String checkMsg="";
+      BoardValidator boardValidator = new BoardValidator();
+      boardValidator.validate(
+        boardDTO,   
+        bindingResult 
+      );
+
+    if( bindingResult.hasErrors() ){
+      checkMsg = bindingResult.getFieldError().getCode();
+    }
     return checkMsg;
   }
 }

@@ -40,9 +40,16 @@
     <center>
       <form action="/boardRegProc.do" name="boardRegForm" method="post">
         <table border="1" style="border-collapse: collapse" cellpadding="5">
+        <% if ( request.getParameter("b_no")==null ){%>
           <caption>
             새글쓰기
           </caption>
+          <%} else {
+            %>
+          <caption>
+            댓글쓰기
+          </caption><%
+          }%>
           <tr>
             <th bgcolor="lightgray">이 름</th>
             <td><input type="text" name="writer" size="10" class="writer" maxlength="10" /></td>
@@ -68,7 +75,11 @@
           <input type="button" value="저장" onclick="checkBoardRegForm()" />
           <input type="reset" value="다시작성" />
           <input type="button" value="목록보기" onclick="document.boardRegForm.submit();" />
-          <!--<input type="hidden" name="b_no" value="1" />-->
+        <% if ( request.getParameter("b_no")==null ){%>
+          <input type="hidden" name="b_no" value="0" />
+          <%} else {%>
+          <input type="hidden" name="b_no" value="<%=request.getParameter("b_no")%>" />
+          <%}%>
         </div>
       </form>
     </center>
