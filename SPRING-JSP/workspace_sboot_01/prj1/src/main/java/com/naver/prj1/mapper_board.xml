@@ -3,8 +3,10 @@
 
 <mapper namespace = "com.naver.prj1.BoardDAO">
         <sql id="boardWhere">
-                <if test="keyword1 != null and keyword1.length()>0">
+                <if test="keyword1 != null and keyword1.length()>0 or keyword2 != null and keyword2.length()>0">
                 and(
+                </if>
+                <if test="keyword1 != null and keyword1.length()>0">(
                     upper(subject) like upper('%${keyword1}%')
                 or
                     upper(content) like upper('%${keyword1}%')
@@ -16,15 +18,10 @@
                     to_char(reg_date, 'YYYYMMDD') like upper('%${keyword1}%')
                 )
                 </if>
-                <if test="keyword2 != null and keyword2.length()>0">
-                <choose>
-                    <when test="keyword1 != null and keyword1.length()>0">
-                        ${orAnd}
-                    </when>
-                    <otherwise>
-                        and
-                    </otherwise>
-                </choose>(
+                <if test="keyword1 != null and keyword1.length()>0 and keyword2 != null and keyword2.length()>0">
+                ${orAnd}
+                </if>
+                <if test="keyword2 != null and keyword2.length()>0">(
                     upper(subject) like upper('%${keyword2}%')
                 or
                     upper(content) like upper('%${keyword2}%')
@@ -34,6 +31,9 @@
                     upper(email) like upper('%${keyword2}%')
                 or
                     to_char(reg_date, 'YYYYMMDD') like upper('%${keyword2}%')
+                )
+                </if>
+                <if test="keyword1 != null and keyword1.length()>0 or keyword2 != null and keyword2.length()>0">
                 )
                 </if>
         </sql>
@@ -65,12 +65,19 @@
         )
         </if>
         </sql>
+
+    <select id="getBoardListAllCnt" resultType="int">
+    select
+        count(*)
+    from
+        board
+    </select>
+
     <select id="getBoardList" resultType="java.util.Map" parameterType="com.naver.prj1.BoardSearchDTO">
         select * from
         (
             select
                 rownum "RNUM2",
-                (b2.RNUM-rownum+1)||'' "RNUM",
                 b1.b_no||'' "B_NO",
                 b1.subject "SUBJECT", 
                 b1.writer "WRITER", 
@@ -78,8 +85,20 @@
                 to_char(b1.reg_date,'YYYY-MM-DD DY')||'요일' "REG_DATE",
                 print_level||'' "PRINT_LEVEL"
             from 
-                (select * from board order by group_no desc,print_no asc) b1,
-                (select max(rownum) "RNUM" from board) b2
+                (
+                select 
+                    * 
+                from 
+                    board  
+                <if test="sort==null or sort.length()==0">
+                        order by
+                    group_no desc,print_no asc
+                </if>
+                <if test="sort!=null and sort.length()>0">
+                        order by
+                    ${sort}
+                </if>
+                ) b1
             where
                 1=1
                 and
@@ -130,6 +149,7 @@
             readcount,
             content,
             email,
+            pic,
             to_char(reg_date,'YYYY-MM-DD DY')||'요일' "REG_DATE"
         from board where b_no = #{b_no}
     </select>
@@ -147,12 +167,28 @@
 
     
     <update id="updateBoard" parameterType="com.naver.prj1.BoardDTO">
-        update board set writer = #{writer},subject = #{subject},email = #{email},content = #{content} where b_no = #{b_no}
+        update board set 
+        writer = #{writer},
+        subject = #{subject},
+        email = #{email},
+        content = #{content}
+        <if test="killImage!=null and killImage.length()>0">
+            ,pic = null
+        </if>
+        <if test="killImage==null or killImage.length()==0">
+            <if test="pic!=null and pic.length()>0">, pic = #{pic}</if> 
+        </if>
+        where
+         b_no = #{b_no}
     </update>
 
     <delete id="deleteBoard" parameterType="int">
         delete from board where b_no = #{b_no}
     </delete>
+
+    <select id="getPic" parameterType="com.naver.prj1.BoardDTO" resultType="String" >
+        select pic from board where b_no = #{b_no}
+    </select>
 
 
 
@@ -166,6 +202,9 @@
             writer,
             readcount,
             content,
+            <if test="pic!=null and pic.length()>0">
+            pic,
+            </if>
             pwd,
             email,
             group_no,
@@ -177,6 +216,9 @@
             #{writer}, 
             0,            
             #{content}, 
+            <if test="pic!=null and pic.length()>0">
+            #{pic},
+            </if>
             #{pwd}, 
             #{email}
             <if test="b_no==0">

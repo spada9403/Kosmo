@@ -53,6 +53,13 @@
             $(".pageNo").html(
               $(responseHtml).find(".pageNo").html()
             )
+            reg_date_sort();
+            var sort = $(".sort").val();
+            if(sort=="reg_date asc"){
+              $(".reg_date").append("▲")
+            } else if(sort=="reg_date desc"){
+              $(".reg_date").append("▼")
+            }
             paintBoard();
           },
           error: function(){
@@ -71,8 +78,25 @@
            search();
           }
         })
+        reg_date_sort()
         paintBoard();
       });
+      function reg_date_sort() {
+        $(".selectPageNo").val(1);
+        $(".reg_date").css("cursor","pointer");
+        $(".reg_date").click( function () {
+          var obj = $(this);
+          var text = $.trim(obj.text());
+          if(text.indexOf("▲")>=0){
+            $(".sort").val("");
+          } else if(text.indexOf("▼")>=0){
+            $(".sort").val("reg_date asc");
+          } else {
+            $(".sort").val("reg_date desc");
+          }
+          search();
+        })
+      }
       function paintBoard(){
         var trObj = $(".table").find("tr");
         trObj.first().css({
@@ -94,15 +118,6 @@
     </script>
   </head>
   <body>
-  <%
-    List<Map<String,String>> boardList = (List<Map<String,String>>)request.getAttribute("boardList");
-    int searchBoardCnt = (int)request.getAttribute("searchBoardCnt");
-    int last_pageNo = (int)request.getAttribute("last_pageNo");
-    int min_pageNo = (int)request.getAttribute("min_pageNo");
-    int max_pageNo = (int)request.getAttribute("max_pageNo");
-    int selectPageNo = (int)request.getAttribute("selectPageNo");
-    int rowCntPerPage = (int)request.getAttribute("rowCntPerPage");
-  %>
     <center>
       <form name="boardListForm" method="post">
           [키워드] : <input type="text" name="keyword1" class=keyword1 />
@@ -116,6 +131,7 @@
           <input type="checkbox" name="day" class="day" value="그제"/>그제
           <input type="checkbox" name="day" class="day" value="일주일내"/>일주일내
           <input type="hidden" name="selectPageNo" class="selectPageNo" value=1 />
+          <input type="hidden" name="sort" class="sort" value="" />
           <select name="rowCntPerPage" class="rowCntPerPage" onChange="search();" >
             <option value=10>10</option>
             <option value=15>15</option>
@@ -128,94 +144,78 @@
           <a href="javascript:goBoardRegForm();">[새글쓰기]</a>
       </form>
       <div class="searchResult">
-      <div class="searchBoardCnt">
-      <%
-        if(searchBoardCnt > 0){
-          %><span>검색결과 : ${requestScope.searchBoardCnt}개</span><%
-        } else {
-          out.print("<span>검색결과 없음</span>");
-        }
-      %>
+      <div class="totRowCnt">
+      <c:if test="${requestScope.pagingNos.totRowCnt>0}">
+        검색 총 개수 => ${requestScope.pagingNos.totRowCnt}/${requestScope.totCnt}개
+      </c:if>
+      <c:if test="${requestScope.pagingNos.totRowCnt<= 0}">
+        검색결과가 없습니다.
+      </c:if>
       </div>
-      
-      <table border="1" style="border-collapse: collapse;" cellpadding="5" class="table">
+      <table border="1" class="tbcss0 table" cellpadding="5">
         <tr>
-          <th>번호</th>
           <th>번호</th>
           <th>제목</th>
           <th>작성자</th>
           <th>조회수</th>
-          <th>등록일</th>
+          <th><span class="reg_date">등록일</span></th>
         </tr>
-      <%
-          if(boardList != null && boardList.size()>0){
-          //정순번호
-          int serialNo_asc = ((selectPageNo * rowCntPerPage) - rowCntPerPage) + 1;
-          //역순번호
-          //int serialNo_desc = searchBoardCnt-(((selectPageNo * rowCntPerPage) - rowCntPerPage) + 1)+1;
-            for(int i = 0; i < boardList.size(); i++){
-              Map<String,String> map = boardList.get(i);
-              String RNUM = map.get("RNUM");
-              String b_no = map.get("B_NO");
-              String subject = map.get("SUBJECT");
-              String writer = map.get("WRITER");
-              String readcount = map.get("READCOUNT");
-              String reg_date = map.get("REG_DATE");
-              String print_level = map.get("PRINT_LEVEL");
-              int print_level_int = Integer.parseInt(print_level,10);
-              String blank = "";
-              for(int j=0; j<print_level_int; j++){
-                blank = blank+"&nbsp;&nbsp;&nbsp;&nbsp;";
-              }
-              if( print_level_int > 0){
-                blank = blank + "ㄴ";
-              }
-              subject = blank + subject;
-              out.print("<tr onClick='goBoardContentForm("+b_no+")'><td>"
-                        +(RNUM)
-                        +"</td> <td>"
-                        +(serialNo_asc++)
-                        //+(serialNo_desc--)
-                        +"</td> <td>"
-                        +(subject)
-                        +"</td><td>"
-                        +writer
-                        +"</td><td>"
-                        +readcount
-                        +"</td><td>"
-                        +reg_date
-                        +"</td></tr>");
-            }
-          }
-      %>
+        <c:if test="${requestScope.boardList != null && requestScope.boardList.size()>0}">
+          <c:forEach var="list" items="${requestScope.boardList}" varStatus="loopTagStatus">
+              <tr onClick='goBoardContentForm(${list.B_NO})' >
+                  <td>
+                  <%-- 역순번호 --%>
+                  ${requestScope.pagingNos.totRowCnt-(requestScope.pagingNos.selectPageNo*requestScope.pagingNos.rowCntPerPage-requestScope.pagingNos.rowCntPerPage+1)+1-loopTagStatus.index}
+                  <%-- 정순번호 --%>
+                  <%-- ${(requestScope.selectPageNo*requestScope.rowCntPerPage-requestScope.rowCntPerPage+1)+loopTagStatus.index} --%>
+                  </td>
+                  <td>
+                  <c:if test="${list.PRINT_LEVEL>0}">
+                    <c:forEach begin="1" end="${list.PRINT_LEVEL}">
+                      &nbsp;&nbsp;&nbsp;
+                    </c:forEach>
+                    ㄴ
+                  </c:if>
+                  ${list.SUBJECT}</td>
+                  <td>${list.WRITER}</td>
+                  <td>${list.READCOUNT}</td>
+                  <td>${list.REG_DATE}</td>
+              </tr>
+          </c:forEach>
+        </c:if>
     </table>
       </div>
     <div class="pageNo">
-    <%
-      if(searchBoardCnt>0){
-        if(selectPageNo > 1){
-            out.print("<span style='cursor:pointer' onClick='search_with_changePageNo("+1+")' >처음</span> ");
-            out.print("<span style='cursor:pointer' onClick='search_with_changePageNo("+(selectPageNo-1)+")' >이전</span>");
-        } else {
-            out.print("<span>처음</span> ");
-            out.print("<span>이전</span>");
-        }
-        for(int i = min_pageNo; i <= max_pageNo; i++){
-          if(selectPageNo == i){
-          out.print( "<span>" + i + "</span> " );
-          } else {
-          out.print( "<span style='cursor:pointer' onClick='search_with_changePageNo("+i+")' >[" + i + "]</span> " );  
-          }
-        }
-          if(last_pageNo > selectPageNo){
-            out.print("<span style='cursor:pointer' onClick='search_with_changePageNo("+(selectPageNo+1)+")' >다음</span> ");
-            out.print("<span style='cursor:pointer' onClick='search_with_changePageNo("+(last_pageNo)+")' >마지막</span>");
-          } else {
-            out.print("<span>다음</span> ");
-            out.print("<span>마지막</span>");
-        }
-      }
-    %>
+    <c:if test="${requestScope.pagingNos.totRowCnt>0}">
+      <c:if test="${requestScope.pagingNos.selectPageNo>1}">
+        <span style='cursor:pointer' onClick='search_with_changePageNo(1)' >처음</span>
+        <span style='cursor:pointer' onClick='search_with_changePageNo(${requestScope.pagingNos.selectPageNo}-1)' >이전</span>
+        &nbsp;&nbsp;
+      </c:if>
+      <c:if test="${requestScope.pagingNos.selectPageNo<=1}">
+        <span>처음</span>
+        <span>이전</span> 
+        &nbsp;&nbsp;
+      </c:if>
+      <c:forEach var="i" begin="${requestScope.pagingNos.min_pageNo}" end="${requestScope.pagingNos.max_pageNo}">
+        <c:if test="${requestScope.pagingNos.selectPageNo == i}">
+          <span>${i}</span>&nbsp;
+        </c:if>
+        <c:if test="${requestScope.pagingNos.selectPageNo != i}">
+          <span style='cursor:pointer' onClick='search_with_changePageNo(${i})' >[${i}]</span>&nbsp;
+        </c:if>
+      </c:forEach>
+      <c:if test="${requestScope.pagingNos.selectPageNo<requestScope.pagingNos.last_pageNo}">
+        &nbsp;&nbsp;
+        <span style='cursor:pointer' onClick='search_with_changePageNo(${requestScope.pagingNos.selectPageNo}+1)' >다음</span>
+        <span style='cursor:pointer' onClick='search_with_changePageNo(${requestScope.pagingNos.last_pageNo})' >마지막</span>
+      </c:if>
+      <c:if test="${requestScope.pagingNos.selectPageNo>=requestScope.pagingNos.last_pageNo}">
+        &nbsp;&nbsp;
+        <span>다음</span>
+        <span>마지막</span>
+      </c:if>
+    </c:if>
     </div>
     <form action="/boardContentForm.do" name="boardContentForm" maethod="post">
       <input type="hidden" name="b_no">

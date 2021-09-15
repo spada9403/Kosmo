@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -43,18 +46,54 @@ public class LoginController {
         mav.setViewName("loginForm.jsp");
         return mav;
     }
-    @RequestMapping(value = "/loginProc.do")
+    @RequestMapping(value = "/loginProc3.do")
     public ModelAndView loginProc(
         @RequestParam( value = "login_id") String login_id,
-        @RequestParam( value = "pwd") String pwd
+        @RequestParam( value = "pwd") String pwd,
+        HttpSession session,
+        HttpServletResponse response
     ){
         Map<String, String> map = new HashMap<String,String>();
         map.put("login_id",login_id);
         map.put("pwd",pwd);
         int login_idCnt = loginDAO.getLogin_idCnt(map);
         ModelAndView mav = new ModelAndView();
+        if(login_idCnt == 1){
+            // httpSession 객체에 로그인 아이디 저장하기.
+            // httpSession 객체에 로그인 아이디를 저장하면 재 접속했을때 다시 꺼낼수 있다.
+            // <참고> HttpSession 객체는 접속한 이후에도 제거되지 않고 지정된 기간동안 살아있는 객체이다.
+            // <참고> HttpsServletRequest,HttpServletResponse 객체는 접속때 생성되고 응답 이후 삭제되는 객체이다.
+            session.setAttribute("login_id", login_id);
+            session.setAttribute("pwd", pwd);
+            if(Util.isNull(login_id) && Util.isNull(pwd)){
+                Util.addCookie("login_id", null, 0, response);
+                Util.addCookie("pwd", null, 0, response);
+            } else {
+                Util.addCookie("login_id", login_id, 60*60*24, response);
+                Util.addCookie("pwd", pwd, 60*60*24, response);
+            }
+        }
         mav.setViewName("loginProc.jsp");
         mav.addObject("idcnt" , login_idCnt);
+        return mav;
+    }
+    //  가상주소 /logout.do로 접근하면 호출되는 메소드 선언
+    @RequestMapping(value = "/logout.do")
+    public ModelAndView logout(
+        HttpSession session
+    ){
+        //  HttpSession 객체에 "login_id"라는 키값으로 저장된 데이터 삭제하기
+        //  HttpSession 객체에 로그인 성공 후 저장된 아이디 값을 지우기
+        session.removeAttribute("login_id");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("logout.jsp");
+        return mav;
+    }
+    //  가상주소 /login_alert.do로 접근하면 호출되는 메소드 선언
+    @RequestMapping(value = "/login_alert.do")
+    public ModelAndView login_alert(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("login_alert.jsp");
         return mav;
     }
     @RequestMapping(value = "/loginProc2.do" , method= RequestMethod.POST)
@@ -71,5 +110,24 @@ public class LoginController {
         mav.setViewName("loginProc.jsp");
         mav.addObject("idcnt" , login_idCnt);
         return mav;
+    }
+    @RequestMapping(value = "/loginProc.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public int loginProc3(
+        @RequestParam( value = "login_id" ) String login_id,
+        @RequestParam( value = "pwd" ) String pwd,
+        @RequestParam( value = "is_login", required = false ) String is_login,
+        HttpSession session,
+        HttpServletResponse response
+    ){
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("login_id", login_id);
+        map.put("pwd",pwd);
+        int login_idCnt = loginDAO.getLogin_idCnt(map);
+        if(login_idCnt==1){
+         session.setAttribute("login_id", login_id);
+         session.setAttribute("pwd", pwd);
+        }
+        return login_idCnt;
     }
 }

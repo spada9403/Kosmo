@@ -9,6 +9,7 @@ public class BoardSearchDTO {
     private List<String> day;
     private String keyword2;
     private String orAnd;
+    private String sort;
     public String getKeyword1() {
         return keyword1;
     }
@@ -44,5 +45,11 @@ public class BoardSearchDTO {
     }
     public void setOrAnd(String orAnd) {
         this.orAnd = orAnd;
+    }
+    public String getSort() {
+        return sort;
+    }
+    public void setSort(String sort) {
+        this.sort = sort;
     }
     }

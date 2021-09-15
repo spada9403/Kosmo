@@ -15,10 +15,12 @@
         $.ajax({
           url:"/boardUpDelProc.do",
           type:"post",
-          data: data,
-          success: function (responseHtml) {
-            var upBoardCnt = $.trim($(responseHtml).filter(".upDelBoardCnt").text());
-            var msg = $.trim($(responseHtml).filter(".msg").text());
+          processData:false,
+          contentType:false,
+          data: new FormData( $("[name=boardUpDelForm]").get(0) ),
+          success: function (json) {
+            var upBoardCnt = json.upDelBoardCnt;
+            var msg = json.msg;
             if(msg != ""){
               alert("에러넘버 : "+upBoardCnt + "    에러메세지 : " + msg);
               if(upBoardCnt == -3) {location.replace("/boardList.do")}
@@ -45,10 +47,19 @@
           ajaxFunc( $("[name='boardUpDelForm']").serialize(), upDel)
 
       }
+      $(document).ready(function () {
+        $(".writer").val("${boardDTO.writer}");
+        $(".subject").val("${boardDTO.subject}");
+        $(".email").val("${boardDTO.email}");
+        $(".content").val("${boardDTO.content}");
+        $("th").css({
+          "background-color":"${bgColor}"
+        })
+      })
     </script>
   </head>
   <body>
-  <%
+  <%/*
     BoardDTO board = (BoardDTO)request.getAttribute("boardDTO");
       if( board != null ){
         int b_no = board.getB_no();
@@ -57,32 +68,44 @@
         String writer = board.getWriter();
         String reg_date = board.getReg_date();
         int readcount = board.getReadcount();
-        String email = board.getEmail();
+        String email = board.getEmail();*/
   %>
     <center>
-      <form action="/boardUpDelProc.do" name="boardUpDelForm" method="post">
+    <c:if test="${!empty boardDTO}">
+      <form action="/boardUpDelProc.do" name="boardUpDelForm" method="post" enctype="multipart/form-data" >
         <table border="1" style="border-collapse: collapse" cellpadding="5">
           <caption>
             게시판 수정 / 삭제
           </caption>
           <tr>
-            <th bgcolor="lightgray">이 름</th>
-            <td><input type="text" name="writer" size="10" class="writer" maxlength="10" value="<%=writer%>" /></td>
+            <th>이 름</th>
+            <td><input type="text" name="writer" size="10" class="writer" maxlength="10" /></td>
           </tr>
           <tr>
-            <th bgcolor="lightgray">제 목</th>
-            <td><input type="text" name="subject" size="40" class="subject" maxlength="30"  value="<%=subject%>"/></td>
+            <th>제 목</th>
+            <td><input type="text" name="subject" size="40" class="subject" maxlength="30" /></td>
           </tr>
           <tr>
-            <th bgcolor="lightgray">이메일</th>
-            <td><input type="text" name="email" size="40" class="email" maxlength="30"  value="<%=email%>"/></td>
+            <th>이메일</th>
+            <td><input type="text" name="email" size="40" class="email" maxlength="30" /></td>
           </tr>
           <tr>
-            <th bgcolor="lightgray">내 용</th>
-            <td><textarea name="content" cols="40" rows="13" class="content" maxlength="300"><%=content%></textarea></td>
+            <th>내 용</th>
+            <td><textarea name="content" cols="40" rows="13" class="content" maxlength="300"></textarea></td>
           </tr>
           <tr>
-            <th bgcolor="lightgray">비밀번호</th>
+            <th>이미지</th>
+            <td colspan="3">
+              <input type="file" name="img" class="img" />
+              <div style="height:3pt" ></div>
+            <c:if test = "${boardDTO.pic != null && boardDTO.pic.length()>0}">
+             <img width="30%" src="/resources/img/${boardDTO.pic}">
+             <input type="checkbox" name="killImage" value=true /> 삭제
+            </c:if>
+            </td>
+          </tr>
+          <tr>
+            <th>비밀번호</th>
             <td><input type="password" name="pwd" size="8" class="pwd" maxlength="4" /></td>
           </tr>
         </table>
@@ -90,15 +113,14 @@
           <input type="button" value="수정" onClick="checkBoardUpDelForm('up')" />
           <input type="button" value="삭제" onClick="checkBoardUpDelForm('del')" />
           <input type="button" value="목록보기" onClick="location.replace('/boardList.do');" />
-          <input type="hidden" name="b_no" value="<%=b_no%>" />
+          <input type="hidden" name="b_no" value="${boardDTO.b_no}" />
           <input type="hidden" name="upDel"/>
         </div>
       </form>
+    </c:if>
+    <c:if test="${empty boardDTO}">
+    <script>alert('삭제된 글입니다.'); location.replace('/boardList.do')</script>
+    </c:if>
     </center>
-    <%
-      } else {
-        out.print("<script>alert('삭제된 글입니다.'); location.replace('/boardList.do')</script>");
-      }
-      %>
   </body>
 </html>

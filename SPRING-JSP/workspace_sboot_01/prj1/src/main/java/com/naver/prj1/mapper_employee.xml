@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.naver.prj1.EmployeeDAO">
+<sql id="isKeyword">
+    <if test="keyword1 != null and keyword1.length()>0">
+    and (
+        to_char(e.emp_no) = #{keyword1}
+        or
+        e.emp_name like '%${keyword1}%'
+        or
+        <if test="keyword1.length()>5">
+        e.jumin_num like '%${keyword1}%'
+        or
+        </if>
+        d.dep_name like '%${keyword1}%'
+    )
+    </if>
+</sql>
+<sql id="isJikup">
+    <if test="jikup != null and jikup.size()>0">
+    and
+    <foreach item="item" index="index" collection="jikup"
+        open="(" separator="or" close=")">
+            <if test="item.equals('사장')">
+            e.jikup = '사장'
+            </if>
+            <if test="item.equals('부장')">
+            e.jikup = '부장'
+            </if>
+            <if test="item.equals('과장')">
+            e.jikup = '과장'
+            </if>
+            <if test="item.equals('대리')">
+            e.jikup = '대리'
+            </if>
+            <if test="item.equals('주임')">
+            e.jikup = '주임'
+            </if>
+            <if test="item.equals('사원')">
+            e.jikup = '사원'
+            </if>
+    </foreach>
+    </if>
+</sql>
+<select id="getEmployeeList" parameterType="com.naver.prj1.EmployeeDTO" resultType="java.util.Map">
+select
+    *
+from
+(
+    select
+    rownum "RNUM2",
+    e.emp_no||'' "EMP_NO",
+    e.emp_name "EMP_NAME",
+    e.jikup "JIKUP",
+    to_char(e.hire_date,'YYYY-MM-DD') "HIRE_DATE",
+    d.dep_name "DEP_NAME"
+    from
+        (select * from employee order by emp_no) e,
+        dept d
+    where
+        e.dep_no = d.dep_no
+        and
+        <![CDATA[rownum <= ${selectPageNo*rowCntPerPage}]]>
+        <include refid="isKeyword"></include>
+        <include refid="isJikup"></include>
+) re
+where
+    <![CDATA[re.RNUM2 >= ${(selectPageNo*rowCntPerPage)-rowCntPerPage+1}]]>
+</select>
+<select id="getEmployeeCnt" resultType="int" parameterType="com.naver.prj1.EmployeeDTO">
+    select
+        count(*) "CNT"
+    from
+        employee e,
+        dept d
+    where
+        e.dep_no = d.dep_no
+        <include refid="isKeyword"></include>
+        <include refid="isJikup"></include>
+</select>
+</mapper>

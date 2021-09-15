@@ -1,5 +1,6 @@
 package com.naver.prj1;
 
+
 public class BoardDTO {
     private int b_no;
     private String subject;
@@ -7,11 +8,13 @@ public class BoardDTO {
     private String reg_date;
     private int readcount;
     private String content;
+    private String pic;
     private String pwd;
     private String email;
     private int group_no;
     private int print_no;
     private int print_level;
+    private String killImage;
     public int getB_no() {
         return b_no;
     }
@@ -48,6 +51,12 @@ public class BoardDTO {
     public void setContent(String content) {
         this.content = content;
     }
+    public String getPic() {
+        return pic;
+    }
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
     public String getPwd() {
         return pwd;
     }
@@ -77,5 +86,11 @@ public class BoardDTO {
     }
     public void setPrint_level(int print_level) {
         this.print_level = print_level;
+    }
+    public String getKillImage() {
+        return killImage;
+    }
+    public void setKillImage(String killImage) {
+        this.killImage = killImage;
     }
     }

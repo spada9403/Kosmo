@@ -24,47 +24,56 @@ public class BoardDAOImpl implements BoardDAO{
         return boardList;
     };
     public BoardDTO getBoard(int b_no){
-        BoardDTO boardDTO = sqlSession.selectOne(
+        BoardDTO boardDTO = this.sqlSession.selectOne(
             "com.naver.prj1.BoardDAO.getBoard",
             b_no
         );
         return boardDTO;
     }
     public int updateReadCount(int b_no){
-        int cnt = sqlSession.update("com.naver.prj1.BoardDAO.updateReadCount", b_no);
+        int cnt = this.sqlSession.update("com.naver.prj1.BoardDAO.updateReadCount", b_no);
         return cnt;
     }
     public int updateBoard(BoardDTO boardDTO){
-        int updateCnt = sqlSession.update("com.naver.prj1.BoardDAO.updateBoard", boardDTO);
+        int updateCnt = this.sqlSession.update("com.naver.prj1.BoardDAO.updateBoard", boardDTO);
         return updateCnt;
     }
     public int deleteBoard(int b_no){
-        int deleteCnt = sqlSession.delete("com.naver.prj1.BoardDAO.deleteBoard", b_no);
+        int deleteCnt = this.sqlSession.delete("com.naver.prj1.BoardDAO.deleteBoard", b_no);
         return deleteCnt;
     }
     public BoardDTO pwdMatch(BoardDTO boardDTO){
-        BoardDTO pwdMatchList = sqlSession.selectOne(
+        BoardDTO pwdMatchList = this.sqlSession.selectOne(
             "com.naver.prj1.BoardDAO.pwdMatch",boardDTO
             );
         return pwdMatchList;
     }
     public int getChildrenCnt(BoardDTO boardDTO){
-        int childrenCnt = sqlSession.selectOne("com.naver.prj1.BoardDAO.getChildrenCnt", boardDTO);
+        int childrenCnt = this.sqlSession.selectOne("com.naver.prj1.BoardDAO.getChildrenCnt", boardDTO);
         return childrenCnt;
     }
 
     public int downPrintNo(BoardDTO boardDTO){
-        int downPrintNo = sqlSession.update("com.naver.prj1.BoardDAO.downPrintNo", boardDTO);
+        int downPrintNo = this.sqlSession.update("com.naver.prj1.BoardDAO.downPrintNo", boardDTO);
         return downPrintNo;
     }
 
     public int updatePrintNo(BoardDTO boardDTO){
-        int updatePrintNoCnt = sqlSession.update("com.naver.prj1.BoardDAO.updatePrintNo", boardDTO);
+        int updatePrintNoCnt = this.sqlSession.update("com.naver.prj1.BoardDAO.updatePrintNo", boardDTO);
         return updatePrintNoCnt;
     }
     public int searchBoardCnt(BoardSearchDTO boardSearchDTO){
-        int searchBoardCnt = sqlSession.selectOne("com.naver.prj1.BoardDAO.searchBoardCnt", boardSearchDTO);
+        int searchBoardCnt = this.sqlSession.selectOne("com.naver.prj1.BoardDAO.searchBoardCnt", boardSearchDTO);
         return searchBoardCnt;
+    }
+
+    public String getPic(BoardDTO boardDTO){
+        String pic = this.sqlSession.selectOne("com.naver.prj1.BoardDAO.getPic", boardDTO);
+        return pic;
+    }
+    public int getBoardListAllCnt(){
+        int boardListAllCnt = this.sqlSession.selectOne("com.naver.prj1.BoardDAO.getBoardListAllCnt");
+        return boardListAllCnt;
     }
 
 }

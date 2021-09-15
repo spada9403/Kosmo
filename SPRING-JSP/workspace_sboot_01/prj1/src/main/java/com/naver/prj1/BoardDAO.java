@@ -15,4 +15,6 @@ public interface BoardDAO {
     int downPrintNo(BoardDTO boardDTO);
     int updatePrintNo(BoardDTO boardDTO);
     int searchBoardCnt(BoardSearchDTO boardSearchDTO);
+    String getPic(BoardDTO boardDTO);
+    int getBoardListAllCnt();
 }
