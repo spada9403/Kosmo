@@ -1,0 +1,45 @@
+[name="staffUpDelForm"] {
+  width: 1000px;
+}
+table {
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-top: 50px;
+}
+.staffListBox {
+  width: 1000px;
+}
+table th {
+  font-weight: bold;
+  background: lightgray;
+}
+table td,
+table th {
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+.btnBox {
+  margin-top: 8px;
+}
+.btnBox input {
+  width: 70px;
+}
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 50px;
+}
+.toList {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 25%;
+  background-color: gray;
+  padding: 5px;
+}
+[name="staffGradDay"] {
+  width: 70px;
+  margin-left: 10px;
+}

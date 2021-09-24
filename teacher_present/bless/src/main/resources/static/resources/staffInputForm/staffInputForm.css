@@ -1,0 +1,52 @@
+[name="staffInputForm"] {
+  width: 1000px;
+}
+table {
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-top: 50px;
+}
+table th {
+  font-weight: bold;
+  background: lightgray;
+}
+table td,
+table th {
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+.staffGradDay {
+  text-align: left;
+}
+.staffGradDay select {
+  width: 70px;
+  margin-left: 18px;
+}
+.btnBox {
+  margin-top: 5px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-right: 75px;
+}
+.btnBox input {
+  width: 100px;
+}
+.btnBox input[type="button"] {
+  margin-right: 450px;
+}
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 50px;
+}
+.toList {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 25%;
+  background-color: gray;
+  padding: 5px;
+}

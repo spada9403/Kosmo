@@ -18,31 +18,91 @@
   $(document).ready(function () {
     $("center").prepend(
       `<div>
-        <span style="cursor:pointer;" onClick="location.replace('/logout.do')">
+        <span style="cursor:pointer;" onClick="location.replace('/naver/logout.do')">
           [로그아웃]
         </span>
       </div>`
     );
   });
   function getRandomData(arr) {
-    var randomDataArr = "";
-    var arrLength = arr.length;
-    var randomCnt = Math.floor(Math.random() * arrLength);
-    randomDataArr = arr[randomCnt];
-    return randomDataArr;
-  }
-  function getRandomDataArr2(arr, cnt) {
-    var randomDataArr = [];
-    for (var i = 0; i < arr.length(); i++) {
-      radomDataArr.push(getRandomData(arr));
+    if (arr.length == 0 && arr == null) {
+      alert("배열변수의 개수보다 랜덤하게 뽑을 개수가 큽니다.");
+      return null;
     }
-    return randomDataArr;
+    var cnt = arr.length;
+    var idx = Math.floor(Math.random() * cnt);
+    return arr[idx];
+  }
+  function getRandomData_with_Del(arr) {
+    var cnt = arr.length;
+    var idx = Math.floor(Math.random() * cnt);
+    var randomData = arr[idx];
+    arr.splice(idx, 1);
+    return randomData;
+  }
+  function getRandomDataArr(arr, cnt) {
+    if (arr.length == 0 && arr == null) {
+      alert("배열변수의 개수보다 랜덤하게 뽑을 개수가 큽니다.");
+      return null;
+    }
+    if (arr.length < cnt) {
+      alert("배열변수의 개수보다 랜덤하게 뽑을 개수가 큽니다.");
+      return null;
+    }
+    var randomDataArr = [];
+    var arr2 = arr.slice(0);
+    for (var i = 1; i <= cnt; i++) {
+      randomDataArr.push(getRandomData_with_Del(arr2));
+    }
+    randomDataArr;
+    // while (true) {
+    //   var randomData = getRandomData(arr);
+    //var tmpArr = [];
+    ///////////////
+    // if (!(randomDataArr.indexOf(randomData) > 0)) {
+    //   randomDataArr.push(randomData);
+    // }
+    // if (randomDataArr.length == cnt) {
+    //   break;
+    // }
+    ///////////////
+    // var tmp_cnt = 0;
+    // for (var i = 0; i < tmpArr.length; i++) {
+    //   if (randomData == tmpArr[i]) {
+    //     tmp_cnt++;
+    //   }
+    // }
+    // if (tmp_cnt > 0) {
+    //   continue;
+    // }
+    // randomDataArr.push(randomData);
+    // tmpArr.push(randomData);
+    // if (arr.length == cnt) {
+    //   break;
+    // }
+    //}
+    //return randomDataArr;
   }
   function getRandomDataArr2(arr, min_cnt, max_cnt) {
-    var randomDataArr = [];
-    var randomCnt = Math.floor(Math.random() * (max_cnt - min_cnt) + min_cnt) + 1;
-    radomDataArr = getRandomDataArr2(arr, randomCnt);
-    return randomDataArr;
+    if (arr.length == 0 && arr == null) {
+      alert("배열변수의 개수보다 랜덤하게 뽑을 개수가 큽니다.");
+      return null;
+    }
+    if (arr.length < min_cnt) {
+      alert("배열변수의 개수보다 랜덤하게 뽑을 개수가 큽니다.");
+      return null;
+    }
+    if (max_cnt < min_cnt) {
+      alert("범위가 이상합니다.");
+      return null;
+    }
+    var randomCntArr = [];
+    for (var i = min_cnt; i <= max_cnt; i++) {
+      randomCntArr.push(i);
+    }
+    var randomCnt = getRandomData(randomCntArr);
+    return getRandomDataArr(arr2, randomCnt);
   }
 </script>
-<c:set var="bgColor" value="#f2f299"></c:set>
+<c:set var="bgColor" value="#f2f299" scope="request" ></c:set>
+<c:set var="naverPath" value="/naver" scope="request" ></c:set>

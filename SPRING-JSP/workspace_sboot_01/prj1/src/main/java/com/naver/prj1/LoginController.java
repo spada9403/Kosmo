@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 //  URL 주소로 접속하면 호출되는 메소드를 소유한 [컨트롤러 클래스]선언
 //  @Controller 를 붙임으로써 [컨트롤러 클래스]임을 지정한다.
 @Controller
+@RequestMapping(value = "/naver")
 public class LoginController {
     /*
     // SqlSessionTemplate 객체를 생성해 속변 sqlSession 에 저장

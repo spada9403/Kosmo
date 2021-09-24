@@ -8,12 +8,12 @@
     <script>
     function ajaxFunc( data, upDel ){
       if(upDel == "up"){
-       if(confirm("정말 수정하시겠습니까?") == false) {reutrn}
+       if(confirm("정말 수정하시겠습니까?") == false) {return;}
       } else {
-        if(confirm("정말 삭제하시겠습니까?") == false) {reutrn}
+        if(confirm("정말 삭제하시겠습니까?") == false) {return;}
       }
         $.ajax({
-          url:"/boardUpDelProc.do",
+          url:"${requestScope.naverPath}/boardUpDelProc.do",
           type:"post",
           processData:false,
           contentType:false,
@@ -23,21 +23,22 @@
             var msg = json.msg;
             if(msg != ""){
               alert("에러넘버 : "+upBoardCnt + "    에러메세지 : " + msg);
-              if(upBoardCnt == -3) {location.replace("/boardList.do")}
+              if(upBoardCnt == -3) {location.replace("${requestScope.naverPath}/boardList.do")}
               $("[name=pwd]").val();
             } else {
               if(upDel == "up"){
                 alert("수정 성공!")
                 if(confirm("목록으로 이동합니까?") == true){
-                  location.replace("/boardList.do");
+                  location.replace("${requestScope.naverPath}/boardList.do");
                 }
               } else {
                 alert("삭제 성공!")
-                location.replace("/boardList.do");
+                location.replace("${requestScope.naverPath}/boardList.do");
               }
             }
           },
-          error: function () {
+          error: function (e) {
+            console.log(e);
             alert("서버접속실패!!");
           }
         })
@@ -72,7 +73,7 @@
   %>
     <center>
     <c:if test="${!empty boardDTO}">
-      <form action="/boardUpDelProc.do" name="boardUpDelForm" method="post" enctype="multipart/form-data" >
+      <form action="${requestScope.naverPath}/boardUpDelProc.do" name="boardUpDelForm" method="post" enctype="multipart/form-data" >
         <table border="1" style="border-collapse: collapse" cellpadding="5">
           <caption>
             게시판 수정 / 삭제
@@ -112,14 +113,14 @@
         <div style="margin-top: 15px" class="inputBox">
           <input type="button" value="수정" onClick="checkBoardUpDelForm('up')" />
           <input type="button" value="삭제" onClick="checkBoardUpDelForm('del')" />
-          <input type="button" value="목록보기" onClick="location.replace('/boardList.do');" />
+          <input type="button" value="목록보기" onClick="location.replace('${requestScope.naverPath}/boardList.do');" />
           <input type="hidden" name="b_no" value="${boardDTO.b_no}" />
           <input type="hidden" name="upDel"/>
         </div>
       </form>
     </c:if>
     <c:if test="${empty boardDTO}">
-    <script>alert('삭제된 글입니다.'); location.replace('/boardList.do')</script>
+    <script>alert('삭제된 글입니다.'); location.replace('${requestScope.naverPath}/boardList.do')</script>
     </c:if>
     </center>
   </body>

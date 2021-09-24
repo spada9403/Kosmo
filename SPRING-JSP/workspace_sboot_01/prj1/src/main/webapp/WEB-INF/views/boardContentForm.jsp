@@ -56,11 +56,11 @@
       <br>
       <input type="button" value="댓글쓰기" onClick="goBoardRegForm();"/>&nbsp;
       <input type="button" value="수정/삭제" onClick="goBoardUpDelForm();"/>&nbsp;
-      <input type="button" value="글 목록 보기" onClick="location.replace('/boardList.do')"/>
-    <form name="boardUpDelForm" method="post" action="/boardUpDelForm.do">
+      <input type="button" value="글 목록 보기" onClick="location.replace('${requestScope.naverPath}/boardList.do')"/>
+    <form name="boardUpDelForm" method="post" action="${requestScope.naverPath}/boardUpDelForm.do">
       <input type="hidden" name="b_no" value="${board.b_no}" />
     </form>
-    <form name="boardRegForm" method="post" action="/boardRegForm.do">
+    <form name="boardRegForm" method="post" action="${requestScope.naverPath}/boardRegForm.do">
       <input type="hidden" name="b_no" value="${board.b_no}" />
     </form>
       <c:if test="${empty board}">

@@ -7,7 +7,7 @@
     <title>Board List!!</title>
     <script>
       function goBoardRegForm() {
-        location.replace("/boardRegForm.do");
+        location.replace("${naverPath}/boardRegForm.do");
       }
       function paintList(trObj) {
         var visibleTrObj = trObj.not(":first-child").filter(":visible");
@@ -44,7 +44,7 @@
       }
       function searchExe() {
         $.ajax({
-          url: "/boardList.do",
+          url: "${requestScope.naverPath}/boardList.do",
           type: "post",
           data: $("[name=boardListForm]").serialize(),
           success: function(responseHtml){
@@ -217,7 +217,7 @@
       </c:if>
     </c:if>
     </div>
-    <form action="/boardContentForm.do" name="boardContentForm" maethod="post">
+    <form action="${requestScope.naverPath}/boardContentForm.do" name="boardContentForm" maethod="post">
       <input type="hidden" name="b_no">
     </form>
     </center>

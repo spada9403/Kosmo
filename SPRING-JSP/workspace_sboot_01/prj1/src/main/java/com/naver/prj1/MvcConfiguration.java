@@ -15,12 +15,12 @@ public class MvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(new SessionInterceptor()).excludePathPatterns(
-            "/loginForm.do",
-            "/loginProc.do",
-            "/logout.do",
+            "/naver/loginForm.do",
+            "/naver/loginProc.do",
+            "/naver/logout.do",
             "/resources/**",
-            "/login_alert.do",
-            "/employeeList.do" 
+            "/naver/login_alert.do",
+            "/naver/employeeList.do" 
         );
     }
 }

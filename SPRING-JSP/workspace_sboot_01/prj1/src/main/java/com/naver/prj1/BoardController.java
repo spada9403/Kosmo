@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
+@RequestMapping(value = "/naver")
 public class BoardController {
     @Autowired
     private BoardService boardService;
@@ -117,7 +118,7 @@ public class BoardController {
     @RequestParam(value = "img") MultipartFile multi, 
     BoardDTO boardDTO, BindingResult bindingResult
   ) throws Exception {
-      ModelAndView mav = new ModelAndView();
+      //ModelAndView mav = new ModelAndView();
       String msg = "";
       int upDelBoardCnt = 0;
       msg = check_UpDelBoardDTO(boardDTO, bindingResult);
@@ -127,7 +128,7 @@ public class BoardController {
           return MultiMap;
         }
         upDelBoardCnt = this.boardService.upDelBoard(boardDTO, upDel, multi);
-        mav.addObject("upDelBoardCnt", upDelBoardCnt);
+        //mav.addObject("upDelBoardCnt", upDelBoardCnt);
         if(upDelBoardCnt == -1){
          msg = "서버에서 문제발생! 서버 관리자에게 문의 바람";
         } else if(upDelBoardCnt == -2){
@@ -220,7 +221,7 @@ public class BoardController {
       }
       // 만약에 업로드된 파일의 확장자가 이미지 확장자가 아니면
       String fileName = multi.getOriginalFilename();
-      if(Pattern.matches("[a-zA-Z0-9_-]*.(jpg|png|gif)$", fileName)==false){
+      if(Pattern.matches("([a-zA-Z0-9_-])*.(jpg|png|gif)$", fileName)==false){
         Map<String,String> map = new HashMap<String,String>();
         map.put("insertBoardCnt", "0");
         map.put("msg", "이미지 파일이 아닙니다.");

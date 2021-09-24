@@ -23,13 +23,13 @@
           return;
         }
         $.ajax({
-          url: "/loginProc.do",
+          url: "/naver/loginProc.do",
           type: "post",
           data: $("[name=loginForm]").serialize(),
           success: function (login_idCnt) {
             if (login_idCnt == 1) {
               alert("로그인성공");
-              location.replace("/boardList.do");
+              location.replace("/naver/boardList.do");
             } else {
               alert("로그인실패");
             }

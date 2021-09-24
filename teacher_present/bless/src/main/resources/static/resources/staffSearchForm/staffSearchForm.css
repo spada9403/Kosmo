@@ -1,0 +1,76 @@
+[name="staffSearchForm"] {
+  width: 1000px;
+}
+table {
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-top: 50px;
+}
+.staffListBox {
+  width: 1000px;
+}
+table th {
+  font-weight: bold;
+  background: lightgray;
+}
+.inputTable td,
+.inputTable th {
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+.staffList td,
+.staffList th {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+.searchBox {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.searchBox input:first-child {
+  width: 200px;
+  margin-right: 150px;
+}
+.searchBox input:not(:first-child):not(:last-child) {
+  margin-right: 15px;
+}
+.staffListBox h1 {
+  margin-top: 50px;
+}
+.staffListBox {
+  margin-top: 50px;
+}
+h1 {
+  font-size: 25px;
+  font-weight: bold;
+}
+.pageNo {
+  margin-top: 10px;
+}
+.staffList tbody tr:not(:first-child):nth-child(even) {
+  background-color: #ffd194;
+}
+.staffList tbody tr:not(:first-child):nth-child(odd) {
+  background-color: #70e1f5;
+}
+.staffList tbody tr:not(:first-child) td:last-child input {
+  border: 1px solid brown;
+  background-color: inherit;
+  cursor: pointer;
+}
+.pointer {
+  cursor: pointer;
+}
+.rowCntPerPage {
+  margin-top: 20px;
+}
+[name^="staffGradDay"] {
+  width: 70px;
+  margin-left: 8px;
+}

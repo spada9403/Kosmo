@@ -8,7 +8,7 @@
       function checkBoardRegForm() {
         if (confirm("정말 등록 하시겠습니까??") == false) {return;}
           $.ajax({
-            url: "/boardRegProc.do",
+            url: "${requestScope.naverPath}/boardRegProc.do",
             type: "post",
             //JQUERY의 ajax 메소드 data 얘로는 파일이 업로드 되지 않는다.
             //data: $("[name=boardRegForm]").serialize(),
@@ -87,7 +87,7 @@
   </head>
   <body>
     <center>
-      <form action="/boardRegProc.do" name="boardRegForm" method="post" enctype="multipart/form-data" >
+      <form action="${requestScope.naverPath}/boardRegProc.do" name="boardRegForm" method="post" enctype="multipart/form-data" >
         <table border="1" style="border-collapse: collapse" cellpadding="5">
           <c:if test="${empty param.b_no}">
             <caption>
@@ -129,7 +129,7 @@
         <div style="margin-top: 15px" class="inputBox">
           <input type="button" value="저장" onclick="checkBoardRegForm()" />
           <input type="reset" value="다시작성" />
-          <input type="button" value="목록보기" onclick="location.replace('boardList.do');" />
+          <input type="button" value="목록보기" onclick="location.replace('${requestScope.naverPath}/boardList.do');" />
           <c:if test="${empty param.b_no}">
             <input type="hidden" name="b_no" value="0" />
           </c:if>
