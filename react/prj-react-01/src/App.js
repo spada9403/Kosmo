@@ -3,10 +3,12 @@ import { Route } from "react-router-dom";
 
 import Counter from "./naver/Counter";
 import Counter2 from "./naver/Counter2";
-import Test2 from "./test/Test02";
+import Test02 from "./test/Test02";
 import Test01 from "./test/Test01";
 import Checkchic from "./naver/Checkchic";
 import Checkchic2 from "./naver/Checkchic2";
+import Test03 from "./test/Test03";
+import RegData from "./naver/RegData";
 
 function App() {
   return (
@@ -15,9 +17,11 @@ function App() {
       <Route path="/naver/counter" component={Counter}></Route>
       <Route path="/naver/counter2" component={Counter2}></Route>
       <Route path="/test/test01" component={Test01}></Route>
-      <Route path="/test/test02" component={Test2}></Route>
+      <Route path="/test/test02" component={Test02}></Route>
+      <Route path="/test/test03" component={Test03}></Route>
       <Route path="/naver/Checkchic" component={Checkchic}></Route>
       <Route path="/naver/Checkchic2" component={Checkchic2}></Route>
+      <Route path="/naver/regdata" component={RegData}></Route>
     </div>
   );
 }
