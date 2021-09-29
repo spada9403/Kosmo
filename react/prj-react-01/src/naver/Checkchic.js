@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 
 function Ceckchic() {
-  const [mailChick, setMailChick] = useState(0);
-  const [femailChick, setFemailChick] = useState(0);
-  const [totCount, setTotCount] = useState(0);
+  const [mChickNo, setMailChick] = useState(0);
+  const [wChickNo, setFemailChick] = useState(0);
 
-  const femailChickAdd = () => {
-    setFemailChick(femailChick + 1);
-    setTotCount(totCount + 1);
-  };
-  const femailChickMinus = () => {
-    setFemailChick(femailChick - 1);
-    setTotCount(totCount - 1);
-  };
-  const mailChickAdd = () => {
-    setMailChick(mailChick + 1);
-    setTotCount(totCount + 1);
-  };
-  const mailChickMinus = () => {
-    setMailChick(mailChick - 1);
-    setTotCount(totCount - 1);
+  const updateChickCnt = (sex, number) => {
+    if (sex === "mail") {
+      const nowMailChickNo = mChickNo;
+      if (nowMailChickNo + number < 0) {
+        alert("숫병아리의 숫자는 마이너스가 될 수 없습니다.");
+        return;
+      }
+      setMailChick(nowMailChickNo + number);
+    }
+    if (sex === "femail") {
+      const nowFemailChickNo = wChickNo;
+      if (nowFemailChickNo + number < 0) {
+        alert("암병아리의 숫자는 마이너스가 될 수 없습니다.");
+        return;
+      }
+      setFemailChick(nowFemailChickNo + number);
+    }
   };
   return (
     <>
@@ -29,23 +30,46 @@ function Ceckchic() {
             margin: "20px 0px",
           }}
         >
-          <span>총개수 : {totCount}</span>
+          <span>총개수 : {mChickNo + wChickNo}</span>
         </div>
         <div>
-          <button onClick={femailChickAdd}>+1</button>
-          <button onClick={femailChickMinus} style={{ marginRight: "30px" }}>
+          <button
+            onClick={() => {
+              updateChickCnt("femail", +1);
+            }}
+          >
+            +1
+          </button>
+          <button
+            onClick={() => {
+              updateChickCnt("femail", -1);
+            }}
+            style={{ marginRight: "30px" }}
+          >
             -1
           </button>
-          <button onClick={mailChickAdd}>+1</button>
-          <button onClick={mailChickMinus}>-1</button>
+          <button
+            onClick={() => {
+              updateChickCnt("mail", +1);
+            }}
+          >
+            +1
+          </button>
+          <button
+            onClick={() => {
+              updateChickCnt("mail", -1);
+            }}
+          >
+            -1
+          </button>
         </div>
         <div>
           <span style={{ marginRight: "15px" }}>암병아리</span>
           <span>숫병아리</span>
         </div>
         <div>
-          <span style={{ marginRight: "80px" }}>{femailChick}</span>
-          <span>{mailChick}</span>
+          <span style={{ marginRight: "80px" }}>{wChickNo}</span>
+          <span>{mChickNo}</span>
         </div>
       </center>
     </>
