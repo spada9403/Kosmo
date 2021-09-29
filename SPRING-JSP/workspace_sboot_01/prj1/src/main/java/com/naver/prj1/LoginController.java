@@ -37,15 +37,19 @@ public class LoginController {
     private LoginDAO loginDAO;
 
     //가상주소 /loginForm.do 로 접근하면 호출되는 메소드 선언
+    // @RequestMapping(value = "/loginForm.do")
+    // public ModelAndView loginForm(){
+    //     //ModelAndView 객체 생성
+    //     //ModelAndView 객체 에 호출 JSP 페이지명 저장.
+    //     //ModelAndView 객체 리턴하기
+    //     ModelAndView mav = new ModelAndView();
+    //     //setViewName => JSP 페이지명을 저장할떄 사용하는 ModelAndView객체의 메소드이다.
+    //     mav.setViewName("loginForm.jsp");
+    //     return mav;
+    // }
     @RequestMapping(value = "/loginForm.do")
-    public ModelAndView loginForm(){
-        //ModelAndView 객체 생성
-        //ModelAndView 객체 에 호출 JSP 페이지명 저장.
-        //ModelAndView 객체 리턴하기
-        ModelAndView mav = new ModelAndView();
-        //setViewName => JSP 페이지명을 저장할떄 사용하는 ModelAndView객체의 메소드이다.
-        mav.setViewName("loginForm.jsp");
-        return mav;
+    public String loginForm(){
+        return "loginForm.jsp";
     }
     @RequestMapping(value = "/loginProc3.do")
     public ModelAndView loginProc(

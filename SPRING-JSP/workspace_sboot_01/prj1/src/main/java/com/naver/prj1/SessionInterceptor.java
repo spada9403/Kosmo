@@ -49,7 +49,7 @@ public class SessionInterceptor implements HandlerInterceptor{
 		// 만약 로그인에 성공한 적이 없으면
 		if(login_id==null) {
 			// 클라이언트에게 loginForm.do 로 재접속 시키기.
-			response.sendRedirect( "/login_alert.do" );
+			response.sendRedirect( "/naver/login_alert.do" );
 			// false 리턴 하면 @RequestMapping이 붙은 메소드가 실행이 되지 않음.
 			return false;
 		}

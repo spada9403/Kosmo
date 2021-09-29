@@ -78,7 +78,7 @@
             <td><input type="button" value="로그인" class="login" /></td>
           </tr>
           <tr>
-            <td><span style="cursor: pointer" onClick="location.replace('/memRegForm.do')">[회원가입]</span></td>
+            <td><span style="cursor: pointer" onClick="location.replace('/naver/memRegForm.do')">[회원가입]</span></td>
           </tr>
         </table>
       </form>
