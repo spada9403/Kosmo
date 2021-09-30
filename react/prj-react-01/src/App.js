@@ -9,6 +9,8 @@ import Checkchic from "./naver/Checkchic";
 import Checkchic2 from "./naver/Checkchic2";
 import Test03 from "./test/Test03";
 import RegData from "./naver/RegData";
+import RegData2 from "./naver/RegData2";
+import Search from "./naver/Search";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
       <Route path="/naver/Checkchic" component={Checkchic}></Route>
       <Route path="/naver/Checkchic2" component={Checkchic2}></Route>
       <Route path="/naver/regdata" component={RegData}></Route>
+      <Route path="/naver/regdata2" component={RegData2}></Route>
+      <Route path="/naver/search" component={Search}></Route>
     </div>
   );
 }
