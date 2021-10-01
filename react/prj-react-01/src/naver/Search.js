@@ -1,4 +1,8 @@
 import React, { useState, useRef } from "react";
+import styled from "styled-components";
+const Tr = styled.tr`
+  background-color: ${(props) => (props.className === "odd" ? "lightcoral" : "lightpink")};
+`;
 
 function Search() {
   //DB 연동으로 가지고온 데이터
@@ -15,12 +19,17 @@ function Search() {
   const [developers, setDevelopers] = useState(allDev);
   const [inputText, setInputText] = useState("");
 
-  const chagneText = (e) => {
+  const changeText = (e) => {
     setInputText(e.target.value);
   };
   const search = () => {
     const val = inputText.trim();
-    let array = allDev.filter((item) => item.dev_name.indexOf(val) > 0 || item.phone.indexOf(val) > 0 || item.addr.indexOf(val) > 0);
+    if (val === "" || val === undefined || val === null) {
+      alert("검색할 키워드가 없습니다!");
+      nameRef.current.focus();
+      return;
+    }
+    const array = allDev.filter((item) => item.dev_name.indexOf(val) >= 0 || item.phone.indexOf(val) >= 0 || item.addr.indexOf(val) >= 0);
     setDevelopers(array);
     setInputText("");
     nameRef.current.focus();
@@ -31,33 +40,43 @@ function Search() {
     nameRef.current.focus();
   };
 
-  const devList = developers.map((dev) => (
-    <tr>
-      <td>{dev.dev_no}</td>
-      <td>{dev.dev_name}</td>
-      <td>{dev.addr}</td>
-      <td>{dev.phone}</td>
-    </tr>
-  ));
+  const devList = developers.map((dev, index) => {
+    let even_or_odd = "odd";
+    if (index % 2 === 0) {
+      even_or_odd = "even";
+    }
+    return (
+      <Tr className={even_or_odd}>
+        <td>{dev.dev_no}</td>
+        <td>{dev.dev_name}</td>
+        <td>{dev.addr}</td>
+        <td>{dev.phone}</td>
+      </Tr>
+    );
+  });
   return (
     <>
       <center>
         <br />
         <br />
         <span>
-          키워드: <input type="text" onChange={chagneText} ref={nameRef} value={inputText} />
+          키워드: <input type="text" onChange={changeText} ref={nameRef} value={inputText} />
         </span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button onClick={search}>검색</button>
+        <button onClick={search} className="searchBtn">
+          검색
+        </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button onClick={allSearch}>모두 검색</button>
+        <button onClick={allSearch} className="searchBtn">
+          모두 검색
+        </button>
         <br />
         <br />
         <span>총 {developers.length}명</span>
         <br />
         <br />
         <table border="1" cellPadding="5" style={{ borderCollapse: "collapse" }}>
-          <tr>
+          <tr style={{ backgroundColor: "gray" }}>
             <th>번호</th>
             <th>직원명</th>
             <th>거주지</th>

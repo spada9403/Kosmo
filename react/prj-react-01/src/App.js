@@ -11,6 +11,7 @@ import Test03 from "./test/Test03";
 import RegData from "./naver/RegData";
 import RegData2 from "./naver/RegData2";
 import Search from "./naver/Search";
+import Search2 from "./naver/Search2";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route path="/naver/regdata" component={RegData}></Route>
       <Route path="/naver/regdata2" component={RegData2}></Route>
       <Route path="/naver/search" component={Search}></Route>
+      <Route path="/naver/search2" component={Search2}></Route>
     </div>
   );
 }

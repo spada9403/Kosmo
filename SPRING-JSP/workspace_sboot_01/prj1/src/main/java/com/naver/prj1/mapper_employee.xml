@@ -5,7 +5,7 @@
 <sql id="isKeyword">
     <if test="keyword1 != null and keyword1.length()>0">
     and (
-        to_char(e.emp_no) = #{keyword1}
+        e.emp_no = ${keyword1}
         or
         e.emp_name like '%${keyword1}%'
         or
@@ -79,4 +79,30 @@ where
         <include refid="isKeyword"></include>
         <include refid="isJikup"></include>
 </select>
+    <select id="getEmplList" resultType="java.util.Map">
+    select
+        emp_no||'' "EMP_NO",
+        emp_name "EMP_NAME",
+        jikup "JIKUP",
+        to_char(hire_date,'YYYY-MM-DD') "HIRE_DATE"
+        from
+        employee
+    </select>
+    <select id="getEmplInfo" resultType="java.util.Map" parameterType="String" >
+    select
+        e.EMP_NO||'' "EMP_NO",
+        e.EMP_NAME "EMP_NAME",
+        d.DEP_NAME "DEP_NAME",
+        e.JIKUP "JIKUP",
+        e.SALARY||'' "SALARY",
+        to_char(e.HIRE_DATE,'YYYY-MM-DD') "HIRE_DATE",
+        e.JUMIN_NUM "JUMIN_NUM",
+        e.PHONE_NUM "PHONE_NUM",
+        (select emp_name from employee where emp_no = e.MGR_EMP_NO) "MGR_EMP_NAME"
+    from
+        employee e, dept d
+    where
+        e.DEP_NO = d.DEP_NO and
+        EMP_NO = ${id}
+    </select>
 </mapper>

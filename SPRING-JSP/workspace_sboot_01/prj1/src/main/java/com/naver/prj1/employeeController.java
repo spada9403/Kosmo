@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -54,4 +57,17 @@ public class employeeController {
         mav.setViewName("/employeeViews/employeeList.jsp");
         return mav;
     }
+    
+  @RequestMapping(value = "/employeeApi.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+  @ResponseBody
+  public List<Map<String,String>> emplList(){
+    List<Map<String,String>> emplList = this.employeeDAO.emplList();
+    return emplList;
+  }
+  @RequestMapping(value = "/employeeInfoApi.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+  @ResponseBody
+  public Map<String,String> emplInfo(@RequestParam("id") String id){
+    Map<String,String> emplList = this.employeeDAO.emplInfo(id);
+    return emplList;
+  }
 }

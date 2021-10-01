@@ -21,4 +21,12 @@ public class EmployeeDAOImple implements EmployeeDAO{
         int searchEmployeeCnt = this.sqlSession.selectOne("com.naver.prj1.EmployeeDAO.getEmployeeCnt",employeeDTO);
         return searchEmployeeCnt;
     }
+    public List<Map<String,String>> emplList(){
+        List<Map<String,String>> emplList = this.sqlSession.selectList("com.naver.prj1.EmployeeDAO.getEmplList");
+        return emplList;
+    }
+    public Map<String,String> emplInfo(String id) {
+        Map<String,String> map = this.sqlSession.selectOne("com.naver.prj1.EmployeeDAO.getEmplInfo",id);
+        return map;
+    }
 }
