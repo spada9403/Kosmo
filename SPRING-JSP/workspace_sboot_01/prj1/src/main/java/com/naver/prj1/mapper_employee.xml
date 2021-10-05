@@ -105,4 +105,7 @@ where
         e.DEP_NO = d.DEP_NO and
         EMP_NO = ${id}
     </select>
+    <update id="updateImplInfo" parameterType="java.util.ArrayList">
+        update (서브쿼리) set 어저꾸
+    </update>
 </mapper>

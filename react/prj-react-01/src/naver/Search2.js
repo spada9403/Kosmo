@@ -50,7 +50,6 @@ class Search2 extends Component {
         alert("DB서버 에러!!");
       },
     }).then((json) => {
-      console.log(json);
       const clientX = event.clientX;
       const clientY = event.clientY;
       const obj = $(".emplInfo");
@@ -58,8 +57,10 @@ class Search2 extends Component {
         position: "absolute",
         left: clientX + 20,
         top: clientY + 20,
+        zIndex: "2",
       });
       obj.html(`
+        <form method="post" name="emplInfo">
         <table border="1" cellpadding="3" style = "border-collapse:collapse" class="emplInfoTable" >
           <tr>
             <th>직원번호</th>
@@ -74,23 +75,67 @@ class Search2 extends Component {
           <tr>
             <td>${json.EMP_NO}</td>
             <td>${json.EMP_NAME}</td>
-            <td>${json.JIKUP}</td>
-            <td>${json.DEP_NAME}</td>
+            <td><input type="text" name="JIKUP" value=${json.JIKUP} /></td>
+            <td><input type="text" name="DEP_NAME" value=${json.DEP_NAME} /></td>
             <td>${json.HIRE_DATE}</td>
             <td>${json.JUMIN_NUM}</td>
-            <td>${json.PHONE_NUM}</td>
-            <td>${json.MGR_EMP_NAME}</td>
+            <td><input type="text" name="PHONE_NUM" value=${json.PHONE_NUM} /></td>
+            <td>
+            ${json.MGR_EMP_NAME !== undefined ? `<input type="text" name="MGR_EMP_NAME" value= ${json.MGR_EMP_NAME} />` : "<span>없음</span>"}
+            </td>
           </tr>
         </table>
-        <button>수정화면</button>
-        <button>닫기</button>
+        <input type="hidden" name="id" value=${json.EMP_NO} />
+        <button class="updateEmplInfo" >수정하기</button>
+        <button class="close" >닫기</button>
+        </form>
         `);
+      $(".close").click(() => {
+        obj.html("");
+        obj.hide();
+      });
+      $(".updateEmplInfo").click(async (e) => {
+        await $.ajax({
+          url: "http://localhost:8081/updateEmplInfo.do",
+          type: "post",
+          data: $("[name=emplInfo]").serialize(),
+          success: function (boolean) {},
+          error: function (e) {
+            console.log(e.statusText);
+            alert("서버DB에러!!");
+          },
+        }).then((boolean) => {
+          if (boolean) {
+            alert("성공!!");
+          } else {
+            alert("실패!!");
+          }
+        });
+      });
       const emplInfoTable = $(".emplInfoTable");
       emplInfoTable.find("th").css({
         backgroundColor: "lightgray",
       });
       emplInfoTable.css({
         backgroundColor: "white",
+      });
+      emplInfoTable.find("input").css({
+        width: "80px",
+      });
+      $(".blur").css({
+        display: "block",
+        position: "absolute",
+        left: "0",
+        top: "0",
+        width: "100vw",
+        height: "100vh",
+        backdropFilter: "blur(5px)",
+        zIndex: "1",
+      });
+      $(".close").click(() => {
+        $(".blur").css({
+          display: "none",
+        });
       });
       obj.show();
     });
@@ -186,6 +231,7 @@ class Search2 extends Component {
                 {devList !== null ? devList : ""}
               </table>
               {devList !== null && devList.length > 0 ? "" : <span>검색결과가 없습니다.</span>}
+              <div className="blur"></div>
               <div className="emplInfo"></div>
             </>
           )}

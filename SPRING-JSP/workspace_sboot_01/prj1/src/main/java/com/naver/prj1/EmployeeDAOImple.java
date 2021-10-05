@@ -1,5 +1,6 @@
 package com.naver.prj1;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,5 +29,9 @@ public class EmployeeDAOImple implements EmployeeDAO{
     public Map<String,String> emplInfo(String id) {
         Map<String,String> map = this.sqlSession.selectOne("com.naver.prj1.EmployeeDAO.getEmplInfo",id);
         return map;
+    }
+    public int updateEmplInfo(ArrayList<String> emplInfo){
+        int emplInfoCnt = this.sqlSession.update("com.naver.prj1.EmployeeDAO.updateImplInfo",emplInfo);
+        return emplInfoCnt;
     }
 }

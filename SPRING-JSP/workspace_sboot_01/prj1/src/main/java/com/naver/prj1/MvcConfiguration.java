@@ -22,7 +22,8 @@ public class MvcConfiguration implements WebMvcConfigurer {
             "/naver/login_alert.do",
             "/employeeList.do",
             "/employeeApi.do",
-            "/employeeInfoApi.do"
+            "/employeeInfoApi.do",
+            "/updateEmplInfo.do"
         );
     }
 }

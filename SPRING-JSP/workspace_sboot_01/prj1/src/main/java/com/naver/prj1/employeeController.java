@@ -1,5 +1,6 @@
 package com.naver.prj1;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ public class employeeController {
     
     @Autowired
     EmployeeDAO employeeDAO;
+    @Autowired
+    EmployeeService emplService;
 
 
     @RequestMapping(value = "/employeeList.do")
@@ -69,5 +72,26 @@ public class employeeController {
   public Map<String,String> emplInfo(@RequestParam("id") String id){
     Map<String,String> emplList = this.employeeDAO.emplInfo(id);
     return emplList;
+  }
+  @RequestMapping(value = "/updateEmplInfo.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+  @ResponseBody
+  public boolean emplupdate(
+      @RequestParam(value = "id") String id,
+      @RequestParam(value="JIKUP") String jikup,
+      @RequestParam(value="DEP_NAME") String dep_name,
+      @RequestParam(value="PHONE_NUM") String phone_num,
+      @RequestParam(value="MGR_EMP_NAME") String mgr_emp_name
+      ){
+        ArrayList<String> emplInfo = new ArrayList<String>();
+        emplInfo.add(id);
+        emplInfo.add(jikup);
+        emplInfo.add(dep_name);
+        emplInfo.add(phone_num);
+        emplInfo.add(mgr_emp_name);
+        int updateEmplInfocnt = this.emplService.updateEmplInfo(emplInfo);
+        if(updateEmplInfocnt > 0) {
+            return true;
+        }
+      return false;
   }
 }

@@ -10,6 +10,7 @@ public class webconfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/employeeApi.do");
         registry.addMapping("/employeeInfoApi.do");
+        registry.addMapping("/updateEmplInfo.do");
     }
     
 }
