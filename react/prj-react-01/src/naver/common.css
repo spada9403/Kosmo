@@ -1,0 +1,67 @@
+/* body 태그, form 태그, td 태그, pre 태그 관련 설정. */
+body,
+form,
+td,
+th,
+pre {
+  font-size: 7pt;
+  color: lightcoral;
+  font-family: 굴림, tahoma, 돋움, verdana;
+}
+/* input 태그, sleect 태그 설정. */
+input,
+select {
+  font-size: 7pt;
+  color: lightcoral;
+  font-family: 굴림, tahoma, 돋움, verdana;
+  height: 10px;
+}
+/* a 태그 설정. */
+a:link {
+  text-decoration: none;
+  color: #696969;
+}
+a:hover {
+  text-decoration: none;
+  color: #66ccff;
+}
+a:visited {
+  text-decoration: none;
+  color: #330066;
+}
+
+.tbcss0,
+.tbcss0 th,
+.tbcss0 td,
+.tbcss1,
+.tbcss1 th,
+.tbcss1 td,
+.tbcss2,
+.tbcss2 th,
+.tbcss2 td {
+  border-collapse: collapse;
+  border-style: solid;
+  font-size: 7pt;
+  font-family: tahoma, 굴림, 돋움, verdana;
+}
+/*가로세로 다 안보임*/
+.tbcss0,
+.tbcss0 th,
+.tbcss0 td {
+  border-width: 0px;
+  padding: 0px 5px;
+}
+/*가로만 보임*/
+.tbcss1,
+.tbcss1 th,
+.tbcss1 td {
+  border-width: 1px 0px;
+  padding: 0px 10px;
+}
+/*가로/세로 다보임*/
+.tbcss2,
+.tbcss2 th,
+.tbcss2 td {
+  border-width: 1px;
+  padding: 0px 5px;
+}

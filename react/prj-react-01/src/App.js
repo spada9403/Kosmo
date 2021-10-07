@@ -13,6 +13,8 @@ import RegData2 from "./naver/RegData2";
 import Search from "./naver/Search";
 import Search2 from "./naver/Search2";
 import Search3 from "./naver/Search3";
+import CheckLogin from "./naver/CheckLogin";
+import CheckLogin2 from "./naver/CheckLogin2";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
       <Route path="/naver/search" component={Search}></Route>
       <Route path="/naver/search2" component={Search2}></Route>
       <Route path="/naver/search3" component={Search3}></Route>
+      <Route path="/naver/checkLogin" component={CheckLogin}></Route>
+      <Route path="/naver/checkLogin2" component={CheckLogin2}></Route>
     </div>
   );
 }

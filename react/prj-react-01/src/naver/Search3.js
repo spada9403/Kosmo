@@ -4,6 +4,8 @@
 // <참고>함수 컴포넌트를 선언할 할 경우 대부분 useState 함수를 사용한다.
 //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import React, { useState, useRef, useEffect } from "react";
+import "./common.css";
+import * as func from "./common_func.js";
 
 const developerList = [
   { dev_no: 1, dev_name: "사오정", addr: "서울", phone: "010-1111-2222" },
@@ -73,7 +75,8 @@ const Search3 = () => {
     }
   };
   const search = () => {
-    const flag1 = keyword != null && keyword.split(" ").join("") !== "";
+    //const flag1 = keyword != null && keyword.split(" ").join("") !== "";
+    const flag1 = !func.isEmpty(keyword);
     const flag2 = addrs != null && addrs.length > 0;
     let tmp_keyword = "";
     if (flag1) {
@@ -118,16 +121,12 @@ const Search3 = () => {
   // 지역변수 searchResultTag 선언.
   // 검색 결과물이 저장된 developers 안의 저장된 사용정 객체들 안의 데이터를 html 태그 형태로 누적시키기.
   const searchResultTag = developers.map((developer, index) => {
-    let css = {
-      backgroundColor: "lightpink",
-    };
+    let odd_or_even = "odd";
     if (index % 2 === 0) {
-      css = {
-        backgroundColor: "lightcoral",
-      };
+      odd_or_even = "even";
     }
     return (
-      <tr key={developer.dev_no} style={css}>
+      <tr key={developer.dev_no} className={odd_or_even}>
         <td>{developer.dev_no}</td>
         <td>{developer.dev_name}</td>
         <td>{developer.addr}</td>
@@ -163,14 +162,12 @@ const Search3 = () => {
           </tbody>
         </table>
         <br />
-        <button onClick={search} style={{ marginRight: "20px" }}>
-          검색
-        </button>
+        <button onClick={search}>검색</button>
         <button onClick={searchAll}>모두검색</button>
         <br />
         <br />
         검색 개수 : {developers.length}
-        <table border="1" cellPadding="2" bordercolor="lightgray" className="ListTable">
+        <table border="1" cellPadding="2" bordercolor="lightgray" className="tbcss1">
           <thead>
             <tr bgcolor="lightgray">
               <th>번호</th>
