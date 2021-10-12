@@ -15,6 +15,8 @@ import Search2 from "./naver/Search2";
 import Search3 from "./naver/Search3";
 import CheckLogin from "./naver/CheckLogin";
 import CheckLogin2 from "./naver/CheckLogin2";
+import LoginForm from "./board/LoginForm";
+import BoardList from "./board/BoardList";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
       <Route path="/naver/search3" component={Search3}></Route>
       <Route path="/naver/checkLogin" component={CheckLogin}></Route>
       <Route path="/naver/checkLogin2" component={CheckLogin2}></Route>
+      <Route path="/board/loginform" component={LoginForm}></Route>
+      <Route path="/board/boardlist" component={BoardList}></Route>
     </div>
   );
 }
