@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="boardRegForm" width="1280" height="720" titletext="New Form" font="bold 16px/normal &quot;Gulim&quot;" border="0px groove">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Static id="Static00" taborder="0" text="직원정보 저장" left="435" top="43" width="390" height="75" border="0px none" onclick="Static00_onClick" font="bold 16pt/normal &quot;굴림&quot;" textAlign="center"/>
+        <Static id="emp_nameBtn" taborder="1" text="직원명" left="390" top="110" width="135" height="37" border="1px groove" onclick="Static00_onClick" font="bold 16pt &quot;Arial&quot;" textAlign="center" background="lightgray" borderRadius="5px"/>
+        <Edit id="emp_name" taborder="2" left="555" top="110" width="315" height="37"/>
+        <Static id="uidBtn" taborder="3" text="아이디" left="390" top="160" width="135" height="37" border="1px groove" onclick="Static00_onClick" font="bold 16pt &quot;Arial&quot;" textAlign="center" background="lightgray" borderRadius="5px"/>
+        <Edit id="uid" taborder="4" left="555" top="160" width="315" height="37"/>
+        <Static id="pwdBtn" taborder="5" text="암호" left="390" top="212" width="135" height="37" border="1px groove" onclick="Static00_onClick" font="bold 16pt &quot;Arial&quot;" textAlign="center" background="lightgray" borderRadius="5px"/>
+        <Edit id="pwd" taborder="6" left="555" top="212" width="315" height="37"/>
+        <Static id="skillBtn" taborder="7" text="기술" left="390" top="260" width="135" height="37" border="1px groove" onclick="Static00_onClick" font="bold 16pt &quot;Arial&quot;" textAlign="center" background="lightgray" borderRadius="5px"/>
+        <CheckBox id="skill1" taborder="8" text="Java" left="560" top="260" width="88" height="35" truevalue="JAVA"/>
+        <CheckBox id="skill2" taborder="9" text="JSP" left="666" top="260" width="88" height="35" truevalue="JSP"/>
+        <CheckBox id="skill3" taborder="10" text="Spring" left="780" top="260" width="88" height="35" truevalue="SPRING"/>
+        <Button id="btn_emp_reg" taborder="11" text="저장" left="650" top="349" width="110" height="41" onclick="XXXX"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.XXXX = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//	alert("영민이형 ... happy birth day");
+	// id="emp_name" 를 가진 입력양식의 value 값이 얻어 emp_name 변수에 저장하기.
+	var emp_name = this.emp_name.value;
+	var uid = this.uid.value;
+	var pwd = this.pwd.value;
+	var skill1 = this.skill1.value;
+	var skill2 = this.skill2.value;
+	var skill3 = this.skill3.value;
+	
+	
+	if(emp_name === "" || emp_name === undefined){
+		alert("직원이름입력!");
+		return;
+	}
+	if(uid === "" || uid === undefined){
+		alert("직원아이디입력!");
+		return;
+	}
+	
+	//만약 입력한 아이디가 아래 조건을 만족하지 않으면 경고하고 함수 중단하기
+	// 첫 글자는 영소문자, 2번째 이후는 숫자 또는 영소문자 또는 언더바
+	// 아이디 총길이는 6~10자 사이
+	var regExp = new RegExp("^[a-z][a-z0-9_]{5,9}$");
+	if(regExp.exec(uid) == null){
+		alert("첫글짜는 영소문자, 두번째 이후는 숫자 또는 영소문자 또는 언더바, 아이디 총길이는 6~10자 입니다.");
+		this.uid.set_value("");
+		this.uid.setFocus();
+	}
+	
+	if(pwd === "" || pwd === undefined){
+		alert("직원비밀번호입력!");
+		return;
+	}
+	//만약 입력한 암호가 4개의 숫자가 아니면 경고하고, 비우고, 커서 들여놓고 함수중단하기.
+	var regExp = new RegExp("^[0-9]{4}$");
+	if(regExp.exec(pwd) == null){
+		alert("암호는 4개의 숫자입니다.");
+		this.pwd.set_value("");
+		this.pwd.setFocus();
+	}
+	if(skill1==false && skill2==false && skill3==false){
+		alert("스킬은 1개 이상 선택요망!");
+		return;
+	}
+	
+	
+	
+	
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_emp">
+        <ColumnInfo>
+          <Column id="emp_name" type="STRING" size="256"/>
+          <Column id="uid" type="STRING" size="256"/>
+          <Column id="pwd" type="STRING" size="256"/>
+          <Column id="skill1" type="STRING" size="256"/>
+          <Column id="skill2" type="STRING" size="256"/>
+          <Column id="skill3" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="emp_name" propid="value" datasetid="ds_emp" columnid="emp_name"/>
+      <BindItem id="item1" compid="uid" propid="value" datasetid="ds_emp" columnid="uid"/>
+      <BindItem id="item2" compid="pwd" propid="value" datasetid="ds_emp" columnid="pwd"/>
+      <BindItem id="item3" compid="skill1" propid="value" datasetid="ds_emp" columnid="skill1"/>
+      <BindItem id="item4" compid="skill2" propid="value" datasetid="ds_emp" columnid="skill2"/>
+      <BindItem id="item5" compid="skill3" propid="value" datasetid="ds_emp" columnid="skill3"/>
+    </Bind>
+  </Form>
+</FDL>

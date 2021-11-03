@@ -17,6 +17,7 @@ import CheckLogin from "./naver/CheckLogin";
 import CheckLogin2 from "./naver/CheckLogin2";
 import LoginForm from "./board/LoginForm";
 import BoardList from "./board/BoardList";
+import Jsontest from "./naver/Jsontest";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <Route path="/naver/checkLogin2" component={CheckLogin2}></Route>
       <Route path="/board/loginform" component={LoginForm}></Route>
       <Route path="/board/boardlist" component={BoardList}></Route>
+      <Route path="/testjson" component={Jsontest}></Route>
     </div>
   );
 }

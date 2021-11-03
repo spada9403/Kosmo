@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 public class employeeController {
 
     
@@ -93,5 +95,18 @@ public class employeeController {
             return true;
         }
       return false;
+  }
+  @RequestMapping(value = "testjson.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+  @ResponseBody
+  public List<String> testjson() {
+      List<String> list = new ArrayList<String>();
+      list.add("삼성");
+      list.add("삼성");
+      list.add("삼성");
+      list.add("삼성");
+
+      list.add("삼성");
+      list.add("삼성");
+      return list;
   }
 }

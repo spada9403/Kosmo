@@ -11,6 +11,7 @@ public class webconfig implements WebMvcConfigurer {
         registry.addMapping("/employeeApi.do");
         registry.addMapping("/employeeInfoApi.do");
         registry.addMapping("/updateEmplInfo.do");
+        registry.addMapping("/**");
     }
     
 }

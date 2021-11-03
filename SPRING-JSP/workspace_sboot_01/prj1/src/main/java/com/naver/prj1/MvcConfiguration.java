@@ -15,7 +15,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(new SessionInterceptor()).excludePathPatterns(
-            "/naver/loginForm.do",
+/*             "/naver/loginForm.do",
             "/naver/loginProc.do",
             "/naver/logout.do",
             "/resources/**",
@@ -23,7 +23,8 @@ public class MvcConfiguration implements WebMvcConfigurer {
             "/employeeList.do",
             "/employeeApi.do",
             "/employeeInfoApi.do",
-            "/updateEmplInfo.do"
+            "/updateEmplInfo.do" */
+            "/**"
         );
     }
 }
