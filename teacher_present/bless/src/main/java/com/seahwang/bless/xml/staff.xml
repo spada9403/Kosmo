@@ -99,7 +99,7 @@
     <sql id="religion">
         <if test="religion != null and religion > 0" >
         and(
-            st.religion_code 
+            religion_code 
             = 
             ${religion}
         )

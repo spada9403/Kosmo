@@ -21,6 +21,7 @@ $(document).ready(function () {
   $(".toList").click(function () {
     location.replace("/staff_search_form.do");
   });
+
   $("[name=staffGradDay]").change(function () {
     var obj = $(this);
     if (obj.index() == 0) {
@@ -67,6 +68,7 @@ function setGradDay(yearObj, monthObj) {
   }
   gradDayObj.html(option);
 }
+
 function validData() {
   var staffName = $("[name=staffName]");
   var staffJumin_no = $("[name=jumin_no]");
