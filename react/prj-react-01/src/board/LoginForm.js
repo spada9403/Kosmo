@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function LoginForm() {
+function LoginForm(props) {
   const [id_pwd, setId_pwd] = useState({ login_id: "", pwd: "" });
 
   const change = (e) => {
@@ -18,6 +18,7 @@ function LoginForm() {
         console.log(response);
         if (response.data === 1) {
           alert("로그인 성공!!");
+          props.history.push("/board/boardList");
         } else {
           alert("아이디 또는 암호가 틀립니다.");
           setId_pwd({ ...id_pwd, ...{ login_id: "", pwd: "" } });
